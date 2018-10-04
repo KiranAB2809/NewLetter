@@ -45,9 +45,7 @@ class ArticleHead extends Component {
                     <div className="articleHeadImage">
                         <img src={himalaya} style={{"maxWidth":"485px", "maxHeight":"600px"}} />
                     </div>
-
                 </div>
-
             </div>
         )
     }
