@@ -27,8 +27,8 @@ function action(type, payload = {}) {
 
 export const category = {
     request: () => action(CATEGORY[REQUEST]),
-    success: () => action(CATEGORY[SUCCESS], response),
-    failure: () => action(CATEGORY[FAILURE], error)
+    success: ( response ) => action(CATEGORY[SUCCESS], response),
+    failure: ( error ) => action(CATEGORY[FAILURE], error)
 }
 
 export const article = {

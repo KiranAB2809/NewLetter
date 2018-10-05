@@ -19,7 +19,7 @@ export const fetchCategory = fetchEntity.bind(null, category, api.fetchCategory)
 function* loadCategory(){
     const categories = yield select(getCategory);
     if(categories.length > 0){
-        yield put(category.success(response));
+        yield put(category.success(categories));
     } else {
         yield call(fetchCategory)
     }

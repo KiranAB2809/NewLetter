@@ -4,7 +4,7 @@ import {
     compose
 } from 'redux';
 import { createLogger } from 'redux-logger';
-import createSagaMiddleware, { } from 'redux-saga';
+import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from '../modules/reducers';
 import reduxImmutableStatevariant from 'redux-immutable-state-invariant';
 import createHistory from 'history/createBrowserHistory';
