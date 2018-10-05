@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actions';
-import merge from 'lodash/object/merge';
+// import merge from 'lodash/object/merge';
 import { combineReducers } from 'redux';
 import category from './category.reducer';
 import user from './user.reducer';
