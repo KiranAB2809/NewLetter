@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Home from './components/home/home.react';
 import Header from './components/header/header.react';
-import Article from './components/newspage/newspage.react'
+import Article from './components/newspage/newspage.react';
+import ArticleList from './components/newslist/newslist.react';
 
 class App extends Component {
   render() {
@@ -20,7 +21,8 @@ class App extends Component {
       <div>
           <Header />
           {/* <Home /> */}
-          <Article />
+          {/* <Article /> */}
+          <ArticleList />
       </div>     
     );
   }

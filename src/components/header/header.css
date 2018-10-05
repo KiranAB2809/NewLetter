@@ -1,5 +1,5 @@
 .topDiv {
-    position: absolute;
+    position: fixed;
     display: block;
     z-index: 500;
     width: 100%;
@@ -13,6 +13,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     top: 0;
+    padding-bottom: 3vh;
 }
 .flex{
     display: flex;
