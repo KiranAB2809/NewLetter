@@ -32,7 +32,7 @@ class View extends Component {
                             <img src={logo} width="60" height="55" />
                         </div>
                         <div className="title" style={{"marginLeft": "335px", "marginTop": "12px" }} >
-                            News Letter
+                            Dot Net Connect
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ class View extends Component {
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href="">Did You</a>
+                                    <a href="">Did You Know</a>
                                 </span>
                             </li>
                             <li>
