@@ -16,16 +16,16 @@ export default function category({ types }) {
     }, action) {
         switch (action.type) {
             case requestType:
-                return merge({}, state, {
+                return Object.assign({}, state, {
                     isFetching: true
                 });
             case successType:
-                return merge({}, state, {
+                return Object.assign({}, state, {
                     isFetching: false,
                     category: action.response
                 });
             case failureType:
-                return merge({}, state, {
+                return Object.assign({}, state, {
                     isFetching: false
                 });
             default:

@@ -6,11 +6,15 @@ import configureStore, { history } from './store';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import rootSaga from './modules/sagas'
+import rootSaga from './modules/sagas';
+import {
+    initCategory
+} from './modules/actions'
 
 
 const store = configureStore(window.__INITIAL_STATE__);
 store.runSaga(rootSaga);
+store.dispatch(initCategory());
 
 ReactDOM.render(
     <Provider store={store}>
