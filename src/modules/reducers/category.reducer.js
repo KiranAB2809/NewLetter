@@ -22,7 +22,7 @@ export default function category({ types }) {
             case successType:
                 return Object.assign({}, state, {
                     isFetching: false,
-                    category: action.response
+                    category: action.payload
                 });
             case failureType:
                 return Object.assign({}, state, {

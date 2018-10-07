@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Home from './components/home/home.react';
-import Header from './components/header/header.react';
+import Header from './containers/header/header.react';
 import Article from './components/newspage/newspage.react';
 import ArticleList from './components/newslist/newslist.react';
 
