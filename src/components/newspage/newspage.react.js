@@ -60,6 +60,10 @@ class ArticleBody extends Component {
             <div className="windowFitBody" >
                 It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
                 “They were laughing with each other,” she said through tears, “two friends having a…
+                It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
+                “They were laughing with each other,” she said through tears, “two friends having a…
+                It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
+                “They were laughing with each other,” she said through tears, “two friends having a…
             </div>
         )
     }
