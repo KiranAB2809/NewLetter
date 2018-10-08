@@ -30,7 +30,7 @@ class ArticleHead extends Component {
             <div className="paddingHorizontalBody marginAutoBody">
                 <div className="pageHead">
                     <div className="articleHead" >
-                        <h1 className="articleHeadMain">This Is How Men Forget Women</h1>
+                        <h1 className="articleHeadMain">This Is How Himalayas Trek Be Like</h1>
                         <p className="articleHeadSub articleHeadSubSize">Judge Kavanaugh was fighting for his reputation. Dr. Ford was fighting to be remembered.</p>
                         <div className="articleAuthor">
                             <div className="avatar">

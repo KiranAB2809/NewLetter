@@ -7,6 +7,7 @@ import Header from './containers/header';
 import Topic from './containers/topics';
 import Article from './components/newspage/newspage.react';
 import ArticleList from './components/newslist/newslist.react';
+import Main from './components/main/main.react'
 
 class App extends Component {
   render() {
