@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import NewsRow from './newsrows.react';
+import Row from '../common/rows.react';
 
 
 class TopPicks extends Component {
 
     renderGist = () => {
         return (
-            ['1', '2', '3'].map(elemment => <NewsRow height={'height100'}/>)
+            ['1', '2', '3'].map(elemment => <Row height={'height100'}/>)
         )
     }
 

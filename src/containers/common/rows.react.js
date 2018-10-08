@@ -1,9 +1,9 @@
 import React from 'react';
-import './home.css';
+import './common.css';
 import logo from './../../assets/images/volvoLogo.jpg';
 
 
-const NewsRow = (props) => {
+const Row = (props) => {
     const addDescripion = () => {
         if(props.showDescription){
             return(
@@ -28,4 +28,4 @@ const NewsRow = (props) => {
     )
 }
 
-export default NewsRow;
+export default Row;

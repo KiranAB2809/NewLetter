@@ -21,29 +21,6 @@
     flex-flow: column nowrap;
 }
 
-.mearger{
-    width: 100%;
-    display: flex;
-    padding: 0 0 3px 0;
-}
-
-.height100{
-    height: 100px;
-}
-
-.mearger-0{
-    width: 20%;
-    min-width: 20%;
-    max-width: 20%;
-    padding:0 15px 0 0;
-}
-
-.mearger-1{
-    flex: 1;
-    overflow: hidden;
-    padding: 5px;
-}
-
 .headerh3{
     margin-top: 0px;
     font-size: 16px;
@@ -57,20 +34,12 @@
     -webkit-box-orient: vertical;
 }
 
-.player{
-    margin: 3px 0;
-    font-size:14px;
-}
 
 .homeDiv{
     flex: 1;
     padding: 0 10px;
 }
 
-.article-logo{
-    width: 100%;
-    max-height: 100%;
-}
 
 .featured{
     display: flex;
@@ -103,14 +72,6 @@
 .articlewidth60{
     max-width: 60%;
     flex: 1 1;
-}
-
-.height18{
-    font-size: 18px !important;
-}
-
-.row-reverse{
-    flex-flow: row-reverse;
 }
 
 .content-header{

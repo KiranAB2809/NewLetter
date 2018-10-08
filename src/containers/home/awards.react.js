@@ -1,13 +1,13 @@
 import React from 'react';
 import ContentHeader from './header.react';
-import NewsRow from './newsrows.react';
+import Row from '../common/rows.react';
 import './home.css';
 
 const Awards = (props) => {
 
     const displayRows = () => {
         return (
-            ['1', '2', '3'].map(elemment => <NewsRow height={'height100'} imageClass = {'avatar-image'}/>)
+            ['1', '2', '3'].map(elemment => <Row height={'height100'} imageClass = {'avatar-image'}/>)
         )
     }
 
