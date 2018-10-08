@@ -13,7 +13,7 @@ class Header extends Component {
             <div className="topDiv">
                 <div className="subDiv brandDiv">
                     <div className="positionRelative">
-                        <img src = {logo} className = "brandLogo"/>
+                        <img src = {logo} className = "brandLogo" alt="brand logo"/>
                     </div>
                     <div className="positionRelative title">
                         Dot Net Connect
@@ -25,7 +25,7 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className="subDiv">
-                    <nav role="navigation">
+                    <nav>
                         <div className="flexTop">
                             <li>
                                 <span className="navText">
@@ -44,7 +44,7 @@ class Header extends Component {
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href="">Success</a>
+                                    <a href="">Success Stories</a>
                                 </span>
                             </li>
                             <li>
@@ -71,28 +71,3 @@ class Header extends Component {
 }
 
 export default Header;
-
-class View extends Component {
-    constructor() {
-        super();
-    }
-    render() {
-        return (
-            <div className="topDiv">
-                <div className="positionRelative maxWidth height65 paddingHorizontal marginAuto justifyContent flexCenter zIndex500">
-                    <div className="flex">
-                        <div >
-                            <img src={logo} width="60" height="55" />
-                        </div>
-                        <div className="title" style={{"marginLeft": "335px", "marginTop": "12px" }} >
-                            Dot Net Connect
-                        </div>
-                    </div>
-                </div>
-                <div className="positionRelative maxWidth height25 paddingHorizontal marginAuto justifyContent flexCenter zIndex500">
-                    
-                </div>
-            </div>
-        )
-    }
-}

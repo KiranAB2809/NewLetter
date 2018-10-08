@@ -81,21 +81,21 @@
     text-transform: uppercase;
 }
 
-a, button, input {
+.navText >a {
     -webkit-tap-highlight-color: transparent;
     color: rgba(0,0,0,.54);
 }
 
-a:link {
+.navText>a:link {
     color: rgba(0,0,0,.54);
     text-decoration: none;
 }
 
-a {
+.navText>a {
     background-color: transparent;
 }
 
-a:hover{
+.navText>a:hover{
     color: black;
     font-weight: 400;
 }
