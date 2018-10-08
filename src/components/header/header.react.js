@@ -42,7 +42,7 @@ class View extends Component {
                         <div className="flexTop">
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Home</Link></a>
+                                    <a href=""><Link to="/">Home</Link></a>
                                 </span>
                             </li>
                             <li>
