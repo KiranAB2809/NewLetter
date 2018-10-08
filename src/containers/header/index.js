@@ -30,17 +30,17 @@ class Header extends Component {
                         <div className="flexTop">
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/">Home</Link></a>
+                                    <a href="">Home</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">General</Link></a>
+                                    <a href="">General</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Technical</Link></a>
+                                    <a href="">Technical</a>
                                 </span>
                             </li>
                             <li>
@@ -50,17 +50,17 @@ class Header extends Component {
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/awards">Awards</Link></a>
+                                    <a href="">Awards</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/didyouknow">Did You Know</Link></a>
+                                    <a href="">Did you Know</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Archive</Link></a>
+                                    <a href="">Archive</a>
                                 </span>
                             </li>
                         </div>
