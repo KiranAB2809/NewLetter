@@ -62,12 +62,12 @@ class View extends Component {
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Awards</Link></a>
+                                    <a href=""><Link to="/awards">Awards</Link></a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Did You Know</Link></a>
+                                    <a href=""><Link to="/didyouknow">Did You Know</Link></a>
                                 </span>
                             </li>
                             <li>
