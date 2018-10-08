@@ -5,6 +5,7 @@ import Home from './components/home/home.react';
 import Header from './components/header/header.react';
 import Article from './components/newspage/newspage.react';
 import ArticleList from './components/newslist/newslist.react';
+import Main from './components/main/main.react'
 
 class App extends Component {
   render() {
@@ -20,9 +21,7 @@ class App extends Component {
       // </div>
       <div>
           <Header />
-          {/* <Home /> */}
-          {/* <Article /> */}
-          <ArticleList />
+          <Main />
       </div>     
     );
   }
