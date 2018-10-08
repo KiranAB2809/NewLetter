@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentHeader from './header.react';
+import ContentHeader from '../common/header.react';
 import Row from '../common/rows.react';
 import './home.css';
 

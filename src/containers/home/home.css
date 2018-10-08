@@ -68,23 +68,3 @@
     width: 1150px;
     margin: 5px auto; 
 }
-
-.articlewidth60{
-    max-width: 60%;
-    flex: 1 1;
-}
-
-.content-header{
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.54);
-    margin-bottom: 15px;
-    overflow: hidden;
-}
-
-.content-header>p{
-    position: relative;
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    color: #42445F;
-    margin: 15px 0;
-}

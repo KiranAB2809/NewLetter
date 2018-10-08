@@ -1,0 +1,8 @@
+.topic-container{
+    max-width: 1200px !important;
+    /* padding-left: 10px; */
+    padding-right: 10px;
+    display: flex;
+    /* margin: auto; */
+    flex-flow: column nowrap;
+}

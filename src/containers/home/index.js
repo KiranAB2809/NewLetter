@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './home.css';
 import Featured from './featured.react';
 import TopPicks from './toppicks.react';
-import Articles from './article.react';
+import Articles from '../common/article.react';
 import Awards from './awards.react';
 import logo from './../../assets/images/volvoLogo.jpg';
 

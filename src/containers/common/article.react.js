@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Row from '../common/rows.react';
+import Row from './rows.react';
 import ContentHeader from './header.react';
-import './home.css';
+import './common.css';
 
 class Articles extends Component {
 
@@ -15,7 +15,7 @@ class Articles extends Component {
     
     render() {
         return(
-            <div className = "featured articlewidth60">
+            <div className = "featured articlewidth65">
             <ContentHeader headername = {'This Month'} />
             {this.monthArticle()}
             </div>
