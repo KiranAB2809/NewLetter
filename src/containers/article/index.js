@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import './article.css';
 import Logo from './../../assets/images/Kiran.jpg';
 import ArticleBanner from './../../assets/images/Himalayas.jpeg';
+import SideList from './sidelist.react';
 
 class Article extends Component {
     render() {
         return (
             <div className="article-container">
-                <div>
-                    t1
-                </div>
+                <SideList />
                 <div className={'article-u1'}>
                     <div className={'author-detail'}>
                         <div className={'image'}>

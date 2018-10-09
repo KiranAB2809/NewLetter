@@ -1,4 +1,3 @@
-import merge from 'lodash/fp/object'
 
 export default function category({ types }) {
     if (!Array.isArray(types) || types.length !== 3) {
