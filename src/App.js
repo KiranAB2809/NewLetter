@@ -17,8 +17,8 @@ class App extends Component {
           <Header />
         </header>
         <main className = "bodyContainer">
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/" component={Topic} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/home" component={Topic} />
           <Route exact path="/allarticles/:id" component = { ArticleList } />
         </main>
       </div>
