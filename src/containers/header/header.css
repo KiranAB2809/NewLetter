@@ -1,0 +1,105 @@
+.topDiv {
+    position: absolute;
+    display: block;
+    z-index: 500;
+    width: 100%;
+    font-size: 16px;
+    background: #fff;
+    color: rgba(0,0,0,.54);
+    font-family: sans-serif-font,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    letter-spacing: 0;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    top: 0;
+}
+
+.subDiv{
+    max-width: 1000px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-left: auto !important;    /* centering the content to the div */
+    margin-right: auto !important;
+    display: flex; 
+    justify-content: space-between !important; /* adding equal spacing between */
+    align-items: center;
+} 
+
+.brandDiv{
+    height: 65px !important;
+}
+
+.userButton{
+    display: flex;
+    justify-content: space-between;
+    border: 2px blue solid;
+    outline: none !important;
+    background: transparent;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.positionRelative{
+    position: relative;
+}
+
+.title{
+    font-family: sans-serif-font;
+    font-weight: 900;
+    color: #373737;
+    font-size: 32px;
+}
+
+.brandLogo {
+    width: 60px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.navDiv{
+    max-width: 1000px !important;
+
+}
+
+.flexTop {
+    display: flex!important;
+    justify-content: space-between;
+    align-content: center;
+    width: 1000px !important;
+}
+
+.navText {
+    font-family: sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
+    letter-spacing: -.02em !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    letter-spacing: 0 !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    text-transform: uppercase;
+}
+
+.navText >a {
+    -webkit-tap-highlight-color: transparent;
+    color: rgba(0,0,0,.54);
+}
+
+.navText>a:link {
+    color: rgba(0,0,0,.54);
+    text-decoration: none;
+}
+
+.navText>a {
+    background-color: transparent;
+}
+
+.navText>a:hover{
+    color: black;
+    font-weight: 400;
+}
+
+li{
+    list-style: none;
+}

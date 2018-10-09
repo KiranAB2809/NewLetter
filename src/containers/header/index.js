@@ -11,68 +11,56 @@ class Header extends Component {
     }
     render() {
         return (
-            <div>
-                <View />
-            </div>
-        )
-    }
-}
-
-export default Header;
-
-class View extends Component {
-    constructor() {
-        super();
-    }
-    render() {
-        return (
             <div className="topDiv">
-                <div className="positionRelative maxWidth height65 paddingHorizontal marginAuto justifyContent flexCenter zIndex500">
-                    <div className="flex">
-                        <div >
-                            <img src={logo} width="60" height="55" />
-                        </div>
-                        <div className="title" style={{"marginLeft": "335px", "marginTop": "12px" }} >
-                            <Link to="/">Dot Net Connect</Link>
-                        </div>
+                <div className="subDiv brandDiv">
+                    <div className="positionRelative">
+                        <img src = {logo} className = "brandLogo" alt="brand logo"/>
+                    </div>
+                    <div className="positionRelative title">
+                        Dot Net Connect
+                    </div>
+                    <div className="positionRelative">
+                        <button className="userButton">
+                            Member
+                        </button>
                     </div>
                 </div>
-                <div className="positionRelative maxWidth height25 paddingHorizontal marginAuto justifyContent flexCenter zIndex500">
-                    <nav role="navigation">
+                <div className="subDiv">
+                    <nav>
                         <div className="flexTop">
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/">Home</Link></a>
+                                    <a href="">Home</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">General</Link></a>
+                                    <a href="">General</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Technical</Link></a>
+                                    <a href="">Technical</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Success</Link></a>
+                                    <a href="">Success Stories</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/awards">Awards</Link></a>
+                                    <a href="">Awards</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/didyouknow">Did You Know</Link></a>
+                                    <a href="">Did you Know</a>
                                 </span>
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href=""><Link to="/articles">Archive</Link></a>
+                                    <a href="">Archive</a>
                                 </span>
                             </li>
                         </div>
@@ -82,3 +70,5 @@ class View extends Component {
         )
     }
 }
+
+export default Header;

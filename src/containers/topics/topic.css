@@ -1,0 +1,14 @@
+.topic-container{
+    /* max-width: 1200px !important; */
+    /* padding-left: 10px; */
+    padding-right: 10px;
+    display: flex;
+    margin-right: 18%;
+    /* margin: 0 auto; */
+    flex-flow: row nowrap;
+}
+
+.banner {
+    height: calc(100vh - 65px);
+    width: calc(75vh - 150px);
+}
