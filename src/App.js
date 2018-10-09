@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import Home from './containers/home';
 import Header from './containers/header';
@@ -18,8 +17,8 @@ class App extends Component {
           <Header />
         </header>
         <main className="bodyContainer">
-          <Route exact path="/sssd" component={Home} />
-          <Route exact path="/dsd" component={Topic} />
+          <Route exact path="/dsd" component={Home} />
+          <Route exact path="/dsdsd" component={Topic} />
           <Route exact path="/" component={Article} />
         </main>
       </div>

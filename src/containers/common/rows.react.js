@@ -16,7 +16,7 @@ const Row = (props) => {
     return(
         <div className={`mearger ${props.rowreverse ? props.rowreverse: ''} ${props.height ? props.height : ''} ${props.border ? props.border: ''}`}>
             <div className="mearger-0">
-                <img src={logo} className = {`article-logo ${props.imageClass ? props.imageClass : ''}`}/>
+                <img src={logo} className = {`article-logo ${props.imageClass ? props.imageClass : ''}`} alt = {'article image'}/>
             </div>
             <div className="mearger-1">
                 <h3 className = {`headerh3 ${props.height18 ? props.height18 : ''}`} style={{WebkitBoxOrient: 'vertical'}}>We found a way to increase voter turnout in Texas and lets play</h3>

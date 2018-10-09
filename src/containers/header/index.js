@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './header.css';
 import logo from './../../assets/images/volvoLogo.jpg';
-import {Link} from 'react-router-dom';
 // import moment from 'moment';
 
 class Header extends Component {
@@ -17,7 +16,7 @@ class Header extends Component {
                         <img src = {logo} className = "brandLogo" alt="brand logo"/>
                     </div>
                     <div className="positionRelative title">
-                        Dot Net Connect
+                        .Net Connect
                     </div>
                     <div className="positionRelative">
                         <button className="userButton">
