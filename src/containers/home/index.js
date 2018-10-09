@@ -11,8 +11,8 @@ class Home extends Component {
         return(
             <div className="home-container">
                 <div className="home-0">
-                    <TopPicks />
                     <Featured additionalClass = 'height350'/>
+                    <TopPicks />
                     <Featured additionalClass = 'width26'/>
                 </div>
                 <hr style={{width: '90%', border: '0.5px solid rgba(0,0,0,0.14)', margin: '15px auto'}}/>

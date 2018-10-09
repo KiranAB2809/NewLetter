@@ -5,9 +5,10 @@ import './App.css';
 import Home from './containers/home';
 import Header from './containers/header';
 import Topic from './containers/topics';
-import Article from './components/newspage/newspage.react';
-import ArticleList from './components/newslist/newslist.react';
-import Main from './components/main/main.react'
+import Article from './containers/article';
+// import Article from './components/newspage/newspage.react';
+// import ArticleList from './components/newslist/newslist.react';
+// import Main from './components/main/main.react'
 
 class App extends Component {
   render() {
@@ -16,10 +17,10 @@ class App extends Component {
         <header>
           <Header />
         </header>
-        <main className = "bodyContainer">
-          <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Topic} />
-          <Route exact path="/allarticles/:id" component = { ArticleList } />
+        <main className="bodyContainer">
+          <Route exact path="/sssd" component={Home} />
+          <Route exact path="/dsd" component={Topic} />
+          <Route exact path="/" component={Article} />
         </main>
       </div>
     );

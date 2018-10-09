@@ -14,7 +14,7 @@ const Row = (props) => {
        return null;
     }
     return(
-        <div className={`mearger ${props.rowreverse ? props.rowreverse: ''} ${props.height ? props.height : ''}`}>
+        <div className={`mearger ${props.rowreverse ? props.rowreverse: ''} ${props.height ? props.height : ''} ${props.border ? props.border: ''}`}>
             <div className="mearger-0">
                 <img src={logo} className = {`article-logo ${props.imageClass ? props.imageClass : ''}`}/>
             </div>

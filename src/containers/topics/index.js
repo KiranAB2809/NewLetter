@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import Article from '../common/article.react'
+import Article from '../common/article.react';
+import logo from '../../assets/images/DidYouKnow.jpg'
 import './topic.css';
 
 class Topic extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <div className="topic-container">
-            <div>
-                Test
-            </div>
-            {/* <div style={{}}>
-                test
-            </div> */}
-            <div>
+                <div style={{ position: 'realtive' }}>
+                    <div style={{ position: 'sticky', top: 0 }}>
+                        <img src = {logo} className={'banner'}/>
+                    </div>
+                </div>
                 <Article />
-            </div>
             </div>
         )
     }
