@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './article.css';
-import Logo from './../../assets/images/Kiran.jpg';
 import ArticleBanner from './../../assets/images/Himalayas.jpeg';
 import SideList from './sidelist.react';
+import AuthorInfo from '../common/authorinfo.react';
 
 class Article extends Component {
     render() {
@@ -10,22 +10,7 @@ class Article extends Component {
             <div className="article-container">
                 <SideList />
                 <div className={'article-u1'}>
-                    <div className={'author-detail'}>
-                        <div className={'image'}>
-                            <img src={Logo} className={'author-image avatar-image'}></img>
-                        </div>
-                        <div className={'author-desc'}>
-                            <p className={'pname'}>
-                                Kiran AB
-                            </p>
-                            <p className={'pother'}>
-                                kiran.ab@volvo.com - MAS/DCL team
-                            </p>
-                            <p className={'pother'}>
-                                Oct 8 - Reported by Bala
-                            </p>
-                        </div>
-                    </div>
+                    <AuthorInfo />
                     <div>
                         <h1>The Electrified Third “Data” Rail — How Data is Powering the Fourth Industrial Revolution</h1>
                     </div>

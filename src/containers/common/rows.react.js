@@ -1,15 +1,15 @@
 import React from 'react';
 import './common.css';
 import logo from './../../assets/images/volvoLogo.jpg';
+import Content from './desc.react';
 
 
 const Row = (props) => {
     const addDescripion = () => {
         if(props.showDescription){
             return(
-            <p className="player" style={{color:'#777777', fontSize: '15px', marginBottom: '20px'}}>
-                Contradicting its own election code, Texas rejects thousands of voter registration forms mere days before the deadline
-            </p>); 
+                <Content className = {'articleSubtitle colorGrey'} desc = {'Contradicting its own election code, Texas rejects thousands of voter registration forms mere days before the deadline'} />
+            ); 
         }
        return null;
     }
@@ -21,8 +21,8 @@ const Row = (props) => {
             <div className="mearger-1">
                 <h3 className = {`headerh3 ${props.height18 ? props.height18 : ''}`} style={{WebkitBoxOrient: 'vertical'}}>We found a way to increase voter turnout in Texas and lets play</h3>
                 {addDescripion()}
-                <p className="player" style={{color: '#000000'}}>Nandan A</p>
-                <p className="player" style={{color:'#777777', fontSize: '13px'}}>Oct 8 - Reported by Bala</p>
+                <Content className = {'colorBlack'} desc = {'Nandan A'}/>
+                <Content className = {'colorGrey'} desc = {'Oct 8 - Reported by Bala'} />
             </div>
         </div>
     )

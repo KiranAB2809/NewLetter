@@ -1,0 +1,16 @@
+.setting-container{
+    padding: 0 25%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.input{    
+    letter-spacing: .1rem;    
+    border: none;
+    outline: none;
+}
+.input-name{
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 50px;
+    flex: 1 1;
+}

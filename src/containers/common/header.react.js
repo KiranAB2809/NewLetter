@@ -3,7 +3,7 @@ import './common.css';
 
 const ContentHeader = (props) => {
     return(
-        <div className={'content-header'}>
+        <div className={`content-header ` + (props.className ? props.className : '')}>
             <p>
                 {props.headername}
             </p>

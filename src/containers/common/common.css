@@ -65,3 +65,57 @@
     max-width: 65%;
     flex: 1 1;
 }
+
+.articleSubtitle {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.colorBlack {
+    color: #000000;
+}
+
+.colorGrey{
+    color: #777777 !important;
+}
+.no-border{
+    border: none !important;
+}
+.no-margin{
+    margin: 0;
+}
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 1000;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.flex{
+    display: flex;
+}
+.flex-row{
+    flex-flow: row nowrap;
+}
+.flex-column{
+    flex-flow: column nowrap;
+}
+.overlay-child{
+    justify-content: space-between;
+    margin: auto;
+    padding: 100px 0;
+    max-width: 1040px;
+    min-width: 1040px;
+    position: relative;
+}
+/* animate properties need to do after build*/
+.overlay-child--animate{
+    transform-origin: bottom center;
+    animation: fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)
+}
