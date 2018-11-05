@@ -12,12 +12,13 @@ import logo from '../../assets/images/order_IT.PNG'
 import Article from '../../models/article.class';
 import Overlay from '../common/overlay.react';
 
+
 class CreateBlog extends Component {
 
     state = {
         editor: '',
         article: new Article(),
-        showDialogBox: false
+        showDialogBox: false,
     }
 
     constructor(props) {
@@ -58,6 +59,7 @@ class CreateBlog extends Component {
                 input.onchange = function () {
                     var file = this.files[0];
                     var reader = new FileReader();
+                    debugger;
                     reader.onload = function () {
                         var name = file.name;
                         var blobCache = tinymce.activeEditor.editorUpload.blobCache;
@@ -80,11 +82,11 @@ class CreateBlog extends Component {
         let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
         let article = Object.assign({}, this.state.article);
         article.body = this.state.editor.activeEditor.getContent();
+        article.author = this.props.User._id;
         if (images.length > 0) {
             article.coverImage = images[0];
         }
         this.setState({ article: article });
-        console.log(article);
         this.setDialog();
     }
 
@@ -107,7 +109,8 @@ class CreateBlog extends Component {
     showDialog = () => {
         if (this.state.showDialogBox) {
             let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
-            return (<Overlay changeView={this.setDialog}>
+            return (
+            <Overlay changeView={this.setDialog}>
                 <Dialog
                     article={this.state.article}
                     images={images}
@@ -125,10 +128,16 @@ class CreateBlog extends Component {
             <div>
                 <div className='article-container'>
                     <div className={'article-u1'}>
-                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} />
+                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user = {this.props.User}/>
                         <div>
                             <div>
-                                <h1 id="article-header" className={'mce-content-body'} contentEditable="true" spellCheck="true" style={{ outline: 'none' }} suppressContentEditableWarning={true} onInput={(event) => this.handleTextChange(event, 'title')}>
+                                <h1 id="article-header" 
+                                className={'mce-content-body'} 
+                                contentEditable="true" 
+                                spellCheck="true" 
+                                style={{ outline: 'none' }} 
+                                suppressContentEditableWarning={true} 
+                                onInput={(event) => this.handleTextChange(event, 'title')}>
                                     {this.state.article.title}
                                 </h1>
                             </div>
@@ -264,8 +273,9 @@ class Dialog extends Component {
     }
 }
 
-const mapStateToProps = ({ Category }) => ({
-    categories: Category.category
+const mapStateToProps = ({ Category, User }) => ({
+    categories: Category.category,
+    User: User.User
 });
 
 export default connect(

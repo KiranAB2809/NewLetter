@@ -2,10 +2,17 @@ import 'isomorphic-fetch';
 
 const API_ROOT = 'http://localhost:8000/api/';
 
-function callApi(endPoint, id = '') {
-    const fullURL = ((endPoint.indexOf(API_ROOT) === -1) ? API_ROOT + endPoint : endPoint) + (id ? '/' + id : '');
+function callApi(endPoint, params) {
+    let fullURL = ((endPoint.indexOf(API_ROOT) === -1) ? API_ROOT + endPoint : endPoint);
+    fullURL = new URL(fullURL);
+    
+    if(params){
+        Object.keys(params).forEach(key => fullURL.searchParams.append(key, params[key]));
+    }
 
-    return fetch(fullURL)
+    return fetch(fullURL, {
+        credentials: 'include'
+    })
         .then(response =>
             response.json().then(json => ({ json, response }))
         ).then(({ json, response }) => {
@@ -23,7 +30,33 @@ function callApi(endPoint, id = '') {
 function postApi(endPoint, data) {
     const fullURL = endPoint.indexOf(API_ROOT) === -1 ? API_ROOT + endPoint : endPoint;
 
+    let postHeaders = new Headers();
+
+    postHeaders.append("Content-Type", "application/json");
+    console.log('api' + data);
     return fetch(fullURL, {
+        credentials: 'include',
+        method: 'POST',
+        headers: postHeaders,
+        body: data
+    }).then((response) => {
+        if (!response.ok) {
+            return Promise.reject(response.json);
+        }
+
+        return response.json();
+    }).then(
+        response => ({ response }),
+        error => ({ error: error.message || 'Something really went wrong' })
+    );
+
+}
+
+function postImage(endPoint, data) {
+    const fullURL = endPoint.indexOf(API_ROOT) === -1 ? API_ROOT + endPoint : endPoint;
+
+    return fetch(fullURL, {
+        credentials: 'include',
         method: 'POST',
         body: data
     }).then((response) => {
@@ -35,16 +68,16 @@ function postApi(endPoint, data) {
         response => ({ response }),
         error => ({ error: error.message || 'Something really went wrong' })
     );
-
 }
 
 const uploadImage = (data) => {
-    console.log(data);
     let formData = new FormData();
     formData.append('image', data);
     return formData;
 }
 
-export const fetchCategory = () => callApi(`category`);
-export const uploadBlogImage = data => postApi(`blog/picture`, uploadImage(data));
-// export const uploadImage = data => postApi(     , data);
+export const fetchCategory = () => callApi(`Category`);
+export const fetchUser = () => callApi(`User`);
+export const fetchUserArticle = (userId) => callApi(`Blog`, { userId: userId });
+export const uploadBlogImage = data => postImage(`Blog/picture`, uploadImage(data));
+export const updateUser = user => postApi(`User`, JSON.stringify(user.payload));

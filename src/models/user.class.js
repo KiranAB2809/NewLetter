@@ -1,10 +1,10 @@
 class User {
     name = '';
-    emailid = '';
+    email = '';
     team = '';
-    image = '';
-    _id = '';
+    img = '';
     isEditor = false;
+    uniqueID = '';
 }
 
 export default User;

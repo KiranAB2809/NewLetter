@@ -10,8 +10,12 @@
     font-size: 30px;
     font-weight: 600;
     line-height: 50px;
-    flex: 1 1;
 }
 .width-100{
     width: 100%;
+}
+.input-email{
+    font-size: 18px;
+    font-weight: 400;
+    margin: 3px 0;
 }

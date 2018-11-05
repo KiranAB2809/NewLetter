@@ -1,4 +1,5 @@
-import merge from 'lodash/fp/object'
+import _ from 'lodash';
+import User from '../../models/user.class';
 
 export default function user({ types }) {
     if (!Array.isArray(types) || types.length !== 3) {
@@ -11,21 +12,21 @@ export default function user({ types }) {
     const [requestType, successType, failureType] = types;
 
     return function updateCategoryParams(state = {
-        user: [],
+        User: new User(),
         isFetching: false
     }, action) {
         switch (action.type) {
             case requestType:
-                return merge({}, state, {
+                return _.merge({}, state, {
                     isFetching: true
-                });
+                })
             case successType:
-                return merge({}, state, {
+                return Object.assign({}, state, {
                     isFetching: false,
-                    user: action.response
+                    User: action.payload
                 });
             case failureType:
-                return merge({}, state, {
+                return _.merge({}, state, {
                     isFetching: false
                 });
             default:

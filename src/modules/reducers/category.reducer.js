@@ -1,4 +1,4 @@
-
+import _ from 'lodash';
 export default function category({ types }) {
     if (!Array.isArray(types) || types.length !== 3) {
         throw new Error("types must be array type");
@@ -15,16 +15,16 @@ export default function category({ types }) {
     }, action) {
         switch (action.type) {
             case requestType:
-                return Object.assign({}, state, {
+                return _.merge({}, state, {
                     isFetching: true
                 });
             case successType:
-                return Object.assign({}, state, {
+                return _.merge({}, state, {
                     isFetching: false,
-                    category: action.payload
+                    categories: action.payload
                 });
             case failureType:
-                return Object.assign({}, state, {
+                return _.merge({}, state, {
                     isFetching: false
                 });
             default:

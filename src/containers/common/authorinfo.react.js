@@ -1,6 +1,6 @@
 import React from 'react';
 import './common.css';
-import Logo from './../../assets/images/Kiran.jpg';
+// import Logo from './../../assets/images/Kiran.jpg';
 
 class AuthorInfo extends React.Component {
 
@@ -15,17 +15,18 @@ class AuthorInfo extends React.Component {
         return null;
     }
     render() {
+        let { name, email, team, img } = this.props.user;
         return (
             <div className={'author-detail'}>
                 <div className={'image'}>
-                    <img src={Logo} className={'author-image avatar-image'}></img>
+                    <img src={ img || 'http://localhost:8000/static/defaultUser.png'} className={'author-image avatar-image'}></img>
                 </div>
                 <div className={'author-desc'}>
                     <p className={'pname'}>
-                        Kiran AB
+                        {name || 'Anyonoums'}
                 </p>
                     <p className={'pother'}>
-                        kiran.ab@volvo.com - MAS/DCL team
+                        {(email || 'Seriously he is emailID?') + ' - ' + (team || 'Anyonomus Team') }
                 </p>
                     <p className={'pother'}>
                         Oct 8 - Reported by Bala

@@ -7,16 +7,9 @@ class Article {
     body = 'Write the content here...';
     coverImage = '';
     isPublished = false;
-    isDraft = false;
+    isDraft = true;
     category = '';
-    user = '';
-    // user = new User();
-    // set title(title){
-    //     this.title = title;
-    // }
-    // set subtitle(subtitle){
-    //     this.subtitle = subtitle;
-    // }
+    author = '';
 }
 
 

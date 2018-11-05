@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './header.css';
-import logo from './../../assets/images/volvoLogo.jpg';
+import volvoLogo from './../../assets/images/volvoLogo.jpg';
 import { withRouter } from 'react-router-dom';
-// import moment from 'moment';
+
 
 class Header extends Component {
     constructor(props) {
@@ -16,20 +16,26 @@ class Header extends Component {
         this.popoverRef.current.style.visibility = !this.popoverRef.current.style.visibility ? 'visible' : '';
     }
 
+    onUserClick= () => {
+        if(!this.props.User.name){
+            this.props.history.push("/setting");
+        } 
+        this.props.history.push("/topic");
+    }
 
     render() {
         return (
             <div className="topDiv">
                 <div className="subDiv brandDiv">
                     <div className="positionRelative">
-                        <img src={logo} className="brandLogo" alt="brand logo" />
+                        <img src={volvoLogo} className="brandLogo" alt="brand logo" />
                     </div>
                     <div className="positionRelative title">
                         .Net Connect
                     </div>
                     <div className="positionRelative">
-                        <button className="userButton popover-control" onClick={() => this.showPopOver()}>
-                            Member
+                        <button className={'profile-button'} onClick={() => this.showPopOver()}>
+                            <img className={'avatar-image default-image'} src={ this.props.User.img || 'http://localhost:8000/static/defaultUser.png' } style={{width: '35px', height: '35px'}}></img>
                         </button>
                         <div className="popover" ref={this.popoverRef}>
                             <ul>
@@ -40,7 +46,7 @@ class Header extends Component {
                                 </li>
                                 <li  onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="/topic">Your Articles</a>
+                                        <a href="javascript:void(0);" onClick={() => this.onUserClick()}>Your Articles</a>
                                     </span>
                                 </li>
                                 <li  onClick={() => this.showPopOver()}>
@@ -114,8 +120,9 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = ({ Category }) => ({
-    categories: Category.category
+const mapStateToProps = ({ Category, User }) => ({
+    categories: Category.category,
+    User: User.User
 });
 
 

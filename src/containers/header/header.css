@@ -136,3 +136,8 @@ li{
 .popover-control{
     position: relative;
 }
+.profile-button{
+    background: none;
+    border: none;
+    outline: none;
+}
