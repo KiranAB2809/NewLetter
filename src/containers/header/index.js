@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './header.css';
 import volvoLogo from './../../assets/images/volvoLogo.jpg';
 import { withRouter } from 'react-router-dom';
+import { getUserArticle } from '../../modules/actions';
 
 
 class Header extends Component {
@@ -12,7 +13,11 @@ class Header extends Component {
         this.popoverRef = React.createRef();
     }
 
-    showPopOver = () => {
+    showPopOver = () => {        
+        if(this.props.User.name){
+            this.props.getUserArticle(this.props.User._id);
+        }
+
         this.popoverRef.current.style.visibility = !this.popoverRef.current.style.visibility ? 'visible' : '';
     }
 
@@ -89,7 +94,7 @@ class Header extends Component {
                             </li>
                             <li>
                                 <span className="navText">
-                                    <a href="">Technical</a>
+                                    <a href="/topic/5bc5ad8b6c09a23f8c13ad20">Technical</a>
                                 </span>
                             </li>
                             <li>
@@ -128,5 +133,7 @@ const mapStateToProps = ({ Category, User }) => ({
 
 export default withRouter(connect(
     mapStateToProps,
-    null
+    {
+        getUserArticle
+    }
 )(Header));

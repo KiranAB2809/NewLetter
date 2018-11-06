@@ -13,7 +13,8 @@ export default function article({ types }) {
     return function updateCategoryParams(state = {
         UserArticles: [],
         Articles: [],
-        isFetching: false
+        isFetching: false,
+        currentArticleId: ''
     }, action) {
         switch (action.type) {
             case requestType:
@@ -29,7 +30,8 @@ export default function article({ types }) {
             case updateType:
                 return _.merge({}, state, {
                     isFetching: false,
-                    UserArticles: _.unionBy(state.UserArticles, action.payload, '_id')
+                    currentArticleId: action.payload._id,
+                    UserArticles: _.unionBy(state.UserArticles, [action.payload], '_id')
                 });
             case failureType:
                 return _.merge({}, state, {

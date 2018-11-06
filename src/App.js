@@ -18,8 +18,8 @@ class App extends Component {
         <main className="bodyContainer">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/topic" component={Topic} />
-            <Route exact path="/article" component={Article} />
+            <Route exact path="/topic/:id" component={Topic} />
+            <Route exact path="/article/:id" component={Article} />
             <Route excat path="/article/create" component={CreateBlog} />
             <Route excat path="/setting" component = {Setting} />
           </Switch>

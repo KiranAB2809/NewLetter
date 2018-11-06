@@ -2,17 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Article from '../common/article.react';
 import logo from '../../assets/images/DidYouKnow.jpg';
-import { getUserArticle } from '../../modules/actions'
+import { withRouter } from 'react-router-dom';
 import './topic.css';
-import User from '../../models/user.class';
-// import { getUserArticle } from '../../modules/actions';
+
  
 class Topic extends Component {
 
-    componentDidMount(){
-        this.props.getUserArticle(this.props.user._id);
+    state = {
+        articles: []
     }
 
+    componentDidMount(){
+        let topicID = this.props.match.params.id;
+        let topicData = this.props.Articles.find(obj => obj.category === topicID);
+        this.setState({articles: Object.assign([], topicData)});
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps);
+        let topicID = this.props.match.params.id;
+        let topicData = nextProps.Articles.find(obj => obj.category === topicID);
+        if(topicData)
+            this.setState({articles: Object.assign([], topicData.articles)});
+    }
+
+    navigateToArticle = (id) => {
+        console.log(id);
+    }
+    
     render() {
         return (
             <div className="topic-container">
@@ -21,19 +38,17 @@ class Topic extends Component {
                         <img src = {logo} className={'banner'}/>
                     </div>
                 </div>
-                <Article />
+                <Article articles = {this.state.articles} navigateToArticle = {this.navigateToArticle}/>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ User }) => ({
-    user: User.User
+const mapStateToProps = ({ Article }) => ({
+    Articles: Article.Articles
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
-    {
-        getUserArticle
-    }
-)(Topic);
+    null
+)(Topic));

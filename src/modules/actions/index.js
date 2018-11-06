@@ -34,12 +34,14 @@ export const category = {
 export const article = {
     request: () => action(ARTICLE[REQUEST]),
     success: (response) => action(ARTICLE[SUCCESS], response),
+    update: (response) => action(ARTICLE[UPDATE], response),
     failure: (error) => action(ARTICLE[FAILURE], error)
 }
 
 export const user = {
     request: () => action(USER[REQUEST]),
     success: (response) => action(USER[SUCCESS], response),
+    update: (response) => action(USER[UPDATE], response),
     failure: (error) => action(USER[FAILURE], error)
 }
 

@@ -2,14 +2,14 @@ import _ from 'lodash';
 import User from '../../models/user.class';
 
 export default function user({ types }) {
-    if (!Array.isArray(types) || types.length !== 3) {
+    if (!Array.isArray(types) || types.length !== 4) {
         throw new Error("types must be array type");
     }
     if (!types.every(t => typeof t === 'string')) {
         throw new Error("Undefoned data type")
     }
 
-    const [requestType, successType, failureType] = types;
+    const [requestType, successType, updateType, failureType] = types;
 
     return function updateCategoryParams(state = {
         User: new User(),
@@ -21,6 +21,11 @@ export default function user({ types }) {
                     isFetching: true
                 })
             case successType:
+                return Object.assign({}, state, {
+                    isFetching: false,
+                    User: action.payload
+                });
+            case updateType:
                 return Object.assign({}, state, {
                     isFetching: false,
                     User: action.payload

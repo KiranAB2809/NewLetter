@@ -34,8 +34,9 @@
     position: relative;
     overflow: hidden;
     float: left;
-    margin: 10px 5px;
+    margin: 5px 5px;
     cursor: pointer;
+    border: 2px solid lightgrey;
 }
 .image-options > img{
     height: 100%;
@@ -84,4 +85,24 @@
 .suggestion >p:hover{
     background-color: lightblue;
     color: white
+}
+.changePreview{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.30);
+    display: flex;
+}
+.changePreviewButton{
+    margin: auto;
+    border-color: #f7f7f7;
+    color: white;
+}
+.changePreview:hover{
+    background-color: rgba(0,0,0,0.68)
+}
+.image-options:hover{
+    border: 2px solid lightblue;
 }

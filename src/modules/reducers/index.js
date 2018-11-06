@@ -18,6 +18,7 @@ const User = user({
     types: [
         ActionTypes.USER.REQUEST,
         ActionTypes.USER.SUCCESS,
+        ActionTypes.USER.UPDATE,
         ActionTypes.USER.FAILURE
     ]
 });

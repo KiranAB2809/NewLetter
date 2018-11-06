@@ -2,10 +2,10 @@
 import User from "./user.class";
 
 class Article {
-    title = 'Title of your Article';
+    title = '';
     subtitle = '';
     body = 'Write the content here...';
-    coverImage = '';
+    coverImage = 'http://localhost:8000/static/defaultArticle.png';
     isPublished = false;
     isDraft = true;
     category = '';

@@ -78,6 +78,8 @@ const uploadImage = (data) => {
 
 export const fetchCategory = () => callApi(`Category`);
 export const fetchUser = () => callApi(`User`);
+export const fetchInitalArticle = () => callApi(`Blog`);
 export const fetchUserArticle = (userId) => callApi(`Blog`, { userId: userId });
 export const uploadBlogImage = data => postImage(`Blog/picture`, uploadImage(data));
 export const updateUser = user => postApi(`User`, JSON.stringify(user.payload));
+export const updateArtice = article => postApi('Blog', JSON.stringify(article.payload));

@@ -5,12 +5,13 @@ import './editor.css';
 import 'tinymce/themes/modern/theme';
 import AuthorInfo from '../common/authorinfo.react';
 import 'tinymce/plugins/link';
+import 'tinymce/plugins/paste';
 import { api } from '../../services';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
-import logo from '../../assets/images/order_IT.PNG'
 import Article from '../../models/article.class';
 import Overlay from '../common/overlay.react';
+import { updateArticle } from '../../modules/actions'
 
 
 class CreateBlog extends Component {
@@ -41,12 +42,15 @@ class CreateBlog extends Component {
                 'table',
                 'textcolor',
                 'image',
-                'hr'
+                'hr',
+                'paste'
             ],
             toolbar: [
                 'undo redo | bold italic underline | fontselect fontsizeselect',
                 'forecolor backcolor | alignleft aligncenter alignright alignfull | link unlink | numlist bullist outdent indent'
             ],
+            paste_data_images: true,
+            paste_as_text: true,
             insert_toolbar: 'quicktable image codesample hr',
             image_dimensions: false,
             selection_toolbar: 'bold italic quicklink | blockquote h2 h3 ',
@@ -59,7 +63,6 @@ class CreateBlog extends Component {
                 input.onchange = function () {
                     var file = this.files[0];
                     var reader = new FileReader();
-                    debugger;
                     reader.onload = function () {
                         var name = file.name;
                         var blobCache = tinymce.activeEditor.editorUpload.blobCache;
@@ -78,6 +81,14 @@ class CreateBlog extends Component {
         this.setState({ 'editor': tinymce });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.ArticleId && this.state.article._id !== nextProps.ArticleId) {
+            let article = Object.assign({}, this.state.article);
+            article['_id'] = nextProps.ArticleId;
+            this.setState({ article: Object.assign({}, article) });
+        }
+    }
+
     previewPublish = () => {
         let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
         let article = Object.assign({}, this.state.article);
@@ -85,18 +96,25 @@ class CreateBlog extends Component {
         article.author = this.props.User._id;
         if (images.length > 0) {
             article.coverImage = images[0];
-        }
+        } 
+        this.publishDraftOrArticle();
         this.setState({ article: article });
         this.setDialog();
+    }
+
+    publishDraftOrArticle = () => {
+        let article = Object.assign({}, this.state.article);
+        this.props.updateArticle(article);
     }
 
     setDialog = () => {
         this.setState({ showDialogBox: !this.state.showDialogBox });
     }
 
-    handleTextChange = (event, field) => {
+    handleTextChange = (event) => {
         let article = Object.assign({}, this.state.article);
-        article[field] = event.target.innerText.replace(/\n/g, '');
+        let field = event.target.name;
+        article[field] = event.target.value.replace(/\n/g, '');
         return this.setState({ article: article });
     }
 
@@ -106,19 +124,30 @@ class CreateBlog extends Component {
         return this.setState({ article: article })
     }
 
+    changePreviewImage = (event) => {
+        let article = Object.assign({}, this.state.article);
+        article.coverImage = event.target.src;
+        return this.setState({ article: article });
+    }
+
     showDialog = () => {
         if (this.state.showDialogBox) {
             let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
+            if(images.length === 0){
+                images.push(this.state.article.coverImage)
+            }
             return (
-            <Overlay changeView={this.setDialog}>
-                <Dialog
-                    article={this.state.article}
-                    images={images}
-                    contentEditable={this.handleTextChange}
-                    categories={this.props.categories}
-                    setCategory={this.setCategory}
-                />
-            </Overlay>);
+                <Overlay changeView={this.setDialog}>
+                    <Dialog
+                        article={this.state.article}
+                        images={images}
+                        contentEditable={this.handleTextChange}
+                        categories={this.props.categories}
+                        setCategory={this.setCategory}
+                        publishArticle={this.publishDraftOrArticle}
+                        changePreviewImage={this.changePreviewImage}
+                    />
+                </Overlay>);
         }
         return null;
     }
@@ -128,21 +157,13 @@ class CreateBlog extends Component {
             <div>
                 <div className='article-container'>
                     <div className={'article-u1'}>
-                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user = {this.props.User}/>
+                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={this.props.User} />
                         <div>
-                            <div>
-                                <h1 id="article-header" 
-                                className={'mce-content-body'} 
-                                contentEditable="true" 
-                                spellCheck="true" 
-                                style={{ outline: 'none' }} 
-                                suppressContentEditableWarning={true} 
-                                onInput={(event) => this.handleTextChange(event, 'title')}>
-                                    {this.state.article.title}
-                                </h1>
+                            <div style={{ padding: '10px 0' }}>
+                                <input name={'title'} onChange={(event) => this.handleTextChange(event)} className={'input input-name width-100'} value={this.state.article.title} placeholder={'Title of the article'}></input>
                             </div>
                             <section>
-                                <div id="article-body" className={'mce-content-body article-body'} contentEditable="true" spellCheck="true" style={{ outline: 'none' }}>
+                                <div id="article-body" className={'mce-content-body article-body'} contentEditable="true" suppressContentEditableWarning={'true'} spellCheck="true" style={{ outline: 'none' }}>
                                     <p>
                                         {this.state.article.body}
                                     </p>
@@ -179,24 +200,33 @@ class Dialog extends Component {
 
     showPreviewImage = () => {
         if (this.state.showPreview) {
-            return (<img style={{ maxHeight: '200px', maxWidth: '100%', margin: 'auto' }} src={this.props.article.coverImage} />);
+            return (
+                <div className={'flex width-100'} style={{ position: 'relative' }}>
+                    <div className={'changePreview'}>
+                        <button className={'changePreviewButton userButton'} onClick={() => this.setState({ showPreview: false })}>
+                            Change Preview
+                    </button>
+                    </div>
+                    <img style={{ maxHeight: '200px', maxWidth: '100%', margin: 'auto' }} src={this.props.article.coverImage} />
+                </div>
+            );
         }
         return null;
     }
 
     showOtherPreviewImage = () => {
         const displayPreviewImage = () => {
-            return ["1", "2", "3", 1, 2, 3, 4].map(ele =>
-                <div className={'image-options'}>
-                    <img src={logo} />
+            return this.props.images.map(ele =>
+                <div className={'image-options'} onClick={(event) => this.props.changePreviewImage(event)}>
+                    <img src={ele} />
                 </div>);
         }
 
         if (!this.state.showPreview) {
             return (
                 <div className={'image-change'}>
-                    <p>Done</p>
-                    <div className={'width-100'} style={{ overflow: 'scroll' }}>
+                    <p onClick={() => this.setState({ showPreview: true })}>Done</p>
+                    <div className={'width-100'} style={{ overflow: 'scroll', height: '300px', maxHeight: '300px' }}>
                         {displayPreviewImage()}
                     </div>
                 </div>
@@ -238,18 +268,23 @@ class Dialog extends Component {
 
     render() {
         return (
-            <div className = {'flex'}>
+            <div className={'flex'}>
                 <div className={'flex flex-column width-50'}>
                     <ContentHeader headername="Story Preview" className={'no-border no-margin'} />
                     <Content className={'colorBlack no-margin'} desc={'Changes here will affect how the users will see the articles in home page, Fill the details appropriately'} />
-                    <div className={'flex width-100 image-preview'}>
+                    <div className={'flex width-100 image-preview'} style={{ position: 'relative' }}>
                         {this.showPreviewImage()}
                         {this.showOtherPreviewImage()}
                     </div>
-                    <div contentEditable={true} className={'editable-div'} style={{ borderBottom: '1px solid grey' }} onInput={(event) => this.props.contentEditable(event, 'subtitle')}>
-                        <p style={{ margin: 0, padding: 0, maxWidth: '100%', maxHeight: '100px', overflow: 'hidden' }}>
-                            Add a small desc about your article... (max of 250 characters)
-                            </p>
+                    <div className={'editable-div'} style={{ borderBottom: '1px solid grey' }}>
+                        <input
+                            placeholder="Add a small desc about your article... (max of 250 characters)"
+                            className={'input input-email width-100'}
+                            name={'subtitle'}
+                            style={{ fontSize: '14px', maxWidth: '100%' }}
+                            value={this.props.article.subtitle}
+                            onChange={(event) => this.props.contentEditable(event)}>
+                        </input>
                     </div>
                 </div>
                 <div className={'flex flex-column width-50'} style={{ margin: '0 0 0 30px' }}>
@@ -264,7 +299,7 @@ class Dialog extends Component {
                     </div>
                     {this.categorySuggestion()}
                     <Content className={'colorBlack no-margin'} desc={'The article is subject to internal review from the editorial board. Once approved it will be available on the cover page'} />
-                    <button className={'userButton button-publish'}>
+                    <button className={'userButton button-publish'} onClick={() => this.props.publishArticle()}>
                         Publish Now..
                         </button>
                 </div>
@@ -273,11 +308,15 @@ class Dialog extends Component {
     }
 }
 
-const mapStateToProps = ({ Category, User }) => ({
-    categories: Category.category,
-    User: User.User
+const mapStateToProps = ({ Category, User, Article }) => ({
+    categories: Category.categories,
+    User: User.User,
+    ArticleId: Article.currentArticleId
 });
 
 export default connect(
     mapStateToProps,
-    null)(CreateBlog);
+    {
+        updateArticle
+    }
+)(CreateBlog);

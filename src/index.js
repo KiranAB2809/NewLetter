@@ -8,7 +8,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootSaga from './modules/sagas';
 import {
-    initCategory, initUser
+    initCategory, initUser, initArticles
 } from './modules/actions'
 
 
@@ -16,6 +16,7 @@ const store = configureStore(window.__INITIAL_STATE__);
 store.runSaga(rootSaga);
 store.dispatch(initCategory());
 store.dispatch(initUser());
+store.dispatch(initArticles());
 
 ReactDOM.render(
     <Provider store={store}>
