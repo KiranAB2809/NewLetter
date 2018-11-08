@@ -28,6 +28,19 @@ class Header extends Component {
         this.props.history.push("/topic");
     }
 
+    editorOptions = () => {
+        if(this.props.User.isEditor){
+            return (
+                <li onClick = {() => this.showPopOver()}>
+                    <span className={'popover-text'}>
+                        <a href="/topic/editor">Review Articles</a>
+                    </span>
+                </li>
+            )
+        }
+        return null;
+    }
+
     render() {
         return (
             <div className="topDiv">
@@ -46,7 +59,7 @@ class Header extends Component {
                             <ul>
                                 <li  onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="/article/create">New Article</a>
+                                        <a href="/create">New Article</a>
                                     </span>
                                 </li>
                                 <li  onClick={() => this.showPopOver()}>
@@ -59,6 +72,7 @@ class Header extends Component {
                                         <a href="#">Publications</a>
                                     </span>
                                 </li>
+                                {this.editorOptions()}
                                 <li style={{ borderBottom: '0.5px solid grey', padding: '5px 0' }}></li>
                                 <li  onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>

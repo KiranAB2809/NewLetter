@@ -8,6 +8,9 @@ export default function* root() {
         fork(watchers.watchLoadArticle),
         fork(watchers.watchUpdateUser),
         fork(watchers.watchLoadUserArticle),
-        fork(watchers.watchUpdateArticle)
+        fork(watchers.watchUpdateArticle),
+        fork(watchers.watchGetArticle),
+        fork(watchers.watchLoadArticleReview),
+        fork(watchers.watchReviewUpdateArticle)
     ]);
 }

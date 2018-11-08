@@ -106,3 +106,6 @@
 .image-options:hover{
     border: 2px solid lightblue;
 }
+.defaultImageSize{
+    max-width: 100%
+}

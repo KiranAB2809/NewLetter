@@ -20,7 +20,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/topic/:id" component={Topic} />
             <Route exact path="/article/:id" component={Article} />
-            <Route excat path="/article/create" component={CreateBlog} />
+            <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component = {Setting} />
           </Switch>
         </main>

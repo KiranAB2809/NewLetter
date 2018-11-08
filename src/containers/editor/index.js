@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import tinymce from 'tinymce/tinymce';
-import './editor.css';
-import 'tinymce/themes/modern/theme';
-import AuthorInfo from '../common/authorinfo.react';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/paste';
 import { api } from '../../services';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
 import Article from '../../models/article.class';
 import Overlay from '../common/overlay.react';
-import { updateArticle } from '../../modules/actions'
+import { updateArticle, getArticle, updateReviewArticle } from '../../modules/actions'
+import User from '../../models/user.class';
+import Editor from '../common/editor';
+import tinymce from 'tinymce/tinymce';
+import './editor.css';
+import 'tinymce/themes/modern/theme';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/paste';
+import AuthorInfo from '../common/authorinfo.react';
 
 
 class CreateBlog extends Component {
 
+    editor = ''
+
     state = {
-        editor: '',
         article: new Article(),
         showDialogBox: false,
+        articleId: ''
     }
+
 
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
+        var articleId = this.props.match.params.id;
+        if (articleId) {
+            this.setState({ articleId: articleId });
+            this.props.getArticle(articleId);
+        }
         var articleBodyConfig = {
             selector: "#article-body",
             menubar: false,
@@ -49,12 +59,21 @@ class CreateBlog extends Component {
                 'undo redo | bold italic underline | fontselect fontsizeselect',
                 'forecolor backcolor | alignleft aligncenter alignright alignfull | link unlink | numlist bullist outdent indent'
             ],
+            setup: (editor) => {
+                editor.on('init', (e) => {
+                    editor.setContent("<p>" + this.state.article.body + "</p>");
+                    this.editor = editor;
+                });
+            },
             paste_data_images: true,
             paste_as_text: true,
             insert_toolbar: 'quicktable image codesample hr',
             image_dimensions: false,
             selection_toolbar: 'bold italic quicklink | blockquote h2 h3 ',
             automatic_uploads: true,
+            image_class_list: [
+                { title: '', value: 'defaultImageSize' }
+            ],
             file_picker_types: 'image',
             file_picker_callback: function (cb, value, meta) {
                 var input = document.createElement('input');
@@ -78,25 +97,30 @@ class CreateBlog extends Component {
             }
         };
         tinymce.init(articleBodyConfig);
-        this.setState({ 'editor': tinymce });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.ArticleId && this.state.article._id !== nextProps.ArticleId) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.Article.currentArticleId && this.state.article._id !== this.props.Article.currentArticleId) {
             let article = Object.assign({}, this.state.article);
-            article['_id'] = nextProps.ArticleId;
+            article['_id'] = this.props.Article.currentArticleId;
             this.setState({ article: Object.assign({}, article) });
+        }
+
+        if (Object.keys(this.props.Article.displayArticle).length > 0 && prevProps.Article.displayArticle._id !== this.props.Article.displayArticle._id) {
+            this.setState({ article: this.props.Article.displayArticle });
+            this.editor.setContent("<p>Looks cool and beautiful, thanks to tinyMCE in react docs</p>");
         }
     }
 
     previewPublish = () => {
-        let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
+        let images = tinymce.activeEditor.dom.select('img').map(image => image.src);
         let article = Object.assign({}, this.state.article);
-        article.body = this.state.editor.activeEditor.getContent();
-        article.author = this.props.User._id;
+        article.body = tinymce.activeEditor.getContent();
+        if (Object.keys(article.author).length === 0)
+            article.author = this.props.User._id;
         if (images.length > 0) {
             article.coverImage = images[0];
-        } 
+        }
         this.publishDraftOrArticle();
         this.setState({ article: article });
         this.setDialog();
@@ -104,7 +128,10 @@ class CreateBlog extends Component {
 
     publishDraftOrArticle = () => {
         let article = Object.assign({}, this.state.article);
-        this.props.updateArticle(article);
+        if (this.state.articleId) {
+            this.props.updateReviewArticle(article);
+        } else
+            this.props.updateArticle(article);
     }
 
     setDialog = () => {
@@ -132,8 +159,8 @@ class CreateBlog extends Component {
 
     showDialog = () => {
         if (this.state.showDialogBox) {
-            let images = this.state.editor.activeEditor.dom.select('img').map(image => image.src);
-            if(images.length === 0){
+            let images = tinymce.activeEditor.dom.select('img').map(image => image.src);
+            if (images.length === 0) {
                 images.push(this.state.article.coverImage)
             }
             return (
@@ -153,21 +180,23 @@ class CreateBlog extends Component {
     }
 
     render() {
+        let user = new User();
+        if (this.state.article.isDraft) {
+            user = this.props.User;
+        } else {
+            user = this.state.article.author;
+        }
         return (
             <div>
                 <div className='article-container'>
                     <div className={'article-u1'}>
-                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={this.props.User} />
+                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={user} />
                         <div>
                             <div style={{ padding: '10px 0' }}>
                                 <input name={'title'} onChange={(event) => this.handleTextChange(event)} className={'input input-name width-100'} value={this.state.article.title} placeholder={'Title of the article'}></input>
                             </div>
                             <section>
-                                <div id="article-body" className={'mce-content-body article-body'} contentEditable="true" suppressContentEditableWarning={'true'} spellCheck="true" style={{ outline: 'none' }}>
-                                    <p>
-                                        {this.state.article.body}
-                                    </p>
-                                </div>
+                                <Editor initalValue={"<p>Testing</p>"}/>
                             </section>
                         </div>
                     </div>
@@ -311,12 +340,14 @@ class Dialog extends Component {
 const mapStateToProps = ({ Category, User, Article }) => ({
     categories: Category.categories,
     User: User.User,
-    ArticleId: Article.currentArticleId
+    Article: Article
 });
 
 export default connect(
     mapStateToProps,
     {
-        updateArticle
+        updateArticle,
+        getArticle,
+        updateReviewArticle
     }
 )(CreateBlog);

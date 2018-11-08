@@ -53,3 +53,6 @@
     max-height: 45px;
     overflow: hidden;
 }
+.editor-content>p{
+    margin: 0;
+}

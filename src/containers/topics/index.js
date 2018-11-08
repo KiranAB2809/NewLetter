@@ -3,52 +3,62 @@ import { connect } from 'react-redux';
 import Article from '../common/article.react';
 import logo from '../../assets/images/DidYouKnow.jpg';
 import { withRouter } from 'react-router-dom';
+import { getReviewArticle } from '../../modules/actions'
 import './topic.css';
+// import { article } from '../../modules/actions'
 
- 
+
 class Topic extends Component {
 
     state = {
-        articles: []
+        articles: [],
+        isEditor: false,
+        topicId: ''
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let topicID = this.props.match.params.id;
-        let topicData = this.props.Articles.find(obj => obj.category === topicID);
-        this.setState({articles: Object.assign([], topicData)});
-    }
-
-    componentWillReceiveProps(nextProps){
-        console.log(nextProps);
-        let topicID = this.props.match.params.id;
-        let topicData = nextProps.Articles.find(obj => obj.category === topicID);
-        if(topicData)
-            this.setState({articles: Object.assign([], topicData.articles)});
+        this.setState({ topicId: topicID })
+        if (topicID === 'editor') {
+            this.setState({ isEditor: true });
+            this.props.getReviewArticle();
+        }
     }
 
     navigateToArticle = (id) => {
-        console.log(id);
+        this.props.history.push((this.state.isEditor ? "/create/" : "/article/") + id);
     }
-    
+
     render() {
+        let topicData = [];
+        if (this.state.isEditor) {
+            topicData = this.props.Articles.articlesForReview;
+        }
+        else {
+            let data = this.props.Articles.Articles.find(obj => obj.category === this.state.topicId);
+            if (data)
+                topicData = data;
+        }
         return (
             <div className="topic-container">
                 <div style={{ position: 'realtive' }}>
                     <div style={{ position: 'sticky', top: 0 }}>
-                        <img src = {logo} className={'banner'}/>
+                        <img src={logo} className={'banner'} />
                     </div>
                 </div>
-                <Article articles = {this.state.articles} navigateToArticle = {this.navigateToArticle}/>
+                <Article articles={topicData} navigateToArticle={this.navigateToArticle} />
             </div>
         )
     }
 }
 
 const mapStateToProps = ({ Article }) => ({
-    Articles: Article.Articles
+    Articles: Article
 });
 
 export default withRouter(connect(
     mapStateToProps,
-    null
+    {
+        getReviewArticle
+    }
 )(Topic));

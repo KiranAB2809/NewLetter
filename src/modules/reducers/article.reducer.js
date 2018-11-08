@@ -14,25 +14,29 @@ export default function article({ types }) {
         UserArticles: [],
         Articles: [],
         isFetching: false,
-        currentArticleId: ''
+        currentArticleId: '',
+        displayArticle: {},
+        articlesForReview: []
     }, action) {
+        let payloadType = '', newState = '';
         switch (action.type) {
             case requestType:
                 return _.merge({}, state, {
                     isFetching: true
                 });
             case successType:
-                let payloadType = action.payload.type;
-                let newState = Object.assign({}, state);
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
                 newState[payloadType] = action.payload.response;
                 newState.isFetching = false;
                 return _.merge({}, state, newState);
             case updateType:
-                return _.merge({}, state, {
-                    isFetching: false,
-                    currentArticleId: action.payload._id,
-                    UserArticles: _.unionBy(state.UserArticles, [action.payload], '_id')
-                });
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
+                newState.displayArticle = Object.assign({}, action.payload.response);
+                // delete action.payload.response
+                newState[payloadType] = _.unionBy(newState[payloadType], action.payload.response, '_id');
+                return _.merge({}, state, newState);
             case failureType:
                 return _.merge({}, state, {
                     isFetching: false

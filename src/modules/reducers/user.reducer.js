@@ -21,10 +21,10 @@ export default function user({ types }) {
                     isFetching: true
                 })
             case successType:
-                return Object.assign({}, state, {
-                    isFetching: false,
-                    User: action.payload
-                });
+                    return Object.assign({}, state, {
+                        isFetching: false,
+                        User: action.payload
+                    });
             case updateType:
                 return Object.assign({}, state, {
                     isFetching: false,
