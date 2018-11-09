@@ -29,6 +29,7 @@ export default function article({ types }) {
                 newState = Object.assign({}, state);
                 newState[payloadType] = action.payload.response;
                 newState.isFetching = false;
+                console.log(newState[payloadType]);
                 return _.merge({}, state, newState);
             case updateType:
                 payloadType = action.payload.type;

@@ -1,55 +1,60 @@
 import React, { Component } from 'react';
-import tinymce from 'tinymce/tinymce';
-// import './editor.css';
+import tinymce from 'tinymce';
 import 'tinymce/themes/modern/theme';
-import { api } from '../../services';
+import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
+import { api } from '../../services';
 
-class Editor extends Component {
 
+class TinyEditorComponent extends Component {
     constructor(props) {
         super(props);
-        this.editorRef = React.createRef();
+        this.editor = null;
+        this.inputRef = null;
+        this.currentContent = '';
     }
-
     componentDidMount() {
+
         this.initalizeEditor();
     }
 
     initalizeEditor = () => {
-        const finalIntialize = {
-            target: this.editorRef,
+        console.log(`${process.env.PUBLIC_URL}`);
+        let initalizeEditor = {
+            target: this.inputRef,
             menubar: false,
             inline: true,
             theme: 'inlite',
             min_height: 400,
-            plugins: [
-                'autolink',
-                'codesample',
-                'contextmenu',
-                'link',
-                'lists',
-                'table',
-                'textcolor',
-                'image',
-                'hr',
-                'paste'
-            ],
-            toolbar: [
-                'undo redo | bold italic underline | fontselect fontsizeselect',
-                'forecolor backcolor | alignleft aligncenter alignright alignfull | link unlink | numlist bullist outdent indent'
-            ],
-            insert_toolbar: 'quicktable image codesample hr',
+            plugins: `autolink codesample contextmenu link lists table textcolor hr paste image`,
             selection_toolbar: 'bold italic quicklink | blockquote h2 h3',
+            insert_toolbar: 'quicktable image codesample hr',
+            setup: editor => {
+                this.editor = editor;
+                this.currentContent = this.props.value;
+                editor.on('init', () => {
+                    if (typeof this.props.value === 'string') {
+                        this.setContent(editor);
+                    }
+                })
+                editor.on('keyup change', () => {
+                    const content = editor.getContent();
+                    this.currentContent = content;
+                    if (typeof this.props.onEditorChange === 'function')
+                        this.props.onEditorChange(content);
+                    else
+                        console.log('Cannot emit the event');
+                });
+            },
             paste_data_images: true,
             paste_as_text: true,
             image_dimensions: false,
             automatic_uploads: true,
             image_class_list: [
-                {title: '', value: 'defaultImageSize'}
+                { title: '', value: 'defaultImageSize' }
             ],
-            file_picker_types: 'image',
+            file_picker_type: 'image',
             file_picker_callback: (cb, value, meta) => {
                 var input = document.createElement('input');
                 input.setAttribute('type', 'file');
@@ -69,35 +74,44 @@ class Editor extends Component {
                     reader.readAsDataURL(file);
                 };
                 input.click();
-            },
-            setup: (editor) => {
-                this.editor = editor;
-                editor.on('init', (e) => {
-                    this.initEditor(e, editor);
-                });
             }
         }
-
-        tinymce.init(finalIntialize);
+        tinymce.init(initalizeEditor)
     }
 
-    initEditor = (initE, editor) => {
-        console.log(this.props.initalValue);
-        const value = typeof this.props.initalValue === 'string' ? this.props.initalValue : '';
-        editor.setContent(value);
+    componentWillUnmount() {
+        tinymce.remove(this.editor);
+    }
 
-        if (typeof this.props.onEditorChange === 'function'){
-            editor.on('change keyup setcontent', (e) => {
-                this.props.onEditorChange(editor.getContent());
-            })
+    componentDidUpdate() {
+        if (this.currentContent !== this.props.value) {
+            this.setContent(this.editor);
         }
     }
 
-    render(){
+    setContent = (editor) => {
+        if (typeof this.props.value === 'string') {
+            try {
+                editor.setContent(this.props.value);
+            } catch(ex){
+                editor.on('init', () => {
+                    if (typeof this.props.value === 'string') {
+                        this.setContent(editor);
+                    }
+                });
+            }
+        } else {
+            console.log("Error");
+        }
+    }
+
+    render() {
         return (
-            <div contentEditable={true} ref={this.editorRef} id="article-body" className={'mce-content-body article-body'} spellCheck="true" style={{outline: 'none'}}></div>
-        )
+            <div id={this.props.id} suppressContentEditableWarning={true} ref={(elm) => { this.inputRef = elm }} id="article-body" contentEditable={true} style={{ outline: 'none' }} className={'mce-content-body article-body'}>
+
+            </div>
+        );
     }
 }
 
-export default Editor;
+export default TinyEditorComponent;

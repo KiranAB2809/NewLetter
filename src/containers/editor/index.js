@@ -14,16 +14,17 @@ import 'tinymce/themes/modern/theme';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import AuthorInfo from '../common/authorinfo.react';
+import TinyEditorComponent from '../common/editor';
 
 
 class CreateBlog extends Component {
 
     editor = ''
-
+    autoDraft = false;
     state = {
         article: new Article(),
         showDialogBox: false,
-        articleId: ''
+        articleId: '',
     }
 
 
@@ -37,66 +38,6 @@ class CreateBlog extends Component {
             this.setState({ articleId: articleId });
             this.props.getArticle(articleId);
         }
-        var articleBodyConfig = {
-            selector: "#article-body",
-            menubar: false,
-            inline: true,
-            theme: 'inlite',
-            min_height: 400,
-            plugins: [
-                'autolink',
-                'codesample',
-                'contextmenu',
-                'link',
-                'lists',
-                'table',
-                'textcolor',
-                'image',
-                'hr',
-                'paste'
-            ],
-            toolbar: [
-                'undo redo | bold italic underline | fontselect fontsizeselect',
-                'forecolor backcolor | alignleft aligncenter alignright alignfull | link unlink | numlist bullist outdent indent'
-            ],
-            setup: (editor) => {
-                editor.on('init', (e) => {
-                    editor.setContent("<p>" + this.state.article.body + "</p>");
-                    this.editor = editor;
-                });
-            },
-            paste_data_images: true,
-            paste_as_text: true,
-            insert_toolbar: 'quicktable image codesample hr',
-            image_dimensions: false,
-            selection_toolbar: 'bold italic quicklink | blockquote h2 h3 ',
-            automatic_uploads: true,
-            image_class_list: [
-                { title: '', value: 'defaultImageSize' }
-            ],
-            file_picker_types: 'image',
-            file_picker_callback: function (cb, value, meta) {
-                var input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                input.onchange = function () {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-                    reader.onload = function () {
-                        var name = file.name;
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var base64 = reader.result.split(',')[1];
-                        var blobInfo = blobCache.create(name, file, base64);
-                        api.uploadBlogImage(blobInfo.blob())
-                            .then(data => cb(data.response.location, { title: file.name }))
-                            .catch(err => console.log(err));
-                    };
-                    reader.readAsDataURL(file);
-                };
-                input.click();
-            }
-        };
-        tinymce.init(articleBodyConfig);
     }
 
     componentDidUpdate(prevProps) {
@@ -108,30 +49,48 @@ class CreateBlog extends Component {
 
         if (Object.keys(this.props.Article.displayArticle).length > 0 && prevProps.Article.displayArticle._id !== this.props.Article.displayArticle._id) {
             this.setState({ article: this.props.Article.displayArticle });
-            this.editor.setContent("<p>Looks cool and beautiful, thanks to tinyMCE in react docs</p>");
         }
     }
 
     previewPublish = () => {
         let images = tinymce.activeEditor.dom.select('img').map(image => image.src);
         let article = Object.assign({}, this.state.article);
-        article.body = tinymce.activeEditor.getContent();
-        if (Object.keys(article.author).length === 0)
-            article.author = this.props.User._id;
-        if (images.length > 0) {
+        article.author = article.author ? article.author : this.props.User._id;
+        if(images.length > 0){
             article.coverImage = images[0];
         }
-        this.publishDraftOrArticle();
-        this.setState({ article: article });
+        this.setState({article: article});
+        // if (typeof article.author === "string")
+        //     this.modifyArticle('author', this.props.User._id);
+        this.postArticle(article);
         this.setDialog();
     }
 
-    publishDraftOrArticle = () => {
-        let article = Object.assign({}, this.state.article);
-        if (this.state.articleId) {
+    postArticle = (article) => {
+        // let article = Object.assign({}, this.state.article);
+        if (this.state.articleId && this.props.User.isEditor) {            
             this.props.updateReviewArticle(article);
         } else
             this.props.updateArticle(article);
+        // this.setState({ article: article });
+    }
+
+    draftorPublish = () => {
+        let article = Object.assign({}, this.state.article);
+        if(this.props.User.isEditor){
+            if(this.state.articleId){
+                if(this.state.article.isDraft){
+                    article.isDraft = false;
+                } else 
+                    article.isPublished = true;
+            } else {
+                article.isDraft = false;
+            }
+        } else {
+            article.isDraft = false;
+        }
+        this.setState({article : article});
+        this.postArticle(article);
     }
 
     setDialog = () => {
@@ -139,22 +98,33 @@ class CreateBlog extends Component {
     }
 
     handleTextChange = (event) => {
-        let article = Object.assign({}, this.state.article);
         let field = event.target.name;
-        article[field] = event.target.value.replace(/\n/g, '');
-        return this.setState({ article: article });
+        this.modifyArticle(field, event.target.value.replace(/\n/g, ''))
     }
 
     setCategory = (categoryID) => {
-        let article = Object.assign({}, this.state.article);
-        article.category = categoryID;
-        return this.setState({ article: article })
+        this.modifyArticle('category', categoryID);
     }
 
     changePreviewImage = (event) => {
+        this.modifyArticle('coverImage', event.target.src);
+    }
+
+    modifyArticle = (field, value) => {
         let article = Object.assign({}, this.state.article);
-        article.coverImage = event.target.src;
-        return this.setState({ article: article });
+        article[field] = value;
+        this.setState({ article: article });
+    }
+
+    setContent = (content) => {
+        this.modifyArticle('body', content);
+        // this.autoDraft = true;
+        // if(this.autoDraft && this.state.article.isDraft){
+        //     this.autoDraft = false;
+        //     setInterval(() => {
+        //         this.publishDraftOrArticle();
+        //     }, 1000 * 60 * 2);
+        // }
     }
 
     showDialog = () => {
@@ -171,7 +141,7 @@ class CreateBlog extends Component {
                         contentEditable={this.handleTextChange}
                         categories={this.props.categories}
                         setCategory={this.setCategory}
-                        publishArticle={this.publishDraftOrArticle}
+                        publishArticle={this.draftorPublish}
                         changePreviewImage={this.changePreviewImage}
                     />
                 </Overlay>);
@@ -190,13 +160,17 @@ class CreateBlog extends Component {
             <div>
                 <div className='article-container'>
                     <div className={'article-u1'}>
-                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={user} />
+                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={user} buttonText={(this.state.article.isDraft ? 'Save as Draft' : 'Review for Publish')} />
                         <div>
                             <div style={{ padding: '10px 0' }}>
                                 <input name={'title'} onChange={(event) => this.handleTextChange(event)} className={'input input-name width-100'} value={this.state.article.title} placeholder={'Title of the article'}></input>
                             </div>
                             <section>
-                                <Editor initalValue={"<p>Testing</p>"}/>
+                                <div>
+                                    <TinyEditorComponent id="article-body"
+                                        value={this.state.article.body}
+                                        onEditorChange={content => this.setContent(content)} />
+                                </div>
                             </section>
                         </div>
                     </div>

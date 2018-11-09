@@ -7,8 +7,8 @@ class AuthorInfo extends React.Component {
     readyToPublish = () => {
         if (this.props.showReadytoPublish) {
             return (
-                <button className="userButton" style={{ marginLeft: 'auto', padding: '5px 10px' }} onClick={this.props.readyToPublish}>
-                    Ready to publish?
+                <button className="userButton" style={{ marginLeft: 'auto', padding: '5px 10px', borderColor: 'green', color: 'green' }} onClick={this.props.readyToPublish}>
+                    {this.props.buttonText}
                 </button>
             )
         }
@@ -26,7 +26,7 @@ class AuthorInfo extends React.Component {
                         {name || 'Anyonoums'}
                 </p>
                     <p className={'pother'}>
-                        {(email || 'Seriously he is emailID?') + ' - ' + (team || 'Anyonomus Team') }
+                        {(email || 'Seriously emailID?') + ' - ' + (team || 'Anyonomus Team') }
                 </p>
                     <p className={'pother'}>
                         Oct 8 - Reported by Bala

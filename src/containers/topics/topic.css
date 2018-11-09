@@ -12,3 +12,9 @@
     height: calc(100vh - 65px);
     width: calc(75vh - 150px);
 }
+.user-container{
+    max-width: 1040px;
+    padding: 0 10px;
+    margin: auto;
+    flex: 1 1;
+}

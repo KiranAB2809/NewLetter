@@ -13,6 +13,7 @@ class Topic extends Component {
     state = {
         articles: [],
         isEditor: false,
+        isUser: false,
         topicId: ''
     }
 
@@ -22,6 +23,8 @@ class Topic extends Component {
         if (topicID === 'editor') {
             this.setState({ isEditor: true });
             this.props.getReviewArticle();
+        } else if (topicID === 'user') {
+            this.setState({ isUser: true });
         }
     }
 
@@ -29,24 +32,42 @@ class Topic extends Component {
         this.props.history.push((this.state.isEditor ? "/create/" : "/article/") + id);
     }
 
-    render() {
-        let topicData = [];
-        if (this.state.isEditor) {
-            topicData = this.props.Articles.articlesForReview;
-        }
-        else {
-            let data = this.props.Articles.Articles.find(obj => obj.category === this.state.topicId);
-            if (data)
-                topicData = data;
-        }
-        return (
-            <div className="topic-container">
-                <div style={{ position: 'realtive' }}>
-                    <div style={{ position: 'sticky', top: 0 }}>
-                        <img src={logo} className={'banner'} />
-                    </div>
+    renderUserorTopic = () => {
+        if (this.state.isUser) {
+            return (
+                <div className = "user-container">
+                    <p>Test</p>
+                    <p>Test1</p>
                 </div>
-                <Article articles={topicData} navigateToArticle={this.navigateToArticle} />
+            )
+        } else {
+            let topicData = [];
+            if (this.state.isEditor) {
+                topicData = this.props.Articles.articlesForReview;
+            }
+            else {
+                let data = this.props.Articles.Articles.find(obj => obj.category === this.state.topicId);
+                if (data)
+                    topicData = data.articles;
+            }
+            return (
+                <div className="topic-container">
+                    <div style={{ position: 'realtive' }}>
+                        <div style={{ position: 'sticky', top: 0 }}>
+                            <img src={logo} className={'banner'} />
+                        </div>
+                    </div>
+                    <Article articles={topicData} navigateToArticle={this.navigateToArticle} />
+                </div>
+            )
+        }
+        return null;
+    }
+
+    render() {
+        return (
+            <div>
+                {this.renderUserorTopic()}
             </div>
         )
     }
