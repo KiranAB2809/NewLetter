@@ -30,7 +30,6 @@ function* fetchEntity(entity, apiFn, payloadType, id, url) {
 }
 
 function* updateEntity(entity, apiFn, payload, data, url) {
-    debugger;
     const { response, error } = yield call(apiFn, url || data);
     if (response)
         {

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import './home.css';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Featured from './featured.react';
 import TopPicks from './toppicks.react';
 import Articles from '../common/article.react';
 import Awards from './awards.react';
+import './home.css';
 
 class Home extends Component {
     render(){
@@ -24,4 +26,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapsStateToProps = (Article) => ({
+    Article: Article.Articles
+});
+
+export default withRouter(connect(
+    mapsStateToProps,
+    null
+)(Home));

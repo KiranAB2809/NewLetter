@@ -106,6 +106,34 @@
 .flex-column{
     flex-flow: column nowrap;
 }
+
+.tab-header {
+    justify-content: unset !important;
+    width: 100% !important;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.54)
+}
+
+.tab-header>li{
+    padding: 0px 10px;
+}
+.tab-header>li:hover{
+    border-bottom: 1px solid black;
+}
+.tab-title{
+    font-size: 14px;
+}
+.tab-title>a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+}
+.tab-title>a:hover{
+    color: black;
+}
+
+.active-tab>a{
+    color:black;
+}
+
 .overlay-child{
     justify-content: space-between;
     margin: auto;
@@ -118,4 +146,17 @@
 .overlay-child--animate{
     transform-origin: bottom center;
     animation: fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)
+}
+
+.tabs-content div.tab-panel {
+    padding: 20px 0;
+    display: none;
+}
+
+.tabs-content div.tab-panel.active {
+    display: flex;
+}
+
+.no-width{
+    max-width: 100%;
 }

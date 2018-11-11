@@ -18,7 +18,6 @@ class Article extends Component {
     }
 
     displayArticle = () => {
-        debugger;
         if (Object.keys(this.props.Article).length > 0)
             return (
                 <div className="article-container">

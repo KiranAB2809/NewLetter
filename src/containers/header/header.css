@@ -52,13 +52,6 @@
 
 }
 
-.flexTop {
-    display: flex!important;
-    justify-content: space-between;
-    align-content: center;
-    width: 1000px !important;
-}
-
 .navText {
     font-family: sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
     letter-spacing: -.02em !important;
@@ -123,7 +116,7 @@ li{
 .popover>ul{
     list-style: none;
     margin: 0;
-    padding: 10px 20px
+    padding: 0px 20px
 }
 .popover>ul>li{
     padding: 10px 10px;

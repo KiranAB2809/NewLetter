@@ -42,3 +42,10 @@ body {
 .default-image{
   opacity: 0.4;
 }
+
+.flexTop {
+  display: flex!important;
+  justify-content: space-between;
+  align-content: center;
+  width: 1000px !important;
+}

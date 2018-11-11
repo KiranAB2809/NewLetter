@@ -18,3 +18,11 @@
     margin: auto;
     flex: 1 1;
 }
+.tab-button{
+    border: none !important;
+    font-size: 14px !important;
+    color: rgba(0,0,0,.54)
+}
+.tab-button:hover{
+    color: black;
+}

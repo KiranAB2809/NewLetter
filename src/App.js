@@ -16,13 +16,11 @@ class App extends Component {
           <Header />
         </header>
         <main className="bodyContainer">
-          <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/topic/:id" component={Topic} />
             <Route exact path="/article/:id" component={Article} />
             <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component = {Setting} />
-          </Switch>
         </main>
       </div>
     );

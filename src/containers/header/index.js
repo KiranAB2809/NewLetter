@@ -13,29 +13,44 @@ class Header extends Component {
         this.popoverRef = React.createRef();
     }
 
-    showPopOver = () => {        
-        if(this.props.User.name){
-            this.props.getUserArticle(this.props.User._id);
-        }
-
+    showPopOver = () => {
         this.popoverRef.current.style.visibility = !this.popoverRef.current.style.visibility ? 'visible' : '';
     }
 
-    onUserClick= () => {
-        if(!this.props.User.name){
+    onUserClick = (route) => {
+        if (!this.props.User.name) {
             this.props.history.push("/setting");
-        } 
-        this.props.history.push("/topic");
+        } else {
+            this.props.history.push(route);
+        }
     }
 
     editorOptions = () => {
-        if(this.props.User.isEditor){
+        if (this.props.User.isEditor) {
             return (
-                <li onClick = {() => this.showPopOver()}>
-                    <span className={'popover-text'}>
-                        <a href="/topic/editor">Review Articles</a>
-                    </span>
-                </li>
+                <ul>
+                    <li style={{ borderBottom: '0.5px solid grey', padding: '5px 0' }}></li>
+                    <li onClick={() => this.showPopOver()}>
+                        <span className={'popover-text'}>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Review Articles</a>
+                        </span>
+                    </li>
+                    <li onClick={() => this.showPopOver()}>
+                        <span className={'popover-text'}>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add article by others</a>
+                        </span>
+                    </li>
+                    <li onClick={() => this.showPopOver()}>
+                        <span className={'popover-text'}>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add awards</a>
+                        </span>
+                    </li>
+                    <li onClick={() => this.showPopOver()}>
+                        <span className={'popover-text'}>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know?</a>
+                        </span>
+                    </li>
+                </ul>
             )
         }
         return null;
@@ -53,40 +68,42 @@ class Header extends Component {
                     </div>
                     <div className="positionRelative">
                         <button className={'profile-button'} onClick={() => this.showPopOver()}>
-                            <img className={'avatar-image default-image'} src={ this.props.User.img || 'http://localhost:8000/static/defaultUser.png' } style={{width: '35px', height: '35px'}}></img>
+                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://localhost:8000/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
                         </button>
                         <div className="popover" ref={this.popoverRef}>
                             <ul>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="/create">New Article</a>
+                                        <a href="/create" onClick={() => this.onUserClick('/create')}>New Article</a>
                                     </span>
                                 </li>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="javascript:void(0);" onClick={() => this.onUserClick()}>Your Articles</a>
+                                        <a href="javascript:void(0);" onClick={() => this.onUserClick('/topic/user')}>Your Articles</a>
                                     </span>
                                 </li>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
                                         <a href="#">Publications</a>
                                     </span>
                                 </li>
-                                {this.editorOptions()}
+                            </ul>
+                            {this.editorOptions()}
+                            <ul>
                                 <li style={{ borderBottom: '0.5px solid grey', padding: '5px 0' }}></li>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
                                         <a href="#">Bookmarks</a>
                                     </span>
                                 </li>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
                                         <a href="#">Help</a>
                                     </span>
                                 </li>
-                                <li  onClick={() => this.showPopOver()}>
+                                <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="/setting">Setting</a>
+                                        <a href="javascript:void()" onClick={() => this.onUserClick('/setting')}>Setting</a>
                                     </span>
                                 </li>
                             </ul>
