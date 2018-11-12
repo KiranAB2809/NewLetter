@@ -47,7 +47,7 @@ class Header extends Component {
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know?</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know by others?</a>
                         </span>
                     </li>
                 </ul>
@@ -84,7 +84,7 @@ class Header extends Component {
                                 </li>
                                 <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="#">Publications</a>
+                                        <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know?</a>
                                     </span>
                                 </li>
                             </ul>

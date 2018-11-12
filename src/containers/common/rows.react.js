@@ -32,7 +32,7 @@ const Row = (props) => {
             <div className="mearger-1">
                 <h3 className={`headerh3 ${props.height18 ? props.height18 : ''}`} style={{ WebkitBoxOrient: 'vertical' }} onClick={() => props.navigateToArticle(props.article._id)}>{props.article.title}</h3>
                 {addDescripion()}
-
+                {authorInfo()}
             </div>
         </div>
     )

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { api } from '../../services';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
 import Article from '../../models/article.class';
 import Overlay from '../common/overlay.react';
 import { updateArticle, getArticle, updateReviewArticle } from '../../modules/actions'
 import User from '../../models/user.class';
-import Editor from '../common/editor';
 import tinymce from 'tinymce/tinymce';
 import './editor.css';
 import 'tinymce/themes/modern/theme';
@@ -60,8 +58,6 @@ class CreateBlog extends Component {
             article.coverImage = images[0];
         }
         this.setState({article: article});
-        // if (typeof article.author === "string")
-        //     this.modifyArticle('author', this.props.User._id);
         this.postArticle(article);
         this.setDialog();
     }
@@ -118,13 +114,6 @@ class CreateBlog extends Component {
 
     setContent = (content) => {
         this.modifyArticle('body', content);
-        // this.autoDraft = true;
-        // if(this.autoDraft && this.state.article.isDraft){
-        //     this.autoDraft = false;
-        //     setInterval(() => {
-        //         this.publishDraftOrArticle();
-        //     }, 1000 * 60 * 2);
-        // }
     }
 
     showDialog = () => {

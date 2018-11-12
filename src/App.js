@@ -7,6 +7,7 @@ import Topic from './containers/topics';
 import Article from './containers/article';
 import CreateBlog from './containers/editor';
 import Setting from './containers/setting';
+import Cardeditor from './containers/cardeditor';
 
 class App extends Component {
   render() {
@@ -16,11 +17,12 @@ class App extends Component {
           <Header />
         </header>
         <main className="bodyContainer">
-            <Route exact path="/" component={Home} />
+            <Route exact path="/ff" component={Home} />
             <Route exact path="/topic/:id" component={Topic} />
             <Route exact path="/article/:id" component={Article} />
             <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component = {Setting} />
+            <Route excat path="/" component = {Cardeditor} />
         </main>
       </div>
     );
