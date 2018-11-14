@@ -29,16 +29,20 @@ function* fetchEntity(entity, apiFn, payloadType, id, url) {
         yield put(entity.failure(error))
 }
 
-function* updateEntity(entity, apiFn, payload, data, url) {
-    const { response, error } = yield call(apiFn, url || data);
-    if (response)
-        {
+function* updateEntity(entity, apiFn, data, payload, url) {
+    yield put(entity.request());
+    let tdata = url || data;
+    let { response, error } = yield call(apiFn, url || data);
+    if (response) {
+        if (payload) {
             let apiResponse = {
                 type: payload,
                 response: Object.assign({}, response)
             }
-            yield put(entity.update(apiResponse));
+            response = Object.assign({}, apiResponse);
         }
+        yield put(entity.update(response));
+    }
     else
         yield put(entity.failure(error))
 }

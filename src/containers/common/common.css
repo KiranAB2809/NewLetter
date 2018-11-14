@@ -164,3 +164,16 @@
 .card{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)
 }
+
+.transparent-background {
+    background: rgba(0,0,0,0);
+}
+
+.width-100-height-100{
+    width: 100;
+    height: 100;
+}
+
+.background-100{
+    background-size: 100px 100px
+}

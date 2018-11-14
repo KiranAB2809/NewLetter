@@ -13,6 +13,7 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import AuthorInfo from '../common/authorinfo.react';
 import TinyEditorComponent from '../common/editor';
+import OverlayCross from '../common/overlay.cross.react';
 
 
 class CreateBlog extends Component {
@@ -123,7 +124,8 @@ class CreateBlog extends Component {
                 images.push(this.state.article.coverImage)
             }
             return (
-                <Overlay changeView={this.setDialog}>
+                <Overlay >
+                    <OverlayCross changeView={this.setDialog} />
                     <Dialog
                         article={this.state.article}
                         images={images}

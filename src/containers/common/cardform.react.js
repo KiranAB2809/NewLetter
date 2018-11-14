@@ -20,7 +20,7 @@ export class CardFormBlog extends Component {
         reader.readAsDataURL(file);
     }
 
-    showBlogUpload = () => {
+    showBlog = () => {
         if (this.props.showImageUpload) {
             return (
                 <div className={'flex flex-row'} style={{ padding: "10px" }}>
@@ -49,7 +49,7 @@ export class CardFormBlog extends Component {
         );
     }
 
-    showProfileImageUpload = () => {
+    showProfile = () => {
         if (this.props.showProfileUpload) {
             <div className={'avatar-image default-image'} style={{ width: '100px', height: '100px', backgroundImage: `url(${(img ? img : 'http://localhost:8000/static/defaultUser.png')})`, backgroundSize: '100px 100px', position: "relative", opacity: 0.7 }}>
                 <div className={'flex'} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: 'inherit', backgroundColor: 'rgba(0,0,0,0.64)', cursor: 'pointer' }} onClick={() => this.onImageClick()}>
@@ -63,10 +63,23 @@ export class CardFormBlog extends Component {
         }
     }
 
+    renderWhat = () => {
+        if (this.props.showProfile) {
+            return (
+                <div>
+                    {this.showProfile()}
+                </div>)
+        }
+        return (
+            <div>
+                {this.showBlog()}
+            </div>)
+    }
+
     render() {
         return (
             <div>
-                {this.showBlogUpload()}
+                {this.renderWhat()}
             </div>
         )
     }

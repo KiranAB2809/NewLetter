@@ -24,16 +24,30 @@ const Row = (props) => {
             )
         return null;
     }
+    const renderOnData = () => {
+        if (props.article) {
+            return (
+                <div className={`mearger ${props.rowreverse ? props.rowreverse : ''} ${props.height ? props.height : ''} ${props.border ? props.border : ''}`}>
+                    <div className="mearger-0">
+                        <img src={props.article.coverImage} className={`article-logo ${props.imageClass ? props.imageClass : ''}`} alt={'article image'} />
+                    </div>
+                    <div className="mearger-1">
+                        <h3 className={`headerh3 ${props.height18 ? props.height18 : ''}`} style={{ WebkitBoxOrient: 'vertical' }} onClick={() => props.navigateToArticle(props.article._id)}>{props.article.title}</h3>
+                        {addDescripion()}
+                        {authorInfo()}
+                    </div>
+                </div>
+            )
+        }
+        return
+        <div>
+            No data
+        </div>
+    }
+
     return (
-        <div className={`mearger ${props.rowreverse ? props.rowreverse : ''} ${props.height ? props.height : ''} ${props.border ? props.border : ''}`}>
-            <div className="mearger-0">
-                <img src={props.article.coverImage} className={`article-logo ${props.imageClass ? props.imageClass : ''}`} alt={'article image'} />
-            </div>
-            <div className="mearger-1">
-                <h3 className={`headerh3 ${props.height18 ? props.height18 : ''}`} style={{ WebkitBoxOrient: 'vertical' }} onClick={() => props.navigateToArticle(props.article._id)}>{props.article.title}</h3>
-                {addDescripion()}
-                {authorInfo()}
-            </div>
+        <div>
+            {renderOnData()}
         </div>
     )
 }

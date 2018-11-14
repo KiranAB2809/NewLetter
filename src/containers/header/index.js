@@ -25,6 +25,13 @@ class Header extends Component {
         }
     }
 
+    onNavClick = (route) => {
+        if (route)
+            this.props.history.push('/topic/' + route)
+        else
+            this.props.history.push('/');
+    }
+
     editorOptions = () => {
         if (this.props.User.isEditor) {
             return (
@@ -56,6 +63,33 @@ class Header extends Component {
         return null;
     }
 
+    renderSubDiv = () => {
+        if (this.props.categories.length > 0) {
+            return (
+                <div className="flexTop">
+                    <li>
+                        <span className="navText">
+                            <a href="javascript:void(0)" onClick={() => this.onNavClick()}>Home</a>
+                        </span>
+                    </li>
+                    {this.props.categories.map(ele =>
+                        <li>
+                            <span className="navText">
+                                <a href="havascript:void(0)" onClick={() => this.onNavClick(ele._id)}>{ele.title}</a>
+                            </span>
+                        </li>
+                    )}
+                    <li>
+                        <span className="navText">
+                            <a href="">Archive</a>
+                        </span>
+                    </li>
+                </div>
+            )
+        }
+        return null;
+    }
+
     render() {
         return (
             <div className="topDiv">
@@ -74,7 +108,7 @@ class Header extends Component {
                             <ul>
                                 <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="/create" onClick={() => this.onUserClick('/create')}>New Article</a>
+                                        <a href="javascript:void(0)" onClick={() => this.onUserClick('/create')}>New Article</a>
                                     </span>
                                 </li>
                                 <li onClick={() => this.showPopOver()}>
@@ -112,43 +146,7 @@ class Header extends Component {
                 </div>
                 <div className="subDiv">
                     <nav>
-                        <div className="flexTop">
-                            <li>
-                                <span className="navText">
-                                    <a href="">Home</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="">General</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="/topic/5bc5ad8b6c09a23f8c13ad20">Technical</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="">Success Stories</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="">Awards</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="">Did you Know</a>
-                                </span>
-                            </li>
-                            <li>
-                                <span className="navText">
-                                    <a href="">Archive</a>
-                                </span>
-                            </li>
-                        </div>
+                        {this.renderSubDiv()}
                     </nav>
                 </div>
             </div>
@@ -157,7 +155,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = ({ Category, User }) => ({
-    categories: Category.category,
+    categories: Category.categories,
     User: User.User
 });
 
