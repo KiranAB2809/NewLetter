@@ -18,6 +18,6 @@ export class Article {
 
 export class CardForm {
     title = '';
-    image = '';
+    coverImage = 'http://localhost:8000/static/defaultdidYouKnow.jpg';
     body = '';
 }

@@ -64,12 +64,12 @@ class Header extends Component {
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add awards</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Awards</a>
                         </span>
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know by others?</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know? by others</a>
                         </span>
                     </li>
                 </ul>

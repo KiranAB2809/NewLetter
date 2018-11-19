@@ -33,7 +33,7 @@ class Cardeditor extends Component {
             this.setState({ categoryId: this.setCategory() });
         }
         if (!state.mode) {
-            this.getAllArticles();
+            // this.getAllArticles();
         }
         if (articleId) {
             state.articleId = articleId;
@@ -57,7 +57,7 @@ class Cardeditor extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.state.mode) {
-            if (Object.keys(this.state.article).length > 0 && prevProps.Article.displayArticle._id !== this.state.article._id) {
+            if (Object.keys(this.state.article).length > 0 && this.props.Article.displayArticle._id !== this.state.article._id) {
                 let stateArticle = Object.assign({}, this.props.Article.displayArticle, {
                     list: [...this.props.Article.displayArticle.list]
                 });
@@ -68,7 +68,7 @@ class Cardeditor extends Component {
                 this.setState({ categoryId: categoryId });
             }
         } else if (!this.state.mode) {
-            this.getAllArticles();
+            // this.getAllArticles();
         }
         let mode = this.props.match.params.mode === "true" ? true : false;
         if (mode !== this.state.mode) {
@@ -85,6 +85,10 @@ class Cardeditor extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.setState({});
+    }
+
     getAllArticles = () => {
         let article = this.props.Article.Articles.find(ele => ele.category === this.state.categoryId);
         let stateArticle = [];
@@ -92,6 +96,7 @@ class Cardeditor extends Component {
             for (const row of article.articles) {
                 stateArticle = stateArticle.concat(row);
             }
+            this.setState({ article: stateArticle });
         }
     }
 
@@ -170,17 +175,70 @@ class Cardeditor extends Component {
         )
     }
 
-    render() {
-        let user = new User();
-        if (typeof this.state.article.author === 'string') {
-            user = this.props.User
+    editOrDisplay = () => {
+        if (this.state.mode) {
+            let user = new User();
+            if (typeof this.state.article.author === 'string') {
+                user = this.props.User
+            } else {
+                user = this.state.article.author;
+            }
+            return (
+                <div className={'cardeditor-container'}>
+                    <AuthorInfo showReadytoPublish={true} user={user} buttonText={'Save'} readyToPublish={() => this.onSave()}></AuthorInfo>
+                    {this.editForm()}
+                </div>
+            )
         } else {
-            user = this.state.article.author;
+            if (Array.isArray(this.props.Article.Articles) && this.props.Article.Articles.length > 0) {
+                let category = this.props.Article.Articles.find(ele => ele.category === this.state.categoryId);
+                if (category && Object.keys(category).length > 0) {
+                    let articles = [];
+                    for (const dataR of category.articles) {
+                        articles = articles.concat(dataR);
+                    }
+                    return (
+                        <div>
+                            {
+                                articles.map(ele => {
+                                    let user = {};
+                                    if (typeof ele.author === 'string') {
+                                        user = ele.author;
+                                    } else {
+                                        user = ele.author;
+                                    }
+                                    return (
+                                        <div className={'cardeditor-container'}>
+                                            <AuthorInfo user={user}></AuthorInfo>
+                                            {ele.list.map((data, index) => {
+                                                return (
+                                                    <Card key={index}>
+                                                        <CardFormBlog doUpload={false} data={data} className={'width-200 height-150 background-center background-norepeat opacity-7 background-200 border-4 padding-10 background-origin'} />
+                                                    </Card>
+                                                )
+                                            })}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className={'cardeditor-container'}>
+                            No data available
+                        </div>
+                    )
+                }
+            }
         }
+        return null;
+    }
+
+    render() {
         return (
-            <div className={'cardeditor-container'}>
-                <AuthorInfo showReadytoPublish={true} user={user} buttonText={'Save'} readyToPublish={() => this.onSave()}></AuthorInfo>
-                {this.editForm()}
+            <div>
+                {this.editOrDisplay()}
             </div>
         )
     }
