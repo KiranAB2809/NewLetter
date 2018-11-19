@@ -85,3 +85,4 @@ export const updateUser = user => postApi(`User`, JSON.stringify(user.payload));
 export const updateArticle = article => postApi('Blog', JSON.stringify(article.payload));
 export const fetchArticle = id => callApi(`Blog`, { blogId: id.payload });
 export const getArticleForReview = () => callApi(`Blog/review`);
+export const updateOtherUser = user => postApi(`User/byId`, JSON.stringify(user.payload));

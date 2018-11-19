@@ -53,7 +53,7 @@ export const fetchUserArticle = fetchEntity.bind(null, article, api.fetchUserArt
 export const fetchArticle = fetchEntity.bind(null, article, api.fetchArticle, 'displayArticle');
 export const fetchArticleReview = fetchEntity.bind(null, article, api.getArticleForReview, 'articlesForReview');
 export const updateUser = updateEntity.bind(null, user, api.updateUser, 'User');
-export const updateOtherUser = updateEntity.bind(null, user, api.updateUser, 'oUser');
+export const updateOtherUser = updateEntity.bind(null, user, api.updateOtherUser, 'oUser');
 export const updateArticle = updateEntity.bind(null, article, api.updateArticle, 'UserArticles');
 export const updateReviewArticle = updateEntity.bind(null, article, api.updateArticle, 'articlesForReview');
 

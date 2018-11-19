@@ -61,3 +61,4 @@ export const getArticle = (id) => action(LOAD_ARTICLE, id);
 export const getReviewArticle = () => action(LOAD_ARTICLE_REVIEW);
 export const getOtherUser = (empId) => action(LOAD_OTHER_USER, empId);
 export const updateOtherUser = (user) => action(UPDATE_OTHER_USER, user);
+export const addUserToCurrentArticle = (article) => action(ARTICLE[SUCCESS], article);

@@ -7,7 +7,6 @@ import Overlay from '../common/overlay.react';
 class Loading extends Component {
 
     showLoader = () => {
-        console.log(this.props.showLoader);
         if (this.props.showLoader) {
             return (
                 <Overlay className = {"transparent-background"}>

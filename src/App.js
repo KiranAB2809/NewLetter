@@ -23,13 +23,14 @@ class App extends Component {
         </header>
         <main className="bodyContainer">
           <Switch>
-            <Route exact path="/dsd" component={Home} />
+            <Route exact path="/sa" component={Home} />
             <Route exact path="/topic/:id" component={Topic} />
             <Route exact path="/article/:id" component={Article} />
             <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component={Setting} />
             <Route excat path="/cardeditor/:mode?/:type?/:id?" component={Cardeditor} />
-            <Route exact path="/" component={byothers}/>
+            <Route excat path="/" component={byothers} />
+            {/* <Route exact path="/doother/:type?" component={byothers}/> */}
           </Switch>
         </main>
       </div>

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './byothers.css';
 import { connect } from 'react-redux';
-import { getOtherUser, updateOtherUser } from '../../modules/actions'
+import { withRouter } from 'react-router-dom';
+import { getOtherUser, updateOtherUser, addUserToCurrentArticle } from '../../modules/actions'
 import Overlay from '../common/overlay.react';
 import OverlayCross from '../common/overlay.cross.react';
 import Profile from '../common/profilecreate.react';
+import { Article } from '../../models/article.class';
 
 class ByOthers extends Component {
 
@@ -12,7 +14,15 @@ class ByOthers extends Component {
         empId: '',
         isSearch: '',
         user: Object.assign({}, this.props.User.oUser),
-        nextRoute: ''
+        nextRoute: 'create'
+    }
+
+    constructor(props) {
+        super(props);
+        let type = this.props.match.params.type;
+        if (type) {
+            this.setState({ nextRoute: type });
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -25,6 +35,12 @@ class ByOthers extends Component {
         }
         if (this.state.user._id !== this.props.User.oUser._id) {
             this.setState({ user: Object.assign({}, this.props.User.oUser) });
+        }
+        if (this.props.match.params.type !== this.state.nextRoute) {
+            let type = this.props.match.params.type;
+            if (type) {
+                this.setState({ nextRoute: type });
+            }
         }
     }
 
@@ -55,11 +71,17 @@ class ByOthers extends Component {
     }
 
     onSave = () => {
-        if(this.state.user._id){
-            
+        if (this.state.user._id) {
+            let displayArticle = new Article();
+            displayArticle.author = this.state.user;
+            this.props.addUserToCurrentArticle({
+                type: 'displayArticle',
+                response: displayArticle
+            });
+            this.props.history.push("/" + this.state.nextRoute);
         } else {
             let user = Object.assign({}, this.state.user);
-            this.updateOtherUser(user);
+            this.props.updateOtherUser(user);
         }
     }
 
@@ -74,7 +96,7 @@ class ByOthers extends Component {
                     {errorStatement}
                     <Profile onImageUpload={this.setImageSrc} onInputChange={this.onInputChange} uniqueId={true} user={this.state.user}></Profile>
                     <div className={'flex flex-row'} style={{ width: '220px', justifyContent: 'space-between' }}>
-                        <button className={'userButton'} style={{ borderColor: 'green', color: 'green' }} onClick = {() => this.onSave()}>{this.state.user._id ? 'Ok' : 'Save'}</button>
+                        <button className={'userButton'} style={{ borderColor: 'green', color: 'green' }} onClick={() => this.onSave()}>{this.state.user._id ? 'Ok' : 'Save'}</button>
                         <button className={'userButton'} style={{ borderColor: 'grey', color: 'grey' }} onClick={() => this.setState({ isSearch: '' })}>Cancel</button>
                     </div>
                 </div>
@@ -103,7 +125,8 @@ const mapStateToProps = ({ User }) => ({
     User: User
 });
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
     getOtherUser,
-    updateOtherUser
-})(ByOthers);
+    updateOtherUser,
+    addUserToCurrentArticle
+})(ByOthers));

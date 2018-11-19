@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
@@ -37,6 +38,9 @@ class CreateBlog extends Component {
             this.setState({ articleId: articleId });
             this.props.getArticle(articleId);
         }
+        if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, this.state.article)) {
+            this.setState({ article: this.props.Article.displayArticle });
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -45,8 +49,7 @@ class CreateBlog extends Component {
             article['_id'] = this.props.Article.currentArticleId;
             this.setState({ article: Object.assign({}, article) });
         }
-
-        if (Object.keys(this.props.Article.displayArticle).length > 0 && prevProps.Article.displayArticle._id !== this.props.Article.displayArticle._id) {
+        if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, prevProps.Article.displayArticle)) {
             this.setState({ article: this.props.Article.displayArticle });
         }
     }
@@ -142,10 +145,10 @@ class CreateBlog extends Component {
 
     render() {
         let user = new User();
-        if (this.state.article.isDraft) {
-            user = this.props.User;
-        } else {
+        if(typeof this.state.article.author === 'object'){
             user = this.state.article.author;
+        } else {
+            user = this.props.User;
         }
         return (
             <div>
