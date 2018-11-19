@@ -10,6 +10,7 @@ import CreateBlog from './containers/editor';
 import Setting from './containers/setting';
 import Cardeditor from './containers/cardeditor';
 import Loading from './containers/loading';
+import byothers from './containers/byothers';
 
 class App extends Component {
 
@@ -22,12 +23,13 @@ class App extends Component {
         </header>
         <main className="bodyContainer">
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/dsd" component={Home} />
             <Route exact path="/topic/:id" component={Topic} />
             <Route exact path="/article/:id" component={Article} />
             <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component={Setting} />
             <Route excat path="/cardeditor/:mode?/:type?/:id?" component={Cardeditor} />
+            <Route exact path="/" component={byothers}/>
           </Switch>
         </main>
       </div>

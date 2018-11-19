@@ -13,23 +13,27 @@ export default function user({ types }) {
 
     return function updateCategoryParams(state = {
         User: new User(),
+        oUser: new User(),
         isFetching: false
     }, action) {
+        let payloadType = '', newState = '';
         switch (action.type) {
             case requestType:
                 return _.merge({}, state, {
                     isFetching: true
                 })
             case successType:
-                    return Object.assign({}, state, {
-                        isFetching: false,
-                        User: action.payload
-                    });
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
+                newState[payloadType] = action.payload.response;
+                newState.isFetching = false;
+                return Object.assign({}, state, newState);
             case updateType:
-                return Object.assign({}, state, {
-                    isFetching: false,
-                    User: action.payload
-                });
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
+                newState[payloadType] = action.payload.response;
+                newState.isFetching = false;
+                return Object.assign({}, state, newState);
             case failureType:
                 return _.merge({}, state, {
                     isFetching: false

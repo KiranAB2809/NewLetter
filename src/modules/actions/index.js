@@ -23,6 +23,8 @@ export const UPDATE_BLOG = 'UPDATE_BLOG';
 export const UPDATE_BLOG_EDITOR = 'UPDATE_BLOG_EDITOR';
 export const LOAD_ARTICLE = 'LOAD_ARTICLE';
 export const LOAD_ARTICLE_REVIEW = 'LOAD_ARTICLE_REVIEW';
+export const LOAD_OTHER_USER = 'LOAD_OTHER_USER';
+export const UPDATE_OTHER_USER = 'UPLOAD_OTHER_USER';
 
 function action(type, payload = {}) {
     return { type, payload } 
@@ -57,3 +59,5 @@ export const updateReviewArticle = (article) => action(UPDATE_BLOG_EDITOR, artic
 export const getUserArticle = (id) => action(LOAD_USER_ARTICLE, id);
 export const getArticle = (id) => action(LOAD_ARTICLE, id);
 export const getReviewArticle = () => action(LOAD_ARTICLE_REVIEW);
+export const getOtherUser = (empId) => action(LOAD_OTHER_USER, empId);
+export const updateOtherUser = (user) => action(UPDATE_OTHER_USER, user);

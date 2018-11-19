@@ -32,9 +32,6 @@ class Cardeditor extends Component {
         if (state.mode) {
             this.setState({ categoryId: this.setCategory() });
         }
-        if (!state.mode) {
-            // this.getAllArticles();
-        }
         if (articleId) {
             state.articleId = articleId;
             this.props.getArticle(articleId);
@@ -67,8 +64,6 @@ class Cardeditor extends Component {
             if (categoryId && this.state.categoryId !== categoryId) {
                 this.setState({ categoryId: categoryId });
             }
-        } else if (!this.state.mode) {
-            // this.getAllArticles();
         }
         let mode = this.props.match.params.mode === "true" ? true : false;
         if (mode !== this.state.mode) {

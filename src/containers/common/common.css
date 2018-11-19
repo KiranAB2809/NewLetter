@@ -217,3 +217,7 @@
 .background-origin{
     background-origin: content-box;
 }
+
+.zindex-99{
+    z-index: 900 !important;
+}

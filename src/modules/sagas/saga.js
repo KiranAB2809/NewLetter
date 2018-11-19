@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
 import { api } from '../../services';
-import { getCategory, getUser } from '../reducers/selector.reducer';
+import { getCategory, getUser, getOtherUser } from '../reducers/selector.reducer';
 
 const { category, user, article } = actions;
 
@@ -46,12 +46,14 @@ function* updateEntity(entity, apiFn, payload, data, url) {
 }
 
 export const fetchCategory = fetchEntity.bind(null, category, api.fetchCategory);
-export const fetchUser = fetchEntity.bind(null, user, api.fetchUser);
+export const fetchUser = fetchEntity.bind(null, user, api.fetchUser, 'User');
+export const fetchOtherUser = fetchEntity.bind(null, user, api.fetchOtherUser, 'oUser');
 export const fetchArticles = fetchEntity.bind(null, article, api.fetchInitalArticle, 'Articles');
 export const fetchUserArticle = fetchEntity.bind(null, article, api.fetchUserArticle, 'UserArticles');
 export const fetchArticle = fetchEntity.bind(null, article, api.fetchArticle, 'displayArticle');
 export const fetchArticleReview = fetchEntity.bind(null, article, api.getArticleForReview, 'articlesForReview');
-export const updateUser = updateEntity.bind(null, user, api.updateUser, '');
+export const updateUser = updateEntity.bind(null, user, api.updateUser, 'User');
+export const updateOtherUser = updateEntity.bind(null, user, api.updateUser, 'oUser');
 export const updateArticle = updateEntity.bind(null, article, api.updateArticle, 'UserArticles');
 export const updateReviewArticle = updateEntity.bind(null, article, api.updateArticle, 'articlesForReview');
 
@@ -73,6 +75,15 @@ function* loadUser() {
     }
 }
 
+function* loadOtherUser({ payload }) {
+    const oUser = yield select(getOtherUser, payload);
+    if (oUser) {
+        yield put(user.success(user));
+    } else {
+        yield call(fetchOtherUser, payload);
+    }
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////Watchers///////////////////////////////////////////////////////
@@ -84,6 +95,10 @@ export function* watchLoadCategory() {
 
 export function* watchLoadUser() {
     yield takeLatest(actions.LOAD_USER, loadUser);
+}
+
+export function* watchLoadOtherUser() {
+    yield takeLatest(actions.LOAD_OTHER_USER, loadOtherUser)
 }
 
 export function* watchLoadArticle() {
@@ -112,4 +127,8 @@ export function* watchLoadArticleReview() {
 
 export function* watchReviewUpdateArticle() {
     yield takeLatest(actions.UPDATE_BLOG_EDITOR, updateReviewArticle)
+}
+
+export function* watchUpdateOtherUser() {
+    yield takeLatest(actions.UPDATE_OTHER_USER, updateOtherUser);
 }
