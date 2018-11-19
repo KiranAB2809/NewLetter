@@ -4,6 +4,7 @@ import 'tinymce/themes/modern/theme';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
+import 'tinymce/plugins/lists';
 import { api } from '../../services';
 
 
@@ -27,9 +28,10 @@ class TinyEditorComponent extends Component {
             inline: true,
             theme: 'inlite',
             min_height: 400,
-            plugins: `autolink codesample contextmenu link lists table textcolor hr paste image`,
-            selection_toolbar: 'bold italic quicklink | blockquote h2 h3',
-            insert_toolbar: 'quicktable image codesample hr',
+            plugins: `autolink codesample media contextmenu link lists table textcolor hr paste image`,
+            selection_toolbar: 'bold italic quicklink | blockquote h2 h3 | bullist numlist',
+            insert_toolbar: 'quicktable image media codesample hr',
+            contextmenu: 'quicktable image media',
             setup: editor => {
                 this.editor = editor;
                 this.currentContent = this.props.value;

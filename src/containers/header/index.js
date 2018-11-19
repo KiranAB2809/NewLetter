@@ -17,6 +17,16 @@ class Header extends Component {
         this.popoverRef.current.style.visibility = !this.popoverRef.current.style.visibility ? 'visible' : '';
     }
 
+    getIdforAward = (name) => {
+        if (Array.isArray(this.props.categories)) {
+            let data = this.props.categories.find(ele => ele.title === name);
+            if (data && data.title) {
+                return data._id;
+            }
+        }
+        return '';
+    }
+
     onUserClick = (route) => {
         if (!this.props.User.name) {
             this.props.history.push("/setting");
@@ -25,9 +35,14 @@ class Header extends Component {
         }
     }
 
-    onNavClick = (route) => {
-        if (route)
-            this.props.history.push('/topic/' + route)
+    onNavClick = (route, isBody) => {
+        if (route) {
+            if (isBody)
+                this.props.history.push('/topic/' + route)
+            else {
+                this.props.history.push('/cardeditor/false/' + route);
+            }
+        }
         else
             this.props.history.push('/');
     }
@@ -73,9 +88,9 @@ class Header extends Component {
                         </span>
                     </li>
                     {this.props.categories.map(ele =>
-                        <li>
+                        <li key={ele._id}>
                             <span className="navText">
-                                <a href="havascript:void(0)" onClick={() => this.onNavClick(ele._id)}>{ele.title}</a>
+                                <a href="havascript:void(0)" onClick={() => this.onNavClick(ele._id, ele.isBody)}>{ele.title}</a>
                             </span>
                         </li>
                     )}
@@ -118,7 +133,7 @@ class Header extends Component {
                                 </li>
                                 <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know?</a>
+                                        <a href="javascript:void(0)" onClick={() => this.onUserClick("/cardeditor/true/didyouknow")}>Add Did you know?</a>
                                     </span>
                                 </li>
                             </ul>

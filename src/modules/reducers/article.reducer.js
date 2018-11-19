@@ -29,12 +29,12 @@ export default function article({ types }) {
                 newState = Object.assign({}, state);
                 newState[payloadType] = action.payload.response;
                 newState.isFetching = false;
-                console.log(newState[payloadType]);
                 return _.merge({}, state, newState);
             case updateType:
                 payloadType = action.payload.type;
                 newState = Object.assign({}, state);
-                newState.displayArticle = Object.assign({}, action.payload.response);
+                newState.displayArticle = _.merge({}, action.payload.response);
+                newState.isFetching = false;
                 // delete action.payload.response
                 newState[payloadType] = _.unionBy(newState[payloadType], action.payload.response, '_id');
                 return _.merge({}, state, newState);

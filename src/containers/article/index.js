@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './article.css';
-import ArticleBanner from './../../assets/images/Himalayas.jpeg';
 import SideList from './sidelist.react';
 import AuthorInfo from '../common/authorinfo.react';
 import { getArticle } from '../../modules/actions';

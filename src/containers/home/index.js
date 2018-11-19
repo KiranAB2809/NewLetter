@@ -4,9 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Featured from './featured.react';
 import TopPicks from './toppicks.react';
 import Articles from '../common/article.react';
-import Awards from './awards.react';
 import './home.css';
-import { category } from '../../modules/actions';
 const Technical = 'Technical';
 const General = 'General';
 

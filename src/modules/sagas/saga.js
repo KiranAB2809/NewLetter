@@ -1,8 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
 import { api } from '../../services';
-import { getCategory, getUser, getArticles } from '../reducers/selector.reducer';
-import _ from 'lodash';
+import { getCategory, getUser } from '../reducers/selector.reducer';
 
 const { category, user, article } = actions;
 
@@ -29,9 +28,8 @@ function* fetchEntity(entity, apiFn, payloadType, id, url) {
         yield put(entity.failure(error))
 }
 
-function* updateEntity(entity, apiFn, data, payload, url) {
+function* updateEntity(entity, apiFn, payload, data, url) {
     yield put(entity.request());
-    let tdata = url || data;
     let { response, error } = yield call(apiFn, url || data);
     if (response) {
         if (payload) {
@@ -53,7 +51,7 @@ export const fetchArticles = fetchEntity.bind(null, article, api.fetchInitalArti
 export const fetchUserArticle = fetchEntity.bind(null, article, api.fetchUserArticle, 'UserArticles');
 export const fetchArticle = fetchEntity.bind(null, article, api.fetchArticle, 'displayArticle');
 export const fetchArticleReview = fetchEntity.bind(null, article, api.getArticleForReview, 'articlesForReview');
-export const updateUser = updateEntity.bind(null, user, api.updateUser);
+export const updateUser = updateEntity.bind(null, user, api.updateUser, '');
 export const updateArticle = updateEntity.bind(null, article, api.updateArticle, 'UserArticles');
 export const updateReviewArticle = updateEntity.bind(null, article, api.updateArticle, 'articlesForReview');
 

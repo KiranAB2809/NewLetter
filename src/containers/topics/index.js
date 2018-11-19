@@ -7,8 +7,6 @@ import { getReviewArticle, getUserArticle } from '../../modules/actions'
 import './topic.css';
 import ContentHeader from '../common/header.react';
 import { Tabs, Tab } from '../common/tabs.react';
-// import { article } from '../../modules/actions'
-
 
 class Topic extends Component {
 
@@ -24,7 +22,7 @@ class Topic extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.match.params.id !== prevProps.match.params.id){
+        if (this.props.match.params.id !== prevProps.match.params.id) {
             this.checkParamsId(this.props.match.params.id);
         }
         if (Object.keys(this.props.User).length > 0 && this.props.User._id && this.props.User._id !== prevProps.User._id) {
@@ -34,16 +32,16 @@ class Topic extends Component {
 
     checkParamsId = (id) => {
         let state = Object.assign({}, this.state);
-        if(id === 'editor') {
+        if (id === 'editor') {
             state.isEditor = true;
             state.isUser = false;
             state.topicId = '';
             this.props.getReviewArticle();
-        } else if(id === 'user'){
+        } else if (id === 'user') {
             state.isEditor = false;
             state.isUser = true;
             state.topicId = '';
-            if(this.props.User._id){                
+            if (this.props.User._id) {
                 this.props.getUserArticle(this.props.User._id);
             }
         } else {
@@ -55,7 +53,23 @@ class Topic extends Component {
     }
 
     navigateToArticle = (id) => {
-        this.props.history.push(((this.state.isEditor || this.state.isUser) ? "/create/" : "/article/") + id);
+        let card = false
+        if (this.state.isEditor && Array.isArray(this.props.Articles.articlesForReview)) {
+            let data = this.props.Articles.articlesForReview.filter(ele => ele._id === id);
+            if (data.length > 0) {
+                card = true;
+            }
+        } else if (this.state.isUser && Array.isArray(this.props.Articles.UserArticles)) {
+            let data = this.props.Articles.UserArticles.filter(ele => ele._id === id);
+            if (data.length > 0) {
+                card = true;
+            }
+        }
+        if (card) {
+            this.props.history.push("/cardeditor/true/didyouknow/" + id);
+        } else {
+            this.props.history.push(((this.state.isEditor || this.state.isUser) ? "/create/" : "/article/") + id);
+        }
     }
 
     renderUserorTopic = () => {
@@ -86,7 +100,7 @@ class Topic extends Component {
             if (this.state.isEditor) {
                 topicData = this.props.Articles.articlesForReview;
             }
-            else if(this.state.topicId){
+            else if (this.state.topicId) {
                 let data = this.props.Articles.Articles.find(obj => obj.category === this.state.topicId);
                 if (data)
                     topicData = data.articles;
@@ -116,7 +130,7 @@ class Topic extends Component {
 
 const mapStateToProps = ({ Article, User }) => ({
     Articles: Article,
-    User: User.User
+    User: User.User,
 });
 
 export default withRouter(connect(

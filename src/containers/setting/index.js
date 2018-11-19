@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUser } from '../../modules/actions'
 import './setting.css';
-import Overlay from '../common/overlay.react';
-import Logo from './../../assets/images/defaultUser.png';
 import { api } from '../../services';
-import OverlayCross from '../common/overlay.cross.react';
 import ImageUpload from '../common/imageupload.react';
 
 class Setting extends Component {
@@ -65,10 +62,6 @@ class Setting extends Component {
 
 class Profile extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     uploadImageSrc = (data) => {
         api.uploadUserImage(data)
             .then(data => this.props.onImageUpload(data))
@@ -85,7 +78,7 @@ class Profile extends Component {
                     <input name={'email'} value={email} placeholder={'Your email ID'} className={'input input-email'} onChange={(event) => this.props.onInputChange(event)}></input>
                     <input name={'team'} value={team} placeholder={'and you belong to team?....'} className={'input input-email'} onChange={(event) => this.props.onInputChange(event)}></input>
                 </div>
-                <ImageUpload uploadImageSrc={this.uploadImageSrc} doUpload={true} editImage={true} className={'avatar-image default-image width-100-height-100 background-100'} img={img} />
+                <ImageUpload uploadImageSrc={this.uploadImageSrc} doUpload={true} editImage={true} className={'avatar-image default-image width-100px height-100 background-100 opacity-7'} img={img} />
             </div>
         )
     }

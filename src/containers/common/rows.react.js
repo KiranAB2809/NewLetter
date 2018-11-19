@@ -1,6 +1,5 @@
 import React from 'react';
 import './common.css';
-import logo from './../../assets/images/volvoLogo.jpg';
 import Content from './desc.react';
 
 
@@ -39,10 +38,10 @@ const Row = (props) => {
                 </div>
             )
         }
-        return
-        <div>
-            No data
-        </div>
+        return (
+            <div>
+                No data
+        </div>);
     }
 
     return (

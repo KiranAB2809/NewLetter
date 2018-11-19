@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
-import Article from '../../models/article.class';
+import {Article} from '../../models/article.class';
 import Overlay from '../common/overlay.react';
 import { updateArticle, getArticle, updateReviewArticle } from '../../modules/actions'
 import User from '../../models/user.class';

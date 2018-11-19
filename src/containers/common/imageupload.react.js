@@ -99,10 +99,10 @@ class ImageUpload extends Component {
         let { className, img } = this.props;
         return (
             <div>
-                <div className={className} style={{ width: '100px', height: '100px', backgroundImage: `url(${(img)})`, backgroundSize: '100px 100px', position: "relative", opacity: 0.7 }}>
+                <div className={className} style={{ backgroundImage: `url(${(img)})`, position: "relative"}}>
                     {this.doUpload()}
                 </div>
-                {this.onSuccessUpload()};
+                {this.onSuccessUpload()}
             </div>
         )
     }

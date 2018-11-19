@@ -27,7 +27,7 @@ class App extends Component {
             <Route exact path="/article/:id" component={Article} />
             <Route excat path="/create/:id?" component={CreateBlog} />
             <Route excat path="/setting" component={Setting} />
-            <Route excat path="/dsd" component={Cardeditor} />
+            <Route excat path="/cardeditor/:mode?/:type?/:id?" component={Cardeditor} />
           </Switch>
         </main>
       </div>
