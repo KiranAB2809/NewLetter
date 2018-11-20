@@ -9,8 +9,8 @@ export class CardFormBlog extends Component {
 
     showBlog = () => {
         let { data, index, doUpload, className, uploadImageSrc } = this.props;
-        let { title, body, image } = data;
-        image = image || 'http://localhost:8000/static/defaultDidYouKnow.jpg';
+        let { title, body, coverImage } = data;
+        coverImage = coverImage || 'http://localhost:8000/static/defaultDidYouKnow.jpg';
         let input;
         let textArea;
         if (doUpload) {
@@ -24,7 +24,7 @@ export class CardFormBlog extends Component {
         }
         return (
             <div className={'flex flex-row'} style={{ padding: "10px" }}>
-                <ImageUpload uploadImageSrc={(data) => uploadImageSrc(data, index)} className={className} doUpload={doUpload} img={image} />
+                <ImageUpload uploadImageSrc={(data) => uploadImageSrc(data, index)} className={className} doUpload={doUpload} img={coverImage} />
                 <div className={'flex flex-column'} style={{ padding: '0 10px', flex: '1 1' }}>
                     {input}
                     {textArea}

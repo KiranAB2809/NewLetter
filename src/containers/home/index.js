@@ -42,22 +42,23 @@ class Home extends Component {
             let techArticles = [];
             let generalArticles = [];
             if (tId) {
-                techArticles = this.props.Articles.find(ele => ele.category === tId).articles;
+                techArticles = this.props.Articles.find(ele => ele.category === tId) ? this.props.Articles.find(ele => ele.category === tId).articles : [];
                 if (techArticles && techArticles.length > 0)
                     techFeatured = techArticles[0];
             }
             if (gId) {
-                generalArticles = this.props.Articles.find(ele => ele.category === gId).articles;
+                generalArticles = this.props.Articles.find(ele => ele.category === gId) ? this.props.Articles.find(ele => ele.category === gId).articles : [];
                 if (generalArticles && generalArticles.length > 0)
                     generalFeatured = generalArticles[0];
             }
             if (dId) {
-                let didyouknowArticles = Object.assign([], this.props.Articles.find(ele => ele.category === dId).articles);
+                let didyouknowArticles = Object.assign([], this.props.Articles.find(ele => ele.category === dId) ? this.props.Articles.find(ele => ele.category === dId).articles : []);
                 if (Array.isArray(didyouknowArticles) && didyouknowArticles.length > 0) {
                     didyouknowArticles.map(ele => {
                         for (const rec of ele.list) {
                             topPicks.push(_.merge({}, rec, {
-                                'author': ele.author
+                                'author': ele.author,
+                                'edited': ele.edited
                             }));
                         }
                     });

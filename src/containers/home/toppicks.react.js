@@ -13,7 +13,7 @@ class TopPicks extends Component {
     renderGist = () => {
         if (Array.isArray(this.props.article))
             return (
-                this.props.article.map(ele => <Row key={ele._id} article={ele} height={'height100'} showAuthorInfo={true} navigateToArticle={this.navigateToPage}/>)
+                this.props.article.slice(0, 3).map(ele => <Row key={ele._id} article={ele} height={'height100'} showAuthorInfo={true} navigateToArticle={this.navigateToPage}/>)
             );
         return (
             <div>

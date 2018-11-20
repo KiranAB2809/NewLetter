@@ -14,7 +14,7 @@ class ByOthers extends Component {
         empId: '',
         isSearch: '',
         user: Object.assign({}, this.props.User.oUser),
-        nextRoute: 'create'
+        nextRoute: ''
     }
 
     constructor(props) {

@@ -54,7 +54,7 @@ class Cardeditor extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.state.mode) {
-            if (Object.keys(this.state.article).length > 0 && this.props.Article.displayArticle._id !== this.state.article._id) {
+            if (Object.keys(this.state.article).length > 0 && !_.isEqual(this.props.Article.displayArticle, prevProps.Article.displayArticle)) {
                 let stateArticle = Object.assign({}, this.props.Article.displayArticle, {
                     list: [...this.props.Article.displayArticle.list]
                 });
@@ -127,6 +127,7 @@ class Cardeditor extends Component {
                     article.isDraft = false;
                 } else {
                     article.isPublished = true;
+                    article.edited = this.props.User._id;
                 }
             } else {
                 article.isDraft = false;
@@ -147,7 +148,7 @@ class Cardeditor extends Component {
         api.uploadBlogImage(blob)
             .then(data => {
                 if (data && data.response && data.response.location) {
-                    this.updateState(data.response.location, 'image', index)
+                    this.updateState(data.response.location, 'coverImage', index)
                 }
             })
             .catch(err => console.log(err));

@@ -14,13 +14,17 @@ const Row = (props) => {
     }
 
     const authorInfo = () => {
-        if (props.showAuthorInfo)
+        if (props.showAuthorInfo){ 
+            let edited = '';  
+            if (props.article && props.article.edited) {
+                edited = <Content className={'colorGrey'} desc={'Nov 16 - Edited by ' + props.article.edited.name} />;
+            }     
             return (
                 <div>
                     <Content className={'colorBlack'} desc={props.article.author.name} />
-                    <Content className={'colorGrey'} desc={'Nov 16 - Reported by Bala'} />
+                    {edited}
                 </div>
-            )
+            )}
         return null;
     }
     const renderOnData = () => {

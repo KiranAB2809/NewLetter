@@ -59,7 +59,7 @@ class Header extends Component {
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add article by others</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/doother/create")}>Add article by others</a>
                         </span>
                     </li>
                     <li onClick={() => this.showPopOver()}>

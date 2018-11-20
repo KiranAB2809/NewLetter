@@ -7,6 +7,7 @@ import { getReviewArticle, getUserArticle } from '../../modules/actions'
 import './topic.css';
 import ContentHeader from '../common/header.react';
 import { Tabs, Tab } from '../common/tabs.react';
+const DidYouKnow = 'DID YOU KNOW'
 
 class Topic extends Component {
 
@@ -14,11 +15,13 @@ class Topic extends Component {
         articles: [],
         isEditor: false,
         isUser: false,
-        topicId: ''
+        topicId: '',
+        didCtrId:''
     }
 
     componentDidMount() {
-        this.checkParamsId(this.props.match.params.id)
+        this.checkParamsId(this.props.match.params.id);
+        this.setdidCtrId();
     }
 
     componentDidUpdate(prevProps) {
@@ -27,6 +30,18 @@ class Topic extends Component {
         }
         if (Object.keys(this.props.User).length > 0 && this.props.User._id && this.props.User._id !== prevProps.User._id) {
             this.props.getUserArticle(this.props.User._id);
+        }
+        this.setdidCtrId();
+    }
+
+    setdidCtrId = () => {
+        debugger;
+        if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
+            debugger;
+            let ctr = this.props.categories.find(ele => ele.title === DidYouKnow);
+            if(Object.keys(ctr).length > 0 && ctr._id && ctr._id !== this.state.didCtrId){
+                this.setState({didCtrId: ctr._id});
+            }
         }
     }
 
@@ -55,12 +70,15 @@ class Topic extends Component {
     navigateToArticle = (id) => {
         let card = false
         if (this.state.isEditor && Array.isArray(this.props.Articles.articlesForReview)) {
-            let data = this.props.Articles.articlesForReview.filter(ele => ele._id === id);
+            console.log(this.state.didCtrId);
+            let data = this.props.Articles.articlesForReview.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
+            console.log(data);
             if (data.length > 0) {
                 card = true;
             }
         } else if (this.state.isUser && Array.isArray(this.props.Articles.UserArticles)) {
-            let data = this.props.Articles.UserArticles.filter(ele => ele._id === id);
+            let data = this.props.Articles.UserArticles.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
+            console.log(data);
             if (data.length > 0) {
                 card = true;
             }
@@ -128,9 +146,10 @@ class Topic extends Component {
     }
 }
 
-const mapStateToProps = ({ Article, User }) => ({
+const mapStateToProps = ({ Article, User, Category }) => ({
     Articles: Article,
     User: User.User,
+    categories: Category.categories
 });
 
 export default withRouter(connect(

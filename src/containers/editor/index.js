@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import ContentHeader from '../common/header.react';
 import Content from '../common/desc.react';
-import {Article} from '../../models/article.class';
+import { Article } from '../../models/article.class';
 import Overlay from '../common/overlay.react';
 import { updateArticle, getArticle, updateReviewArticle } from '../../modules/actions'
 import User from '../../models/user.class';
@@ -58,17 +58,17 @@ class CreateBlog extends Component {
         let images = tinymce.activeEditor.dom.select('img').map(image => image.src);
         let article = Object.assign({}, this.state.article);
         article.author = article.author ? article.author : this.props.User._id;
-        if(images.length > 0){
+        if (images.length > 0) {
             article.coverImage = images[0];
         }
-        this.setState({article: article});
+        this.setState({ article: article });
         this.postArticle(article);
         this.setDialog();
     }
 
     postArticle = (article) => {
         // let article = Object.assign({}, this.state.article);
-        if (this.state.articleId && this.props.User.isEditor) {            
+        if (this.state.articleId && this.props.User.isEditor) {
             this.props.updateReviewArticle(article);
         } else
             this.props.updateArticle(article);
@@ -77,19 +77,21 @@ class CreateBlog extends Component {
 
     draftorPublish = () => {
         let article = Object.assign({}, this.state.article);
-        if(this.props.User.isEditor){
-            if(this.state.articleId){
-                if(this.state.article.isDraft){
+        if (this.props.User.isEditor) {
+            if (this.state.articleId) {
+                if (this.state.article.isDraft) {
                     article.isDraft = false;
-                } else 
+                } else {
                     article.isPublished = true;
+                    article.edited = this.props.User._id;
+                }
             } else {
                 article.isDraft = false;
             }
         } else {
             article.isDraft = false;
         }
-        this.setState({article : article});
+        this.setState({ article: article });
         this.postArticle(article);
     }
 
@@ -127,7 +129,7 @@ class CreateBlog extends Component {
                 images.push(this.state.article.coverImage)
             }
             return (
-                <Overlay >
+                <Overlay className={'zindex-99'}>
                     <OverlayCross changeView={this.setDialog} />
                     <Dialog
                         article={this.state.article}
@@ -145,7 +147,7 @@ class CreateBlog extends Component {
 
     render() {
         let user = new User();
-        if(typeof this.state.article.author === 'object'){
+        if (typeof this.state.article.author === 'object') {
             user = this.state.article.author;
         } else {
             user = this.props.User;
