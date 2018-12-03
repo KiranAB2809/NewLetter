@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Article from '../common/article.react';
-import logo from '../../assets/images/DidYouKnow.jpg';
+import logo from '../../assets/images/success-signpost-md.png';
 import { withRouter } from 'react-router-dom';
 import { getReviewArticle, getUserArticle } from '../../modules/actions'
 import './topic.css';
@@ -35,9 +35,7 @@ class Topic extends Component {
     }
 
     setdidCtrId = () => {
-        debugger;
         if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
-            debugger;
             let ctr = this.props.categories.find(ele => ele.title === DidYouKnow);
             if(Object.keys(ctr).length > 0 && ctr._id && ctr._id !== this.state.didCtrId){
                 this.setState({didCtrId: ctr._id});
@@ -70,15 +68,12 @@ class Topic extends Component {
     navigateToArticle = (id) => {
         let card = false
         if (this.state.isEditor && Array.isArray(this.props.Articles.articlesForReview)) {
-            console.log(this.state.didCtrId);
             let data = this.props.Articles.articlesForReview.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
-            console.log(data);
             if (data.length > 0) {
                 card = true;
             }
         } else if (this.state.isUser && Array.isArray(this.props.Articles.UserArticles)) {
             let data = this.props.Articles.UserArticles.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
-            console.log(data);
             if (data.length > 0) {
                 card = true;
             }
@@ -126,7 +121,7 @@ class Topic extends Component {
             return (
                 <div className="topic-container">
                     <div style={{ position: 'realtive' }}>
-                        <div style={{ position: 'sticky', top: 0 }}>
+                        <div style={{ position: 'sticky', top: 0, maxWidth: '400px' }}>
                             <img src={logo} className={'banner'} />
                         </div>
                     </div>

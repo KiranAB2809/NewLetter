@@ -11,38 +11,35 @@ function callApi(endPoint, params) {
 
     return fetch(fullURL, {
         credentials: 'include'
-    })
-        .then(response =>
-            response.json().then(json => ({ json, response }))
-        ).then(({ json, response }) => {
-            if (!response.ok) {
-                return Promise.reject(json);
-            }
-            return json;
-        })
-        .then(
-            response => ({ response }),
-            error => ({ error: error.message || 'Something really went wrong' })
-        );
+    }).then(response =>
+        response.json().then(json => ({ json, response }))
+    ).then(({ json, response }) => {
+        if (!response.ok) {
+            return Promise.reject(json);
+        }
+        return json;
+    }).then(
+        response => ({ response }),
+        error => ({ error: error.message || 'Something really went wrong' })
+    );
 }
 
 function postApi(endPoint, data) {
     const fullURL = endPoint.indexOf(API_ROOT) === -1 ? API_ROOT + endPoint : endPoint;
-
     let postHeaders = new Headers();
-
     postHeaders.append("Content-Type", "application/json");
     return fetch(fullURL, {
         credentials: 'include',
         method: 'POST',
         headers: postHeaders,
         body: data
-    }).then((response) => {
+    }).then(response =>
+        response.json().then(json => ({ json, response }))
+    ).then(({ json, response }) => {
         if (!response.ok) {
-            return Promise.reject(response.json);
+            return Promise.reject(json);
         }
-
-        return response.json();
+        return json;
     }).then(
         response => ({ response }),
         error => ({ error: error.message || 'Something really went wrong' })

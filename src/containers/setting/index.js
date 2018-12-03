@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUser } from '../../modules/actions'
 import './setting.css';
-import { api } from '../../services';
 import Profile from '../common/profilecreate.react';
 
 class Setting extends Component {
@@ -27,7 +26,6 @@ class Setting extends Component {
     }
 
     onSave = () => {
-        console.log(this.state.user);
         this.props.updateUser(this.state.user);
     }
 

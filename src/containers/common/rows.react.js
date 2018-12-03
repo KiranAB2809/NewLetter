@@ -32,7 +32,7 @@ const Row = (props) => {
             return (
                 <div className={`mearger ${props.rowreverse ? props.rowreverse : ''} ${props.height ? props.height : ''} ${props.border ? props.border : ''}`}>
                     <div className="mearger-0">
-                        <img src={props.article.coverImage} className={`article-logo ${props.imageClass ? props.imageClass : ''}`} alt={'article image'} />
+                        <img src={props.article.coverImage} className={`article-logo ${props.imageClass ? props.imageClass : ''}`} alt={'articlePic'} />
                     </div>
                     <div className="mearger-1">
                         <h3 className={`headerh3 ${props.height18 ? props.height18 : ''}`} style={{ WebkitBoxOrient: 'vertical' }} onClick={() => props.navigateToArticle(props.article._id)}>{props.article.title}</h3>

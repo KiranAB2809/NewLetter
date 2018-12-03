@@ -72,13 +72,14 @@ class ByOthers extends Component {
 
     onSave = () => {
         if (this.state.user._id) {
+            debugger;
             let displayArticle = new Article();
             displayArticle.author = this.state.user;
             this.props.addUserToCurrentArticle({
                 type: 'displayArticle',
                 response: displayArticle
             });
-            this.props.history.push("/" + this.state.nextRoute);
+            this.props.history.push("/" + (this.state.nextRoute === 'cardeditor' ? 'cardeditor/true/didyouknow' : this.state.nextRoute));
         } else {
             let user = Object.assign({}, this.state.user);
             this.props.updateOtherUser(user);

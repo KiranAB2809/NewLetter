@@ -1,5 +1,5 @@
 const REQUEST = 'REQUEST';
-const SUCCESS  = 'SUCCESS';
+const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
 const UPDATE = 'UPDATE'
 
@@ -13,6 +13,7 @@ function createRequestTypes(base) {
 export const CATEGORY = createRequestTypes('CATEGORY');
 export const ARTICLE = createRequestTypes('ARTICLE');
 export const USER = createRequestTypes('USER');
+export const MESSAGE = createRequestTypes('MESSAGE');
 
 export const LOAD_CATEGORY = 'LOAD_CATEGORY';
 export const LOAD_ARTICLES = 'LOAD_ARTICLES';
@@ -27,13 +28,19 @@ export const LOAD_OTHER_USER = 'LOAD_OTHER_USER';
 export const UPDATE_OTHER_USER = 'UPLOAD_OTHER_USER';
 
 function action(type, payload = {}) {
-    return { type, payload } 
+    return { type, payload }
 }
 
 export const category = {
     request: () => action(CATEGORY[REQUEST]),
-    success: ( response ) => action(CATEGORY[SUCCESS], response),
-    failure: ( error ) => action(CATEGORY[FAILURE], error)
+    success: (response) => action(CATEGORY[SUCCESS], response),
+    failure: (error) => action(CATEGORY[FAILURE], error)
+}
+
+export const message = {
+    success: (response) => action(MESSAGE[SUCCESS], response),
+    update: (update) => action(MESSAGE[UPDATE], update),
+    failure: (error) => action(MESSAGE[FAILURE], error)
 }
 
 export const article = {

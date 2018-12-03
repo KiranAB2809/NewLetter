@@ -20,7 +20,7 @@ export class Tabs extends Component {
         return (
             <li key={key}>
                 <span className={"tab-title" + (this.state.activeIndex == key ? " active-tab" : '')} >
-                    <a href="#" onClick={() => this.handleOnClick(key)}>{tab.props.title}</a>
+                    <a href="javascript:void(0)" onClick={() => this.handleOnClick(key)}>{tab.props.title}</a>
                 </span>
             </li>
         );

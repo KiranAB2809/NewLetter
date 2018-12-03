@@ -27,11 +27,6 @@ class CreateBlog extends Component {
         articleId: '',
     }
 
-
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         var articleId = this.props.match.params.id;
         if (articleId) {
@@ -185,10 +180,6 @@ class Dialog extends Component {
         inputChange: false
     }
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         let { article, categories } = this.props;
         if (article.category) {
@@ -216,8 +207,8 @@ class Dialog extends Component {
     showOtherPreviewImage = () => {
         const displayPreviewImage = () => {
             return this.props.images.map(ele =>
-                <div className={'image-options'} onClick={(event) => this.props.changePreviewImage(event)}>
-                    <img src={ele} />
+                <div className={'image-options'} onClick={(event) => this.props.changePreviewImage(event)} >
+                    <img src={ele} alt={'defaultimg'}/>
                 </div>);
         }
 

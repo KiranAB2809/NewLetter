@@ -61,6 +61,7 @@ class Home extends Component {
                                 'edited': ele.edited
                             }));
                         }
+                        return true;
                     });
                 }
             }
@@ -73,7 +74,7 @@ class Home extends Component {
                     <TopPicks article={topPicks} id={dId} goToArticle={this.goToArticle} />
                     <Featured additionalClass='width26' article={generalFeatured} goToArticle={this.goToArticle} />
                 </div>
-                <hr style={{ width: '90%', border: '0.5px solid rgba(0,0,0,0.14)', margin: '15px auto' }} />
+                <hr style={{ width: '90%', border: '1px solid rgba(0,0,0,0.14)', margin: '15px auto' }} />
                 <div className="home-1">
                     <Articles headername={'This Month'} articles={completeList} showAuthorInfo={true} navigateToArticle={this.goToArticle} />
                     {/* <Awards /> */}

@@ -7,7 +7,7 @@ import { createLogger } from 'redux-logger';
 import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from '../modules/reducers';
 import reduxImmutableStatevariant from 'redux-immutable-state-invariant';
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createHashHistory';
 import {
     routerMiddleware
 } from 'react-router-redux';
@@ -26,8 +26,8 @@ export default function configureStore(intialState){
                 createLogger(),
                 reduxImmutableStatevariant(),
                 routerMiddleware(history)
-            ),
-            devToolsExtension()
+            )
+            // devToolsExtension()
         )
     );
     store.runSaga = sageMiddleware.run;

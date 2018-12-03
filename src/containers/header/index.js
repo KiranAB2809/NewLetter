@@ -4,6 +4,7 @@ import './header.css';
 import volvoLogo from './../../assets/images/volvoLogo.jpg';
 import { withRouter } from 'react-router-dom';
 import { getUserArticle } from '../../modules/actions';
+import { getArticles } from '../../modules/reducers/selector.reducer';
 
 
 class Header extends Component {
@@ -69,7 +70,7 @@ class Header extends Component {
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Did you know? by others</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/doother/cardeditor")}>Add Did you know? by others</a>
                         </span>
                     </li>
                 </ul>
@@ -94,11 +95,12 @@ class Header extends Component {
                             </span>
                         </li>
                     )}
+                    {/* disabling archive as it is not needed now
                     <li>
                         <span className="navText">
                             <a href="">Archive</a>
                         </span>
-                    </li>
+                    </li> */}
                 </div>
             )
         }
@@ -117,7 +119,7 @@ class Header extends Component {
                     </div>
                     <div className="positionRelative">
                         <button className={'profile-button'} onClick={() => this.showPopOver()}>
-                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://localhost:8000/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
+                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
                         </button>
                         <div className="popover" ref={this.popoverRef}>
                             <ul>
@@ -178,6 +180,7 @@ const mapStateToProps = ({ Category, User }) => ({
 export default withRouter(connect(
     mapStateToProps,
     {
-        getUserArticle
+        getUserArticle,
+        getArticles
     }
 )(Header));

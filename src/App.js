@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './containers/home';
@@ -11,6 +10,7 @@ import Setting from './containers/setting';
 import Cardeditor from './containers/cardeditor';
 import Loading from './containers/loading';
 import byothers from './containers/byothers';
+import Message from './containers/message';
 
 class App extends Component {
 
@@ -20,6 +20,7 @@ class App extends Component {
         <header>
           <Header />
           <Loading />
+          <Message />
         </header>
         <main className="bodyContainer">
           <Switch>

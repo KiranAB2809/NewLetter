@@ -3,7 +3,7 @@ import * as actions from '../actions';
 import { api } from '../../services';
 import { getCategory, getUser, getOtherUser } from '../reducers/selector.reducer';
 
-const { category, user, article } = actions;
+const { category, user, article, message } = actions;
 
 function* fetchEntity(entity, apiFn, payloadType, id, url) {
     yield put(entity.request(id));
@@ -40,9 +40,18 @@ function* updateEntity(entity, apiFn, payload, data, url) {
             response = Object.assign({}, apiResponse);
         }
         yield put(entity.update(response));
+        let displayMsg = 'Success !!!!'
+        if(payload === 'User' || payload === 'oUser'){
+            displayMsg += ', User Updated';
+        } else if(payload === 'articlesForReview' || payload === 'UserArticles'){
+            displayMsg += ', Article Updated';
+        }
+        yield put(message.success(displayMsg))
     }
-    else
+    else {
         yield put(entity.failure(error))
+        yield put(message.failure('Ohhh!!!!' + error))
+    }
 }
 
 export const fetchCategory = fetchEntity.bind(null, category, api.fetchCategory);

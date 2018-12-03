@@ -21,7 +21,6 @@ class TinyEditorComponent extends Component {
     }
 
     initalizeEditor = () => {
-        console.log(`${process.env.PUBLIC_URL}`);
         let initalizeEditor = {
             target: this.inputRef,
             menubar: false,

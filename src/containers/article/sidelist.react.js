@@ -14,7 +14,7 @@ const SideList = (props) => {
         <div style={{ position: 'fixed', maxWidth: '15%', overflow: 'hidden', left: '25px'}}>
             <div style={{ display: 'flex', flexFlow: 'column nowrap' }}>
                 <div>
-                    <img src={CategoryBanner} style={{ width: '13em', maxHeight: '15em' }} />
+                    <img src={CategoryBanner} style={{ width: '13em', maxHeight: '15em' }} alt={'ctrBanner'}/>
                 </div>
                 {displayRow()}
             </div>

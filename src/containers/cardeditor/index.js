@@ -36,6 +36,10 @@ class Cardeditor extends Component {
             state.articleId = articleId;
             this.props.getArticle(articleId);
         }
+        debugger;
+        if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, this.state.article)) {
+           state.article = Object.assign({}, this.props.Article.displayArticle);
+        }
         this.setState(state);
     }
 
@@ -54,7 +58,7 @@ class Cardeditor extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.state.mode) {
-            if (Object.keys(this.state.article).length > 0 && !_.isEqual(this.props.Article.displayArticle, prevProps.Article.displayArticle)) {
+            if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, prevProps.Article.displayArticle)) {
                 let stateArticle = Object.assign({}, this.props.Article.displayArticle, {
                     list: [...this.props.Article.displayArticle.list]
                 });
@@ -174,6 +178,7 @@ class Cardeditor extends Component {
     editOrDisplay = () => {
         if (this.state.mode) {
             let user = new User();
+            debugger;
             if (typeof this.state.article.author === 'string') {
                 user = this.props.User
             } else {

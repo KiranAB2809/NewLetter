@@ -1,9 +1,9 @@
 import * as ActionTypes from '../actions';
-// import merge from 'lodash/object/merge';
 import { combineReducers } from 'redux';
 import category from './category.reducer';
 import user from './user.reducer';
 import article from './article.reducer';
+import message from './messag.reducer';
 
 
 const Category = category({
@@ -28,14 +28,23 @@ const Article = article({
         ActionTypes.ARTICLE.REQUEST,
         ActionTypes.ARTICLE.SUCCESS,
         ActionTypes.ARTICLE.UPDATE,
-        ActionTypes.USER.FAILURE
+        ActionTypes.ARTICLE.FAILURE
     ]
 });
+
+const Message = message({
+    types: [
+        ActionTypes.MESSAGE.SUCCESS,
+        ActionTypes.MESSAGE.UPDATE,
+        ActionTypes.MESSAGE.FAILURE,
+    ]
+})
 
 const rootReducer = combineReducers({
     Category,
     User,
-    Article
+    Article,
+    Message
 });
 
 export default rootReducer;

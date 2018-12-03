@@ -69,7 +69,7 @@ class ImageUpload extends Component {
                 <Overlay >
                     <OverlayCross changeView={setDialogState} />
                     <div className={'flex flex-column width-100'} style={{ height: '450px', position: 'relative' }}>
-                        <img src={'#'} alt={"Your image"} ref={this.imageRef} />
+                        <img src={'#'} alt={"articlepicn"} ref={this.imageRef} />
                         <div className={'flex flex-row'} style={{ width: '220px', justifyContent: 'space-between', position: 'absolute', bottom: '0', left: '40%' }}>
                             <button className={'userButton'} style={{ borderColor: 'green', color: 'green' }} onClick={() => getCroppedImage()}>Save</button>
                             <button className={'userButton'} style={{ borderColor: 'grey', color: 'grey' }}>Cancel</button>
