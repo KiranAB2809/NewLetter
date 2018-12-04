@@ -13,6 +13,7 @@ export default function* root() {
         fork(watchers.watchGetArticle),
         fork(watchers.watchLoadArticleReview),
         fork(watchers.watchReviewUpdateArticle),
-        fork(watchers.watchUpdateOtherUser)
+        fork(watchers.watchUpdateOtherUser),
+        fork(watchers.watchLoactionChange)
     ]);
 }

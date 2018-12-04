@@ -26,6 +26,7 @@ export const LOAD_ARTICLE = 'LOAD_ARTICLE';
 export const LOAD_ARTICLE_REVIEW = 'LOAD_ARTICLE_REVIEW';
 export const LOAD_OTHER_USER = 'LOAD_OTHER_USER';
 export const UPDATE_OTHER_USER = 'UPLOAD_OTHER_USER';
+export const LOCATION_EVENT = '@@router/LOCATION_CHANGE';
 
 function action(type, payload = {}) {
     return { type, payload }

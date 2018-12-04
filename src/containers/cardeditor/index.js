@@ -182,9 +182,10 @@ class Cardeditor extends Component {
             } else {
                 user = this.state.article.author;
             }
+            let modifiedDate = this.state.article.modified || new Date().toISOString();
             return (
                 <div className={'cardeditor-container'}>
-                    <AuthorInfo showReadytoPublish={true} user={user} buttonText={'Save'} editor={this.state.article.edited} readyToPublish={() => this.onSave()}></AuthorInfo>
+                    <AuthorInfo showReadytoPublish={true} date={modifiedDate} user={user} buttonText={'Save'} editor={this.state.article.edited} readyToPublish={() => this.onSave()}></AuthorInfo>
                     {this.editForm()}
                 </div>
             )

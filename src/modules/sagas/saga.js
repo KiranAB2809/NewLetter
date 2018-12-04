@@ -1,6 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
 import { api } from '../../services';
+import { Article } from '../../models/article.class'
 import { getCategory, getUser, getOtherUser } from '../reducers/selector.reducer';
 
 const { category, user, article, message } = actions;
@@ -93,6 +94,14 @@ function* loadOtherUser({ payload }) {
     }
 }
 
+function* eventLoaction(){
+    let response = {
+        type: 'displayArticle',
+        response: new Article()
+    }
+    yield put(article.success(response));
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////Watchers///////////////////////////////////////////////////////
@@ -140,4 +149,8 @@ export function* watchReviewUpdateArticle() {
 
 export function* watchUpdateOtherUser() {
     yield takeLatest(actions.UPDATE_OTHER_USER, updateOtherUser);
+}
+
+export function* watchLoactionChange() {
+    yield takeLatest(actions.LOCATION_EVENT, eventLoaction);
 }

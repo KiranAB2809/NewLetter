@@ -4,9 +4,10 @@ const SideList = (props) => {
 
     const displayRow = () => {
         return (
-            props.articles.map(ele => <SideRow title = {ele.title} author = {ele.author} key={ele._id}/>)
+            props.articles.map(ele => <SideRow title = {ele.title} author = {ele.author} id={ele._id} key={ele._id} navigateTo={props.navigateToArticle}/>)
         );
     }
+
     return (        
         <div style={{ position: 'fixed', maxWidth: '15%', overflow: 'hidden', left: '25px'}}>
             <div style={{ display: 'flex', flexFlow: 'column nowrap' }}>
@@ -19,9 +20,9 @@ const SideList = (props) => {
     )
 }
 
-const SideRow = ({title, author}) => {
+const SideRow = ({title, author, id, navigateTo}) => {
     return (
-        <div style={{margin: '15px 0 0 0'}}>
+        <div style={{margin: '15px 0 0 0'}} onClick={() => navigateTo(id)}>
             <h3 className={'side-listh3'} style={{WebkitBoxOrient: 'vertical'}}>{title}</h3>
             <p className={'pname'} style={{ margin: 0, color: '#777777' }}>
                 {author.name || 'No name'}

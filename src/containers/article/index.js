@@ -3,17 +3,31 @@ import { connect } from 'react-redux';
 import './article.css';
 import SideList from './sidelist.react';
 import AuthorInfo from '../common/authorinfo.react';
+import { withRouter } from 'react-router-dom';
 import { getArticle } from '../../modules/actions';
 
 class Article extends Component {
 
     state = {
-        Article: {}
+        Article: {},
+        articleId: ''
     }
 
     componentDidMount() {
         const id = this.props.match.params.id;
         this.props.getArticle(id);
+        this.setState({ articleId: id });
+    }
+
+    componentDidUpdate() {
+        if (this.state.articleId !== this.props.match.params.id) {
+            this.setState({ articleId: this.props.match.params.id });
+            this.props.getArticle(this.props.match.params.id);
+        }
+    }
+
+    navigateToArticle = (id) => {
+        this.props.history.push('/article/' + id);
     }
 
     displayArticle = () => {
@@ -36,7 +50,7 @@ class Article extends Component {
             let modifiedDate = this.props.Article.modified || new Date().toISOString();
             return (
                 <div className="article-container">
-                    <SideList coverImage={image} articles={articles} />
+                    <SideList coverImage={image} articles={articles} navigateToArticle={this.navigateToArticle} />
                     <div className={'article-u1'}>
                         <AuthorInfo user={this.props.Article.author} editor={this.props.Article.edited} date={modifiedDate} />
                         <div>
@@ -67,9 +81,9 @@ const mapStateToProps = ({ Article, Category }) => ({
     articles: Article.Articles
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     {
         getArticle
     }
-)(Article);
+)(Article));
