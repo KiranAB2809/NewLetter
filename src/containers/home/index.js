@@ -58,7 +58,8 @@ class Home extends Component {
                         for (const rec of ele.list) {
                             topPicks.push(_.merge({}, rec, {
                                 'author': ele.author,
-                                'edited': ele.edited
+                                'edited': ele.edited,
+                                'modified': ele.modified
                             }));
                         }
                         return true;

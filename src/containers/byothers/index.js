@@ -72,7 +72,6 @@ class ByOthers extends Component {
 
     onSave = () => {
         if (this.state.user._id) {
-            debugger;
             let displayArticle = new Article();
             displayArticle.author = this.state.user;
             this.props.addUserToCurrentArticle({

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Article from '../common/article.react';
-import logo from '../../assets/images/success-signpost-md.png';
 import { withRouter } from 'react-router-dom';
 import { getReviewArticle, getUserArticle } from '../../modules/actions'
 import './topic.css';
@@ -110,6 +109,13 @@ class Topic extends Component {
             )
         } else {
             let topicData = [];
+            let image = 'http://localhost:8000/static/edit.gif';
+            if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
+                let category = this.props.categories.find(ele => ele._id === this.state.topicId);
+                if(typeof category === 'object'){
+                    image = category.coverImage || image;
+                }
+            }
             if (this.state.isEditor) {
                 topicData = this.props.Articles.articlesForReview;
             }
@@ -121,8 +127,8 @@ class Topic extends Component {
             return (
                 <div className="topic-container">
                     <div style={{ position: 'realtive' }}>
-                        <div style={{ position: 'sticky', top: 0, maxWidth: '400px' }}>
-                            <img src={logo} className={'banner'} />
+                        <div style={{ position: 'sticky', top: 0, maxWidth: '400px', minWidth: '400px', marginTop: '50px' }}>
+                            <img src={image} className={'banner'} />
                         </div>
                     </div>
                     <Article headername={'This Month'} articles={topicData} showAuthorInfo={true} navigateToArticle={this.navigateToArticle} />

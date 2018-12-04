@@ -36,7 +36,6 @@ class Cardeditor extends Component {
             state.articleId = articleId;
             this.props.getArticle(articleId);
         }
-        debugger;
         if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, this.state.article)) {
            state.article = Object.assign({}, this.props.Article.displayArticle);
         }
@@ -178,7 +177,6 @@ class Cardeditor extends Component {
     editOrDisplay = () => {
         if (this.state.mode) {
             let user = new User();
-            debugger;
             if (typeof this.state.article.author === 'string') {
                 user = this.props.User
             } else {
@@ -186,7 +184,7 @@ class Cardeditor extends Component {
             }
             return (
                 <div className={'cardeditor-container'}>
-                    <AuthorInfo showReadytoPublish={true} user={user} buttonText={'Save'} readyToPublish={() => this.onSave()}></AuthorInfo>
+                    <AuthorInfo showReadytoPublish={true} user={user} buttonText={'Save'} editor={this.state.article.edited} readyToPublish={() => this.onSave()}></AuthorInfo>
                     {this.editForm()}
                 </div>
             )
@@ -201,16 +199,13 @@ class Cardeditor extends Component {
                     return (
                         <div>
                             {
-                                articles.map(ele => {
+                                articles.map((ele, index) => {
                                     let user = {};
-                                    if (typeof ele.author === 'string') {
-                                        user = ele.author;
-                                    } else {
-                                        user = ele.author;
-                                    }
+                                    user = ele.author;
+                                    let modifiedDate = ele.modified || new Date().toISOString();
                                     return (
-                                        <div className={'cardeditor-container'}>
-                                            <AuthorInfo user={user}></AuthorInfo>
+                                        <div className={'cardeditor-container'} key={index}>
+                                            <AuthorInfo user={user} editor={ele.edited} date={modifiedDate}></AuthorInfo>
                                             {ele.list.map((data, index) => {
                                                 return (
                                                     <Card key={index}>

@@ -151,7 +151,7 @@ class CreateBlog extends Component {
             <div>
                 <div className='article-container'>
                     <div className={'article-u1'}>
-                        <AuthorInfo showReadytoPublish={true} readyToPublish={() => this.previewPublish()} user={user} buttonText={(this.state.article.isDraft ? 'Save as Draft' : 'Review for Publish')} />
+                        <AuthorInfo showReadytoPublish={true} editor={this.state.article.edited} date={this.state.article.modified || new Date().toISOString()} readyToPublish={() => this.previewPublish()} user={user} buttonText={(this.state.article.isDraft ? 'Save as Draft' : 'Review for Publish')} />
                         <div>
                             <div style={{ padding: '10px 0' }}>
                                 <input name={'title'} onChange={(event) => this.handleTextChange(event)} className={'input input-name width-100'} value={this.state.article.title} placeholder={'Title of the article'}></input>

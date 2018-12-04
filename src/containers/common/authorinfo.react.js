@@ -16,21 +16,30 @@ class AuthorInfo extends React.Component {
     }
     render() {
         let { name, email, team, img } = this.props.user;
+        let edited = null;
+        let date = new Date(this.props.date);
+        let dateString = date.toLocaleDateString('en-us', {
+            month: 'short'
+        });
+        dateString += ' ' + date.getDate();
+        if (this.props.editor) {
+            if (typeof edited === 'object') {
+                edited =  ' - Edited by ' + this.props.editor.name;
+            }
+        }
         return (
             <div className={'author-detail'}>
                 <div className={'image'}>
-                    <img src={ img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
+                    <img src={img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
                 </div>
                 <div className={'author-desc'}>
                     <p className={'pname'}>
                         {name || 'Anyonoums'}
-                </p>
+                    </p>
                     <p className={'pother'}>
-                        {(email || 'Seriously emailID?') + ' - ' + (team || 'Anyonomus Team') }
-                </p>
-                    <p className={'pother'}>
-                        Oct 8 - Reported by Bala
-                </p>
+                        {(email || 'Seriously emailID?') + ' - ' + (team || 'Anyonomus Team')}
+                    </p>
+                    <p className={'pother'}>{dateString}</p>
                 </div>
                 {this.readyToPublish()}
             </div>

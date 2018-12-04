@@ -14,17 +14,23 @@ const Row = (props) => {
     }
 
     const authorInfo = () => {
-        if (props.showAuthorInfo){ 
-            let edited = '';  
+        if (props.showAuthorInfo) {
+            let edited = '';
             if (props.article && props.article.edited) {
-                edited = <Content className={'colorGrey'} desc={'Nov 16 - Edited by ' + props.article.edited.name} />;
-            }     
+                let date = new Date(props.article.modified);
+                let dateString = date.toLocaleDateString('en-us', {
+                    month: 'short'
+                });
+                dateString += ' ' + date.getDate();
+                edited = <Content className={'colorGrey'} desc={dateString + ' - Edited by ' + props.article.edited.name} />;
+            }
             return (
                 <div>
                     <Content className={'colorBlack'} desc={props.article.author.name} />
                     {edited}
                 </div>
-            )}
+            )
+        }
         return null;
     }
     const renderOnData = () => {

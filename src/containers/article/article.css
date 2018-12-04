@@ -36,12 +36,13 @@
 .pother {
     font-size: 13px;
     color: #777777;
+    margin-bottom: 2px !important;
 }
 
-.banner{
+/* .banner-article{
     max-height: 400px;
     width: 100%;
-}
+} */
 
 .side-listh3{
     margin: 0 0 10px 0;
