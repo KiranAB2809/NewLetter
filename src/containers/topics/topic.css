@@ -11,7 +11,7 @@
 .banner {
     /* max-height: calc(70vh - 65px); */
     height: 400px;
-    max-width: calc(75vh - 150px);
+    max-width: 400px;
 }
 .user-container{
     max-width: 1040px;

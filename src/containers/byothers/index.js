@@ -19,6 +19,10 @@ class ByOthers extends Component {
 
     constructor(props) {
         super(props);
+
+    }
+
+    componentDidMount() {
         let type = this.props.match.params.type;
         if (type) {
             this.setState({ nextRoute: type });

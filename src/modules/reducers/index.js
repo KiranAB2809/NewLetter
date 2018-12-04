@@ -4,6 +4,7 @@ import category from './category.reducer';
 import user from './user.reducer';
 import article from './article.reducer';
 import message from './messag.reducer';
+import router from './route.reducer';
 
 
 const Category = category({
@@ -40,11 +41,14 @@ const Message = message({
     ]
 })
 
+const Route = router(ActionTypes.LOCATION_EVENT)
+
 const rootReducer = combineReducers({
     Category,
     User,
     Article,
-    Message
+    Message,
+    Route
 });
 
 export default rootReducer;

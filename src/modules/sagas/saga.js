@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as actions from '../actions';
 import { api } from '../../services';
 import { Article } from '../../models/article.class'
-import { getCategory, getUser, getOtherUser } from '../reducers/selector.reducer';
+import { getCategory, getUser, getOtherUser, getPrevRoute } from '../reducers/selector.reducer';
 
 const { category, user, article, message } = actions;
 
@@ -94,12 +94,17 @@ function* loadOtherUser({ payload }) {
     }
 }
 
-function* eventLoaction(){
+function* eventLocation(){
     let response = {
         type: 'displayArticle',
         response: new Article()
     }
-    yield put(article.success(response));
+    const prevRoute = yield select(getPrevRoute);
+    if(typeof prevRoute === 'string'){
+        if(!prevRoute.includes('doother')){
+            yield put(article.success(response));
+        }
+    }
 }
 
 
@@ -152,5 +157,5 @@ export function* watchUpdateOtherUser() {
 }
 
 export function* watchLoactionChange() {
-    yield takeLatest(actions.LOCATION_EVENT, eventLoaction);
+    yield takeLatest(actions.LOCATION_EVENT, eventLocation);
 }

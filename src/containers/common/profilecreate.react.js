@@ -11,7 +11,7 @@ class Profile extends Component {
 
     render() {
         let { name, email, team, img, uniqueID } = this.props.user;
-        img = img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png';
+        img = img || 'http://localhost:8000/static/defaultUser.png';
         let uniqueId = '';
         if (this.props.uniqueId) {
             uniqueId = <input name={'uniqueID'} value={uniqueID} placeholder={'Enter your ID'} className={'input input-name width-100'} onChange={(event) => this.props.onInputChange(event)}></input>

@@ -65,7 +65,7 @@ class Header extends Component {
                     </li>
                     <li onClick={() => this.showPopOver()}>
                         <span className={'popover-text'}>
-                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/topic/editor")}>Add Awards</a>
+                            <a href="javascript:void(0)" onClick={() => this.onUserClick("/cardeditor/true/awards")}>Add Awards</a>
                         </span>
                     </li>
                     <li onClick={() => this.showPopOver()}>
@@ -119,7 +119,7 @@ class Header extends Component {
                     </div>
                     <div className="positionRelative">
                         <button className={'profile-button'} onClick={() => this.showPopOver()}>
-                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
+                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://localhost:8000/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
                         </button>
                         <div className="popover" ref={this.popoverRef}>
                             <ul>

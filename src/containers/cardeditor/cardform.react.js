@@ -6,7 +6,7 @@ export class CardFormBlog extends Component {
     showBlog = () => {
         let { data, index, doUpload, className, uploadImageSrc } = this.props;
         let { title, body, coverImage } = data;
-        coverImage = coverImage || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultDidYouKnow.jpg';
+        coverImage = coverImage || ('http://localhost:8000/static/defaultDidYouKnow.jpg');
         let input;
         let textArea;
         if (doUpload) {

@@ -18,3 +18,4 @@ export const getArticlesbyId = (state, categoryId) => {
     return state.Article.Articles;
 };
 export const getArticles = (state) => state.Article.Articles;
+export const getPrevRoute = (state) => state.Route.previousRoute;

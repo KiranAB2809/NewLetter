@@ -22,15 +22,13 @@ class AuthorInfo extends React.Component {
             month: 'short'
         });
         dateString += ' ' + date.getDate();
-        if (this.props.editor) {
-            if (typeof edited === 'object') {
-                edited =  ' - Edited by ' + this.props.editor.name;
-            }
+        if (this.props.editor && typeof this.props.editor === 'object') {
+            dateString+= ' - Edited by ' + this.props.editor.name;
         }
         return (
             <div className={'author-detail'}>
                 <div className={'image'}>
-                    <img src={img || 'http://segotn14123.vcn.ds.volvo.net:85/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
+                    <img src={img || 'http://localhost:8000/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
                 </div>
                 <div className={'author-desc'}>
                     <p className={'pname'}>
