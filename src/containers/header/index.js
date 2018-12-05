@@ -119,7 +119,7 @@ class Header extends Component {
                     </div>
                     <div className="positionRelative">
                         <button className={'profile-button'} onClick={() => this.showPopOver()}>
-                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://localhost:8000/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
+                            <img className={'avatar-image default-image'} src={this.props.User.img || 'http://segotn14123:85/static/defaultUser.png'} style={{ width: '35px', height: '35px' }}></img>
                         </button>
                         <div className="popover" ref={this.popoverRef}>
                             <ul>

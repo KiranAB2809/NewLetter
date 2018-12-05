@@ -32,7 +32,7 @@ class Article extends Component {
 
     displayArticle = () => {
         if (Object.keys(this.props.Article).length > 0) {
-            let image = 'http://localhost:8000/static/edit.gif';
+            let image = 'http://segotn14123:85/static/edit.gif';
             let articles = [];
             if (Array.isArray(this.props.categories) && this.props.categories.length > 0) {
                 let category = this.props.categories.find(ele => ele._id === this.props.Article.category);

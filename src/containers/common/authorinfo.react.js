@@ -28,7 +28,7 @@ class AuthorInfo extends React.Component {
         return (
             <div className={'author-detail'}>
                 <div className={'image'}>
-                    <img src={img || 'http://localhost:8000/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
+                    <img src={img || 'http://segotn14123:85/static/defaultUser.png'} className={'author-image avatar-image'} alt={'userImg'}></img>
                 </div>
                 <div className={'author-desc'}>
                     <p className={'pname'}>

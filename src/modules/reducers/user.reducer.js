@@ -36,6 +36,7 @@ export default function user({ types }) {
                 return Object.assign({}, state, newState);
             case failureType:
                 return _.merge({}, state, {
+                    oUser: new User(),
                     isFetching: false
                 });
             default:

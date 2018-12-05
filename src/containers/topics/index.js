@@ -6,7 +6,8 @@ import { getReviewArticle, getUserArticle } from '../../modules/actions'
 import './topic.css';
 import ContentHeader from '../common/header.react';
 import { Tabs, Tab } from '../common/tabs.react';
-const DidYouKnow = 'DID YOU KNOW'
+const DidYouKnow = 'DID YOU KNOW';
+const Awards = 'Awards';
 
 class Topic extends Component {
 
@@ -15,7 +16,8 @@ class Topic extends Component {
         isEditor: false,
         isUser: false,
         topicId: '',
-        didCtrId:''
+        didCtrId: '',
+        awardId: ''
     }
 
     componentDidMount() {
@@ -34,10 +36,14 @@ class Topic extends Component {
     }
 
     setdidCtrId = () => {
-        if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
+        if (Array.isArray(this.props.categories) && this.props.categories.length > 0) {
             let ctr = this.props.categories.find(ele => ele.title === DidYouKnow);
-            if(Object.keys(ctr).length > 0 && ctr._id && ctr._id !== this.state.didCtrId){
-                this.setState({didCtrId: ctr._id});
+            if (Object.keys(ctr).length > 0 && ctr._id && ctr._id !== this.state.didCtrId) {
+                this.setState({ didCtrId: ctr._id });
+            }
+            ctr = this.props.categories.find(ele => ele.title === Awards);
+            if (Object.keys(ctr).length > 0 && ctr._id && ctr._id !== this.state.awardId) {
+                this.setState({ awardId: ctr._id });
             }
         }
     }
@@ -65,20 +71,28 @@ class Topic extends Component {
     }
 
     navigateToArticle = (id) => {
-        let card = false
+        let card = '';
         if (this.state.isEditor && Array.isArray(this.props.Articles.articlesForReview)) {
             let data = this.props.Articles.articlesForReview.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
             if (data.length > 0) {
-                card = true;
+                card = 'didyouknow';
+            }
+            data = this.props.Articles.articlesForReview.filter(ele => ele._id === id && ele.category === this.state.awardId);
+            if (data.length > 0) {
+                card = 'awards';
             }
         } else if (this.state.isUser && Array.isArray(this.props.Articles.UserArticles)) {
             let data = this.props.Articles.UserArticles.filter(ele => ele._id === id && ele.category === this.state.didCtrId);
             if (data.length > 0) {
-                card = true;
+                card = 'didyouknow';
+            }
+            data = this.props.Articles.UserArticles.filter(ele => ele._id === id && ele.category === this.state.awardId);
+            if (data.length > 0) {
+                card = 'awards';
             }
         }
         if (card) {
-            this.props.history.push("/cardeditor/true/didyouknow/" + id);
+            this.props.history.push("/cardeditor/true/" + card + "/" + id);
         } else {
             this.props.history.push(((this.state.isEditor || this.state.isUser) ? "/create/" : "/article/") + id);
         }
@@ -109,10 +123,10 @@ class Topic extends Component {
             )
         } else {
             let topicData = [];
-            let image = 'http://localhost:8000/static/edit.gif';
-            if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
+            let image = 'http://segotn14123:85/static/edit.gif';
+            if (Array.isArray(this.props.categories) && this.props.categories.length > 0) {
                 let category = this.props.categories.find(ele => ele._id === this.state.topicId);
-                if(typeof category === 'object'){
+                if (typeof category === 'object') {
                     image = category.coverImage || image;
                 }
             }

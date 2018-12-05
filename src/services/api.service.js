@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 
-const API_ROOT = 'http://localhost:8000/api/';
+const API_ROOT = 'http://segotn14123:85/api/';
 
 function callApi(endPoint, params) {
     let fullURL = ((endPoint.indexOf(API_ROOT) === -1) ? API_ROOT + endPoint : endPoint);

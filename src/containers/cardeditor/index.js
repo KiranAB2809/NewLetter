@@ -37,7 +37,7 @@ class Cardeditor extends Component {
             this.props.getArticle(articleId);
         }
         if (Object.keys(this.props.Article.displayArticle).length > 0 && !_.isEqual(this.props.Article.displayArticle, this.state.article)) {
-           state.article = Object.assign({}, this.props.Article.displayArticle);
+            state.article = Object.assign({}, this.props.Article.displayArticle);
         }
         this.setState(state);
     }
@@ -105,6 +105,7 @@ class Cardeditor extends Component {
     }
 
     onEdit = (event, i) => {
+        debugger;
         this.updateState(event.target.value, event.target.name, i)
     }
 
@@ -121,7 +122,7 @@ class Cardeditor extends Component {
     onSave = () => {
         let article = Object.assign({}, this.state.article);
         var date = new Date();
-        article.title = 'Did you know on ' + date.toDateString();
+        article.title = this.props.match.params.type + ' on ' + date.toDateString();
         article.author = article.author ? article.author : this.props.User._id;
         article.category = this.state.categoryId;
         if (this.props.User.isEditor) {
@@ -143,11 +144,14 @@ class Cardeditor extends Component {
     }
 
     uploadImageSrc = (data, index) => {
-        let start = data.indexOf(':') + 1;
-        let end = data.indexOf(';', start);
-        let mime = data.substring(start, end);
-        let base64 = data.replace(/^data:image\/(png|jpeg);base64,/, "")
-        let blob = imgConv(base64, mime);
+        let blob = data
+        if (this.props.match.params.type === 'didyouknow') {
+            let start = data.indexOf(':') + 1;
+            let end = data.indexOf(';', start);
+            let mime = data.substring(start, end);
+            let base64 = data.replace(/^data:image\/(png|jpeg);base64,/, "")
+            blob = imgConv(base64, mime);
+        }
         api.uploadBlogImage(blob)
             .then(data => {
                 if (data && data.response && data.response.location) {
@@ -158,13 +162,38 @@ class Cardeditor extends Component {
     }
 
     editForm = () => {
+
         return (
             <div style={{ padding: "10px" }}>
                 <div style={{ marginBottom: '10px' }}>
-                    {this.state.article.list.map((ele, index) =>
-                        <Card key={index}>
-                            <CardFormBlog data={ele} index={index} onEdit={this.onEdit} doUpload={true} className={'width-200 height-150 background-center background-norepeat opacity-7 background-200 border-4 padding-10 background-origin'} uploadImageSrc={this.uploadImageSrc} />
-                        </Card>
+                    {this.state.article.list.map((ele, index) => {
+                        let form = '';
+                        if (this.props.match.params.type === 'didyouknow') {
+                            form = <CardFormBlog
+                                data={ele}
+                                index={index}
+                                onEdit={this.onEdit}
+                                doUpload={true}
+                                className={'width-200 height-150 background-center background-norepeat opacity-7 background-200 border-4 padding-10 background-origin'}
+                                uploadImageSrc={this.uploadImageSrc} />
+                        } else if (this.props.match.params.type === 'awards') {
+                            form = <CardFormBlog
+                                data={ele}
+                                index={index}
+                                onEdit={this.onEdit}
+                                doUpload={true}
+                                editImage={true}
+                                type={this.props.match.params.type}
+                                className={'avatar-image default-image width-150 height-150 background-200 opacity-7 background-center background-norepeat padding-10 background-origin'}
+                                uploadImageSrc={this.uploadImageSrc} />
+                        }
+                        return (
+                            <Card key={index}>
+                                {form}
+                            </Card>
+                        )
+                    }
+
                     )}
                 </div>
                 <button className="userButton" style={{ marginLeft: 'auto', padding: '5px 10px', borderColor: 'green', color: 'green' }} onClick={() => this.addOneMore()}>
@@ -204,9 +233,18 @@ class Cardeditor extends Component {
                                     let user = {};
                                     user = ele.author;
                                     let modifiedDate = ele.modified || new Date().toISOString();
+                                    let authorInfo = '';
+                                    debugger;
+                                    if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
+                                        let categoryFind = this.props.categories.find(ele => ele._id === this.state.categoryId);
+                                        // console.log(this.state.articleId)
+                                        if(typeof categoryFind === 'object' && categoryFind.title && categoryFind.title === 'DID YOU KNOW')
+                                            authorInfo = <AuthorInfo user={user} editor={ele.edited} date={modifiedDate}></AuthorInfo>
+                                    }
                                     return (
                                         <div className={'cardeditor-container'} key={index}>
-                                            <AuthorInfo user={user} editor={ele.edited} date={modifiedDate}></AuthorInfo>
+                                            {/* <AuthorInfo user={user} editor={ele.edited} date={modifiedDate}></AuthorInfo> */}
+                                            {authorInfo}
                                             {ele.list.map((data, index) => {
                                                 return (
                                                     <Card key={index}>

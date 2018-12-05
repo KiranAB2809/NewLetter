@@ -2,7 +2,7 @@ export class Article {
     title = '';
     subtitle = '';
     body = 'Write the content here...';
-    coverImage = 'http://localhost:8000/static/defaultArticle.png';
+    coverImage = 'http://segotn14123:85/static/defaultArticle.png';
     isPublished = false;
     isDraft = true;
     edited = '';
@@ -15,6 +15,7 @@ export class Article {
 
 export class CardForm {
     title = '';
-    coverImage = 'http://localhost:8000/static/defaultdidYouKnow.jpg';
+    coverImage = '';
     body = '';
+    type = 'S';
 }
