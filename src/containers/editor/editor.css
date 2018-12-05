@@ -22,6 +22,9 @@
 .article-body img {
     max-width: 100%;
 }
+.article-body li {
+    list-style: unset;
+}
 .width-50{
     width: 50%;
 }
