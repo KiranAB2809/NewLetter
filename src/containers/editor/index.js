@@ -62,12 +62,10 @@ class CreateBlog extends Component {
     }
 
     postArticle = (article) => {
-        // let article = Object.assign({}, this.state.article);
         if (this.state.articleId && this.props.User.isEditor) {
             this.props.updateReviewArticle(article);
         } else
             this.props.updateArticle(article);
-        // this.setState({ article: article });
     }
 
     draftorPublish = () => {

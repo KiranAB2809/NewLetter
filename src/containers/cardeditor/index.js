@@ -105,7 +105,6 @@ class Cardeditor extends Component {
     }
 
     onEdit = (event, i) => {
-        debugger;
         this.updateState(event.target.value, event.target.name, i)
     }
 
@@ -234,7 +233,6 @@ class Cardeditor extends Component {
                                     user = ele.author;
                                     let modifiedDate = ele.modified || new Date().toISOString();
                                     let authorInfo = '';
-                                    debugger;
                                     if(Array.isArray(this.props.categories) && this.props.categories.length > 0){
                                         let categoryFind = this.props.categories.find(ele => ele._id === this.state.categoryId);
                                         // console.log(this.state.articleId)
