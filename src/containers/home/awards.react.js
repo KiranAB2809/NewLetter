@@ -22,7 +22,7 @@ const Awards = (props) => {
 
     return (
         <div style={{ margin: '20px 0 0 50px', maxWidth: '30%' }}>
-            <ContentHeader headername={'Awards and Reconization'} />
+            <ContentHeader headername={'Awards and Recognization'} />
             {displayRows()}
         </div>
     )

@@ -51,7 +51,6 @@ class Home extends Component {
         let article;
         if (list.length > 0) {
             let index = Math.floor(Math.random() * (list.length - 1 + 1) + 0);
-            console.log(index);
             if (typeof compareSrc === 'object' && list[index]._id !== compareSrc._id) {
                 article = list[index];
             } else {
@@ -116,8 +115,8 @@ class Home extends Component {
             <div className="home-container">
                 <div className="home-0">
                     <Featured additionalClass='height350' article={featuredLeft} goToArticle={this.goToArticle} />
-                    <TopPicks article={topPicks} id={dId} goToArticle={this.goToArticle} />
                     <Featured additionalClass='width26' article={featuredRight} goToArticle={this.goToArticle} />
+                    <TopPicks article={topPicks} id={dId} goToArticle={this.goToArticle} />
                 </div>
                 <hr style={{ width: '90%', border: '1px solid rgba(0,0,0,0.14)', margin: '15px auto' }} />
                 <div className="home-1">

@@ -15,6 +15,7 @@ import Message from './containers/message';
 class App extends Component {
 
   render() {
+    console.log('Hi, This is the new version of newsletter. Hope you enjoyed!!!!😁. Give us a high five✋✋👊👊')
     return (
       <div>
         <header>
