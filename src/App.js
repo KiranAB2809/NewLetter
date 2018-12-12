@@ -11,7 +11,8 @@ import Cardeditor from './containers/cardeditor';
 import Loading from './containers/loading';
 import byothers from './containers/byothers';
 import Message from './containers/message';
-
+import AboutUs from './containers/aboutus';
+ 
 class App extends Component {
 
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
             <Route excat path="/setting" component={Setting} />
             <Route excat path="/cardeditor/:mode?/:type?/:id?" component={Cardeditor} />
             <Route exact path="/doother/:type?" component={byothers}/>
+            <Route exact path="/aboutus" component={AboutUs}/>
           </Switch>
         </main>
       </div>

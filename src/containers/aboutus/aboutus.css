@@ -1,0 +1,32 @@
+.aboutUsBody{
+    margin: auto;
+    max-width: 80%;
+    flex: auto;
+}
+.profile-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    text-align: center;
+    margin-bottom: 15px !important;
+    line-height: 1;
+    max-width: 245px;
+    margin: 10px;
+    float: left;
+}
+
+.contact-button {
+    border-radius: 0;
+    border: none;
+    color: white;
+    text-decoration: none;    
+ }
+
+.profilePic {    
+    width: 100%;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+}

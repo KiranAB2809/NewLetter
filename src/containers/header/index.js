@@ -29,7 +29,10 @@ class Header extends Component {
     }
 
     onUserClick = (route) => {
-        if (!this.props.User.name) {
+        if (route === '/aboutus'){
+            this.props.history.push(route);
+        }
+        else if (!this.props.User.name) {
             this.props.history.push("/setting");
         } else {
             this.props.history.push(route);
@@ -149,7 +152,7 @@ class Header extends Component {
                                 </li>
                                 <li onClick={() => this.showPopOver()}>
                                     <span className={'popover-text'}>
-                                        <a href="#">Help</a>
+                                        <a href="javascript:void()" onClick={() => this.onUserClick('/aboutus')}>About Us</a>
                                     </span>
                                 </li>
                                 <li onClick={() => this.showPopOver()}>
