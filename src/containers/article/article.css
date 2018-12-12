@@ -1,16 +1,4 @@
-.article-container{
-    padding:0 5%;
-    display: flex;
-    flex-flow: row nowrap;
-}
-.article-u1{
-    display: flex;
-    flex-flow: column nowrap;
-    max-width: 65%;
-    margin: 0 auto;
-    flex: 1 1;
-    /* align-items: center; */
-}
+
 .author-detail{
     display: flex;
     flex-flow: row nowrap;
@@ -48,12 +36,13 @@
 .pother {
     font-size: 13px;
     color: #777777;
+    margin-bottom: 2px !important;
 }
 
-.banner{
+/* .banner-article{
     max-height: 400px;
     width: 100%;
-}
+} */
 
 .side-listh3{
     margin: 0 0 10px 0;
@@ -64,4 +53,7 @@
     cursor: pointer;
     max-height: 45px;
     overflow: hidden;
+}
+.editor-content>p{
+    margin: 0;
 }

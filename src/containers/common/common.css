@@ -65,3 +65,163 @@
     max-width: 65%;
     flex: 1 1;
 }
+
+.articleSubtitle {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.colorBlack {
+    color: #000000;
+}
+
+.colorGrey{
+    color: #777777 !important;
+}
+.no-border{
+    border: none !important;
+}
+.no-margin{
+    margin: 0;
+}
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 1000;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.flex{
+    display: flex;
+}
+.flex-row{
+    flex-flow: row nowrap;
+}
+.flex-column{
+    flex-flow: column nowrap;
+}
+
+.tab-header {
+    justify-content: unset !important;
+    width: 100% !important;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.54)
+}
+
+.tab-header>li{
+    padding: 0px 10px;
+}
+.tab-header>li:hover{
+    border-bottom: 1px solid black;
+}
+.tab-title{
+    font-size: 14px;
+}
+.tab-title>a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+}
+.tab-title>a:hover{
+    color: black;
+}
+
+.active-tab>a{
+    color:black;
+}
+
+.overlay-child{
+    justify-content: space-between;
+    margin: auto;
+    padding: 100px 0;
+    max-width: 1040px;
+    min-width: 1040px;
+    position: relative;
+}
+/* animate properties need to do after build*/
+.overlay-child--animate{
+    transform-origin: bottom center;
+    animation: fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)
+}
+
+.tabs-content div.tab-panel {
+    padding: 20px 0;
+    display: none;
+}
+
+.tabs-content div.tab-panel.active {
+    display: flex;
+}
+
+.no-width{
+    max-width: 100%;
+}
+
+.card{
+    margin: 15px 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)
+}
+
+.transparent-background {
+    background: rgba(0,0,0,0);
+}
+
+.width-100px{
+    width: 100px;
+}
+
+.height-100{
+    height: 100px;
+}
+
+.background-100{
+    background-size: 100px 100px;
+}
+
+.background-200{
+    background-size: contain
+}
+
+.opacity-7{
+    opacity: 0.7;
+}
+
+.width-200{
+    width: 190px;
+}
+
+.height-150{
+    height: 150px;
+}
+
+.width-150{
+    width: 150px;
+}
+
+.background-center{
+    background-position: center;
+}
+
+.background-norepeat {
+    background-repeat: no-repeat;
+}
+
+.border-4{
+    border-radius: 4%;
+}
+
+.padding-10{
+    padding: 10px;
+}
+
+.background-origin{
+    background-origin: content-box;
+}
+
+.zindex-99{
+    z-index: 900 !important;
+}

@@ -1,29 +1,62 @@
 import React from 'react';
 import './common.css';
-import logo from './../../assets/images/volvoLogo.jpg';
+import Content from './desc.react';
 
 
 const Row = (props) => {
     const addDescripion = () => {
-        if(props.showDescription){
-            return(
-            <p className="player" style={{color:'#777777', fontSize: '15px', marginBottom: '20px'}}>
-                Contradicting its own election code, Texas rejects thousands of voter registration forms mere days before the deadline
-            </p>); 
+        if (props.showDescription) {
+            return (
+                <Content className={'articleSubtitle colorGrey'} desc={props.article.subtitle} />
+            );
         }
-       return null;
+        return null;
     }
-    return(
-        <div className={`mearger ${props.rowreverse ? props.rowreverse: ''} ${props.height ? props.height : ''} ${props.border ? props.border: ''}`}>
-            <div className="mearger-0">
-                <img src={logo} className = {`article-logo ${props.imageClass ? props.imageClass : ''}`} alt = {'article image'}/>
-            </div>
-            <div className="mearger-1">
-                <h3 className = {`headerh3 ${props.height18 ? props.height18 : ''}`} style={{WebkitBoxOrient: 'vertical'}}>We found a way to increase voter turnout in Texas and lets play</h3>
-                {addDescripion()}
-                <p className="player" style={{color: '#000000'}}>Nandan A</p>
-                <p className="player" style={{color:'#777777', fontSize: '13px'}}>Oct 8 - Reported by Bala</p>
-            </div>
+
+    const authorInfo = () => {
+        if (props.showAuthorInfo) {
+            let edited = '';
+            if (props.article && props.article.edited) {
+                let date = new Date(props.article.modified);
+                let dateString = date.toLocaleDateString('en-us', {
+                    month: 'short'
+                });
+                dateString += ' ' + date.getDate();
+                edited = <Content className={'colorGrey'} desc={dateString + ' - Edited by ' + props.article.edited.name} />;
+            }
+            return (
+                <div>
+                    <Content className={'colorBlack'} desc={props.article.author.name} />
+                    {edited}
+                </div>
+            )
+        }
+        return null;
+    }
+    const renderOnData = () => {
+        if (props.article) {
+            return (
+                <div className={`mearger ${props.rowreverse ? props.rowreverse : ''} ${props.height ? props.height : ''} ${props.border ? props.border : ''}`}>
+                    <div className="mearger-0">
+                        <img src={props.article.coverImage ? props.article.coverImage : props.defaultImg} className={`article-logo ${props.imageClass ? props.imageClass : ''}`} alt={'articlePic'} />
+                    </div>
+                    <div className="mearger-1">
+                        <h3 className={`headerh3 ${props.height18 ? props.height18 : ''}`} style={{ WebkitBoxOrient: 'vertical' }} onClick={() => props.navigateToArticle(props.article._id)}>{props.article.title}</h3>
+                        {addDescripion()}
+                        {authorInfo()}
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <div>
+                No data
+        </div>);
+    }
+
+    return (
+        <div>
+            {renderOnData()}
         </div>
     )
 }

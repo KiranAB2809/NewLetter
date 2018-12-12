@@ -6,7 +6,7 @@
     font-size: 16px;
     background: #fff;
     color: rgba(0,0,0,.54);
-    font-family: sans-serif-font,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-family: Arial,sans-serif;
     letter-spacing: 0;
     font-weight: 400;
     font-style: normal;
@@ -30,23 +30,12 @@
     height: 65px !important;
 }
 
-.userButton{
-    display: flex;
-    justify-content: space-between;
-    border: 2px blue solid;
-    outline: none !important;
-    background: transparent;
-    font-size: 15px;
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
 .positionRelative{
     position: relative;
 }
 
 .title{
-    font-family: sans-serif-font;
+    font-family: sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
     font-weight: 900;
     color: #373737;
     font-size: 32px;
@@ -63,15 +52,8 @@
 
 }
 
-.flexTop {
-    display: flex!important;
-    justify-content: space-between;
-    align-content: center;
-    width: 1000px !important;
-}
-
 .navText {
-    font-family: sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
+    font-family: Arial,sans-serif;
     letter-spacing: -.02em !important;
     font-weight: 400 !important;
     font-style: normal !important;
@@ -81,25 +63,74 @@
     text-transform: uppercase;
 }
 
-.navText >a {
+.navText >a, .popover-text>a{
     -webkit-tap-highlight-color: transparent;
     color: rgba(0,0,0,.54);
 }
 
-.navText>a:link {
+.navText>a:link, .popover-text>a:link {
     color: rgba(0,0,0,.54);
     text-decoration: none;
 }
 
-.navText>a {
+.navText>a, .popover-text>a{
     background-color: transparent;
 }
 
-.navText>a:hover{
+.navText>a:hover, .popover-text>a:hover{
     color: black;
     font-weight: 400;
 }
 
 li{
     list-style: none;
+}
+
+.popover{
+    visibility: hidden;
+    width: 251px;
+    max-width: 280px;
+    background-color: #fff;
+    color: #fff;
+    display: flex;
+    flex-flow: column nowrap;
+    border-radius: 3px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 0%;
+    margin-left: -100px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 0 1px rgba(0,0,0,.35)
+}
+.popover::after{
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+.popover>ul{
+    list-style: none;
+    margin: 0;
+    padding: 0px 20px
+}
+.popover>ul>li{
+    padding: 10px 10px;
+}
+.popover-text{
+    letter-spacing: .02em;
+    line-height: 17px;
+    font-size: 13px;
+}
+.popover-control{
+    position: relative;
+}
+.profile-button{
+    background: none;
+    border: none;
+    outline: none;
 }

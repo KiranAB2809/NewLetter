@@ -1,0 +1,21 @@
+.setting-container{
+    padding: 0 25%;
+}
+.input{    
+    letter-spacing: .1rem;    
+    border: none;
+    outline: none;
+}
+.input-name{
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 50px;
+}
+.width-100{
+    width: 100%;
+}
+.input-email{
+    font-size: 18px;
+    font-weight: 400;
+    margin: 3px 0;
+}

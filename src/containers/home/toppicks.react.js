@@ -4,13 +4,25 @@ import Row from '../common/rows.react';
 
 class TopPicks extends Component {
 
-    renderGist = () => {
-        return (
-            ['1', '2', '3'].map(elemment => <Row height={'height100'}/>)
-        )
+    navigateToPage = (id) => {
+        if(this.props.id && typeof this.props.goToArticle === 'function'){
+            this.props.goToArticle(this.props.id, true);
+        }
     }
 
-    render(){
+    renderGist = () => {
+        if (Array.isArray(this.props.article))
+            return (
+                this.props.article.slice(0, 3).map(ele => <Row key={ele._id} article={ele} height={'height100'} showAuthorInfo={true} navigateToArticle={this.navigateToPage}/>)
+            );
+        return (
+            <div>
+                No top picks
+            </div>
+        );
+    }
+
+    render() {
         return (
             <div className="homeDiv-1">
                 {this.renderGist()}

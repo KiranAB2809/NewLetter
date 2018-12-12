@@ -1,31 +1,42 @@
-import merge from 'lodash/fp/object'
+import _ from 'lodash';
+import User from '../../models/user.class';
 
 export default function user({ types }) {
-    if (!Array.isArray(types) || types.length !== 3) {
+    if (!Array.isArray(types) || types.length !== 4) {
         throw new Error("types must be array type");
     }
     if (!types.every(t => typeof t === 'string')) {
         throw new Error("Undefoned data type")
     }
 
-    const [requestType, successType, failureType] = types;
+    const [requestType, successType, updateType, failureType] = types;
 
     return function updateCategoryParams(state = {
-        user: [],
+        User: new User(),
+        oUser: new User(),
         isFetching: false
     }, action) {
+        let payloadType = '', newState = '';
         switch (action.type) {
             case requestType:
-                return merge({}, state, {
+                return _.merge({}, state, {
                     isFetching: true
-                });
+                })
             case successType:
-                return merge({}, state, {
-                    isFetching: false,
-                    user: action.response
-                });
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
+                newState[payloadType] = action.payload.response;
+                newState.isFetching = false;
+                return Object.assign({}, state, newState);
+            case updateType:
+                payloadType = action.payload.type;
+                newState = Object.assign({}, state);
+                newState[payloadType] = action.payload.response;
+                newState.isFetching = false;
+                return Object.assign({}, state, newState);
             case failureType:
-                return merge({}, state, {
+                return _.merge({}, state, {
+                    oUser: new User(),
                     isFetching: false
                 });
             default:

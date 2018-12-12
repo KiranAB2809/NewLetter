@@ -1,25 +1,45 @@
 import React, { Component } from 'react';
 import './home.css';
-import logo from './../../assets/images/volvoLogo.jpg';
+// import logo from './../../assets/images/volvoLogo.jpg';
 
 
-class Featured extends Component{
-    render(){
-        return(
-            <div className={`homeDiv ${this.props.additionalClass}`}>
-                <div className = "featured">
+class Featured extends Component {
+
+    renderOndata = () => {
+        if (this.props.article) {
+            let { _id, title, subtitle, coverImage, author, edited, modified } = this.props.article;
+            let date = new Date(modified);
+            let dateString = date.toLocaleDateString('en-us', {
+                month: 'short'
+            });
+            dateString += ' ' + date.getDate();
+            return (
+                <div className="featured">
                     <div>
-                        <img src={logo} className = "featuredImage"/>
+                        <img src={coverImage} className="featuredImage" />
                     </div>
-                    <div style={{margin: '20px 0'}}>
-                        <h3 className = "headerh3 height18" style={{WebkitBoxOrient: 'vertical'}}>We found a way to increase voter turnout in Texas </h3>
-                        <p className="player" style={{color:'#777777', fontSize: '15px'}}>Contradicting its own election code, Texas rejects thousands of voter registration forms mere days before the deadline </p>
-                        <div style={{marginTop: '20px'}}>
-                            <p className="player" style={{color: '#000000'}}>Nandan A</p>
-                            <p className="player" style={{color:'#777777', fontSize: '13px'}}>Oct 8 - Reported by Bala</p>
+                    <div style={{ margin: '20px 0' }}>
+                        <h3 className="headerh3 height18" style={{ WebkitBoxOrient: 'vertical' }} onClick={() => this.props.goToArticle(_id)}>{title}</h3>
+                        <p className="player" style={{ color: '#777777', fontSize: '15px' }}>{subtitle}</p>
+                        <div style={{ marginTop: '20px' }}>
+                            <p className="player" style={{ color: '#000000' }}>{author.name}</p>
+                            <p className="player" style={{ color: '#777777', fontSize: '13px' }}>{dateString} - Edited by {edited.name}</p>
                         </div>
                     </div>
                 </div>
+            )
+        }
+        return (
+            <div>
+                No data
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <div className={`homeDiv ${this.props.additionalClass}`}>
+                {this.renderOndata()}
             </div>
         )
     }

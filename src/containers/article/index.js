@@ -1,51 +1,89 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './article.css';
-import Logo from './../../assets/images/Kiran.jpg';
-import ArticleBanner from './../../assets/images/Himalayas.jpeg';
 import SideList from './sidelist.react';
+import AuthorInfo from '../common/authorinfo.react';
+import { withRouter } from 'react-router-dom';
+import { getArticle } from '../../modules/actions';
 
 class Article extends Component {
-    render() {
-        return (
-            <div className="article-container">
-                <SideList />
-                <div className={'article-u1'}>
-                    <div className={'author-detail'}>
-                        <div className={'image'}>
-                            <img src={Logo} className={'author-image avatar-image'}></img>
+
+    state = {
+        Article: {},
+        articleId: ''
+    }
+
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        this.props.getArticle(id);
+        this.setState({ articleId: id });
+    }
+
+    componentDidUpdate() {
+        if (this.state.articleId !== this.props.match.params.id) {
+            this.setState({ articleId: this.props.match.params.id });
+            this.props.getArticle(this.props.match.params.id);
+        }
+    }
+
+    navigateToArticle = (id) => {
+        this.props.history.push('/article/' + id);
+    }
+
+    displayArticle = () => {
+        if (Object.keys(this.props.Article).length > 0) {
+            let image = 'http://segotn14123:85/static/edit.gif';
+            let articles = [];
+            if (Array.isArray(this.props.categories) && this.props.categories.length > 0) {
+                let category = this.props.categories.find(ele => ele._id === this.props.Article.category);
+                if (typeof category === 'object') {
+                    image = category.coverImage || image;
+                }
+            }
+            if (Array.isArray(this.props.articles) && this.props.articles.length > 0) {
+                let data = this.props.articles.find(obj => obj.category === this.props.Article.category);
+                if (typeof data === 'object' && data.articles && data.articles.length > 0) {
+                    articles = data.articles.filter(obj => obj._id !== this.props.Article._id);
+                    articles = articles.splice(0, 3);
+                }
+            }
+            let modifiedDate = this.props.Article.modified || new Date().toISOString();
+            return (
+                <div className="article-container">
+                    <SideList coverImage={image} articles={articles} navigateToArticle={this.navigateToArticle} />
+                    <div className={'article-u1'}>
+                        <AuthorInfo user={this.props.Article.author} editor={this.props.Article.edited} date={modifiedDate} />
+                        <div>
+                            <h1>{this.props.Article.title}</h1>
                         </div>
-                        <div className={'author-desc'}>
-                            <p className={'pname'}>
-                                Kiran AB
-                            </p>
-                            <p className={'pother'}>
-                                kiran.ab@volvo.com - MAS/DCL team
-                            </p>
-                            <p className={'pother'}>
-                                Oct 8 - Reported by Bala
-                            </p>
+                        <div className={'article-body'} dangerouslySetInnerHTML={{ __html: this.props.Article.body }}>
+
                         </div>
-                    </div>
-                    <div>
-                        <h1>The Electrified Third “Data” Rail — How Data is Powering the Fourth Industrial Revolution</h1>
-                    </div>
-                    <div>
-                        <img src={ArticleBanner} className={'banner'} />
-                    </div>
-                    <div>
-                        <p>
-                            It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
-                            “They were laughing with each other,” she said through tears, “two friends having a…
-                            It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
-                            “They were laughing with each other,” she said through tears, “two friends having a…
-                            It was the laughing, she said, that she couldn’t forget. Christine Blasey Ford, in testimony lauded on both sides of the political aisle as credible and moving, told the Senate Judiciary Committee on September 27 that the amusement of her tormentors was the most lasting memory of the sexual attack she alleges Brett Kavanaugh committed in 1982.
-                            “They were laughing with each other,” she said through tears, “two friends having a…
-                        </p>
                     </div>
                 </div>
+            );
+        }
+        return null;
+    }
+
+    render() {
+        return (
+            <div>
+                {this.displayArticle()}
             </div>
         );
     }
 }
 
-export default Article;
+const mapStateToProps = ({ Article, Category }) => ({
+    Article: Article.displayArticle,
+    categories: Category.categories,
+    articles: Article.Articles
+})
+
+export default withRouter(connect(
+    mapStateToProps,
+    {
+        getArticle
+    }
+)(Article));
